@@ -6,6 +6,6 @@ export const PRODUCT_MOCK: IProduct = {
     slug: 'creatine'
 };
 
-export const PRODUCTS_MOCK: IProduct[] = Array.from({ length: 8 }, (_, i) => ({
+export const PRODUCTS_MOCK: IProduct[] = Array.from({ length: 8 }, () => ({
     ...PRODUCT_MOCK
 }));
