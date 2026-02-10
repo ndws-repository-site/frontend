@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+/* Явно указываем, где искать классы (относительно этой папки) */
+@source "../../app";
+@source "../../page";
+@source "../../widget";
+@source "../../shared";
+
+@theme {
+  --color-primary: #FF7C55;
+}
