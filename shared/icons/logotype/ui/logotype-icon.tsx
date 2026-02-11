@@ -26,7 +26,7 @@ export const LogotypeIcon: FC<LogotypeIconProps> = ({ className }) => (
         {/* Круг — эффект рисования; butt чтобы не было «точки» в начале */}
         <motion.path
             d={circlePath}
-            stroke="#FF7C55"
+            stroke="#17411B"
             strokeWidth={4.30273}
             fill="none"
             strokeLinecap="butt"
@@ -39,7 +39,7 @@ export const LogotypeIcon: FC<LogotypeIconProps> = ({ className }) => (
         {/* Точка — появляется только после полного круга */}
         <motion.path
             d={dotPath}
-            stroke="#FF484B"
+            stroke="#1B562C"
             strokeWidth={4.30273}
             fill="none"
             strokeLinecap="butt"
@@ -50,7 +50,7 @@ export const LogotypeIcon: FC<LogotypeIconProps> = ({ className }) => (
         {/* Текст — появление слева */}
         <motion.path
             d={textPath}
-            fill="#FF7C55"
+            fill="#17411B"
             initial={{ opacity: 0, x: -8 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}

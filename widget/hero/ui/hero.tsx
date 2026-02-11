@@ -19,7 +19,7 @@ export const Hero = () => {
     return (
         <RoundedBlock ref={heroRef} className="relative min-h-screen z-0 overflow-hidden">
             <Image
-                src="/hero/background.png"
+                src="/hero/background.jpg"
                 alt="No Day Without Sport"
                 width={1380}
                 height={710}

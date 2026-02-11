@@ -17,11 +17,12 @@ export const Filter = ({
 }: FiltersProps) => {
     //=====STATES=====
     const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
-    // Черновик фильтров — только при открытой модалке редактирование влияет на него
     const [draftGoals, setDraftGoals] = useState<string[]>(selectedGoals);
     const [draftForm, setDraftForm] = useState<string[]>(selectedForm);
     const [draftProductType, setDraftProductType] = useState<string[]>(selectedProductType);
 
+    
+    //=====FUNCTIONS=====
     const handleToggleFilter = () => {
         if (!isFilterOpen) {
             setDraftGoals([...selectedGoals]);
@@ -31,7 +32,6 @@ export const Filter = ({
         setIsFilterOpen(prev => !prev);
     };
     
-    //=====FUNCTIONS=====
     const createFilterHandler = (
         selected: string[],
         onChange: (values: string[]) => void
@@ -51,7 +51,6 @@ export const Filter = ({
     }
 
     const handleCancel = () => {
-        // Просто закрываем — родительский state не менялся, откатывать нечего
         setIsFilterOpen(false);
     }
 

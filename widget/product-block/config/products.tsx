@@ -20,7 +20,7 @@ export const PRODUCTS: ProductBlockProps[] = [
         product: "protein",
         productImage: "/product-block/protein.png",
         left: false,
-        color: "#FF7C55",
+        color: "#17411B",
         icon: FiguresIcon,
         link: "/products",
     },

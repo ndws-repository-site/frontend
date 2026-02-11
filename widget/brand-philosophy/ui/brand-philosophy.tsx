@@ -57,7 +57,7 @@ export const BrandPhilosophy = () => {
                 alt="Brand Philosophy"
                 width={1000}
                 height={1000}
-                className="absolute top-0 left-0 -z-20 w-full h-full object-cover rounded-[30px]"
+                className="absolute top-0 left-0 -z-20 w-full h-full object-cover rounded-[30px] grayscale-100"
                 quality={100}
                 unoptimized={false}
                 priority
