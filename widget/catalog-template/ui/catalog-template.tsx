@@ -1,12 +1,21 @@
 "use client";
 
+//My UI
 import { RoundedBlock } from "@/shared/ui";
-import { CatalogTemplateProps } from "../types/catalog-template.props";
-import { Plus } from "lucide-react";
 import { ProductCard } from "@/entity/product-card";
+import { Filter } from "./filters";
+
+//Config
 import { PRODUCT_MOCK } from "@/shared/config";
-import { motion } from "framer-motion";
 import { letterVariants } from "../config";
+
+//Types
+import type { CatalogTemplateProps } from "../types/catalog-template.props";
+import type { IProduct } from "@/shared/types";
+
+//Libraries/Frameworks
+import { motion, animate } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
 
 export const CatalogTemplate = ({
     title,
@@ -15,7 +24,52 @@ export const CatalogTemplate = ({
     products,
     loading = false
 }: CatalogTemplateProps) => {
+    //=====STATES=====
+    //Products
+    const [filteredProducts, setFilteredProducts] = useState<IProduct[]>(products);
+    const [displayCount, setDisplayCount] = useState(0);
+    //Filter
+    const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
+    const [selectedForm, setSelectedForm] = useState<string[]>([]);
+    const [selectedProductType, setSelectedProductType] = useState<string[]>([]);
+
+    //=====CONSTANTS=====
     const titleLetters = title.split("");
+    //Products
+    const currentProducts = filteredProducts;
+    const productsCount = loading ? products.length : currentProducts.length;
+    const prevCountRef = useRef(0);
+    const isInitialMount = useRef(true);
+
+    //=====FUNCTIONS=====
+    const filterProducts = () => {
+        const filtered = products.filter(product => {
+            const goalMatch = selectedGoals.length === 0 || selectedGoals.includes(product.goal);
+            const formMatch = selectedForm.length === 0 || selectedForm.includes(product.form);
+            const productTypeMatch = selectedProductType.length === 0 || selectedProductType.includes(product.productType);
+            return goalMatch && formMatch && productTypeMatch;
+        });
+
+        setFilteredProducts(filtered);
+    }
+
+    //=====Effects=====
+    useEffect(() => {
+        const from = isInitialMount.current ? 0 : prevCountRef.current;
+        isInitialMount.current = false;
+
+        const controls = animate(from, productsCount, {
+            duration: 0.7,
+            ease: [0.25, 0.46, 0.45, 0.94],
+            onUpdate: (latest) => {
+                const rounded = Math.round(latest);
+                prevCountRef.current = rounded;
+                setDisplayCount(rounded);
+            }
+        });
+
+        return () => controls.stop();
+    }, [productsCount]);
 
     return (
         <RoundedBlock className="bg-black px-5 pb-5">
@@ -34,12 +88,17 @@ export const CatalogTemplate = ({
                 ))}
             </h1>
 
-            <div className="flex items-end justify-between mb-5">
-                <p className="text-white text-[20px] leading-none">
-                    {products.length} product{products.length > 1 ? 's' : ''}
-                </p>
+            <div className="grid grid-cols-3 items-end mb-5">
+                <motion.p
+                    className="text-white text-[20px] leading-none tabular-nums justify-self-start"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
+                >
+                    {displayCount} products
+                </motion.p>
 
-                <div className="text-white/60 text-[20px] leading-[110%] text-center max-w-[461px]">
+                <div className="text-white/60 text-[20px] leading-[110%] text-center max-w-[461px] justify-self-center">
                     <motion.p
                         className="mb-3"
                         initial={{ opacity: 0, y: 16 }}
@@ -58,27 +117,50 @@ export const CatalogTemplate = ({
                     </motion.p>
                 </div>
 
-                <button className="text-white uppercase text-[20px] leading-none flex items-center gap-1 cursor-pointer">
-                    filter
-                    <Plus />
-                </button>
+                <div className="justify-self-end">
+                <Filter 
+                    selectedGoals={selectedGoals}
+                    selectedForm={selectedForm}
+                    selectedProductType={selectedProductType}
+                    onGoalsChange={setSelectedGoals}
+                    onFormChange={setSelectedForm}
+                    onProductTypeChange={setSelectedProductType}
+                    onSave={filterProducts}
+                    onReset={() => {
+                        setSelectedGoals([]);
+                        setSelectedForm([]);
+                        setSelectedProductType([]);
+                        setFilteredProducts(products);
+                    }}
+                />
+                </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-2.5">
-                {loading ? (
-                    Array.from({ length: 8 }).map((_, index) => (
+            {loading ? (
+                <div className="grid grid-cols-2 gap-2.5">
+                    {Array.from({ length: 8 }).map((_, index) => (
                         <ProductCard 
                             key={index}
                             {...PRODUCT_MOCK}
                             loading={true}
                         />
-                    ))
-                ) : (
-                    products.map((product, index) => (
-                        <ProductCard key={index} {...product} />
-                    ))
-                )}
-            </div>
+                    ))}
+                </div>
+            ) : (
+                <>
+                    {currentProducts.length === 0 ? (
+                        <div className="text-white text-2xl text-center w-full py-20">
+                            No products found
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-2 gap-2.5">
+                            {currentProducts.map((product, index) => (
+                                <ProductCard key={index} {...product} />
+                            ))}
+                        </div>
+                    )}
+                </>
+            )}
         </RoundedBlock>
     )
 }

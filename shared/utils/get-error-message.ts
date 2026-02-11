@@ -36,7 +36,7 @@ export const getErrorMessage = (error: unknown): string | null => {
         }
 
         if(axiosError.request) {
-            return 'Ошибка сервера. Не пришел ответ от сервера';
+            return 'Server error. The response from the server did not arrive';
         }
 
         return axiosError.message;
@@ -46,5 +46,5 @@ export const getErrorMessage = (error: unknown): string | null => {
         return error.message;
     }
 
-    return 'Неизвестная ошибка. Повторите попытку позже';
+    return 'Unknown error. Please try again later';
 }

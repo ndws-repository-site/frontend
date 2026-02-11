@@ -1,4 +1,4 @@
-import { IProduct } from "@/entity/product-card";
+import type { IProduct } from "@/shared/types";
 
 export interface CatalogTemplateProps {
     title: string;
