@@ -3,7 +3,7 @@
 import { FilterIcon, XIcon } from "lucide-react"
 import { GOALS_MOCK, FORM_MOCK, PRODUCT_TYPE_MOCK } from "../config"
 import { FilterColumn } from "./filter-column"
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ClassicButton } from "@/shared/ui";
 import { FiltersProps } from "../types/filters.props";
 import { AnimatePresence, motion } from "framer-motion";
@@ -12,9 +12,6 @@ export const Filter = ({
     selectedGoals,
     selectedForm,
     selectedProductType,
-    onGoalsChange,
-    onFormChange,
-    onProductTypeChange,
     onSave,
     onReset
 }: FiltersProps) => {
@@ -25,14 +22,14 @@ export const Filter = ({
     const [draftForm, setDraftForm] = useState<string[]>(selectedForm);
     const [draftProductType, setDraftProductType] = useState<string[]>(selectedProductType);
 
-    // При открытии модалки копируем текущие (сохранённые) фильтры в черновик
-    useEffect(() => {
-        if (isFilterOpen) {
+    const handleToggleFilter = () => {
+        if (!isFilterOpen) {
             setDraftGoals([...selectedGoals]);
             setDraftForm([...selectedForm]);
             setDraftProductType([...selectedProductType]);
         }
-    }, [isFilterOpen, selectedGoals, selectedForm, selectedProductType]);
+        setIsFilterOpen(prev => !prev);
+    };
     
     //=====FUNCTIONS=====
     const createFilterHandler = (
@@ -72,7 +69,7 @@ export const Filter = ({
                 )}
                 <button 
                     className="text-white uppercase text-[20px] leading-none flex items-center gap-1 cursor-pointer group"
-                    onClick={() => setIsFilterOpen(prev => !prev)}
+                    onClick={handleToggleFilter}
                 >
                     filter
                     <FilterIcon size={15} className="mb-1" />

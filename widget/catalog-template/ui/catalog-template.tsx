@@ -129,9 +129,6 @@ export const CatalogTemplate = ({
                         selectedGoals={selectedGoals}
                         selectedForm={selectedForm}
                         selectedProductType={selectedProductType}
-                        onGoalsChange={setSelectedGoals}
-                        onFormChange={setSelectedForm}
-                        onProductTypeChange={setSelectedProductType}
                         onSave={applyFilters}
                         onReset={() => {
                             setSelectedGoals([]);
