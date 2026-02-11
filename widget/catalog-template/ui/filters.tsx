@@ -3,7 +3,7 @@
 import { FilterIcon, XIcon } from "lucide-react"
 import { GOALS_MOCK, FORM_MOCK, PRODUCT_TYPE_MOCK } from "../config"
 import { FilterColumn } from "./filter-column"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ClassicButton } from "@/shared/ui";
 import { FiltersProps } from "../types/filters.props";
 import { AnimatePresence, motion } from "framer-motion";
@@ -20,37 +20,41 @@ export const Filter = ({
 }: FiltersProps) => {
     //=====STATES=====
     const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
+    // Черновик фильтров — только при открытой модалке редактирование влияет на него
+    const [draftGoals, setDraftGoals] = useState<string[]>(selectedGoals);
+    const [draftForm, setDraftForm] = useState<string[]>(selectedForm);
+    const [draftProductType, setDraftProductType] = useState<string[]>(selectedProductType);
+
+    // При открытии модалки копируем текущие (сохранённые) фильтры в черновик
+    useEffect(() => {
+        if (isFilterOpen) {
+            setDraftGoals([...selectedGoals]);
+            setDraftForm([...selectedForm]);
+            setDraftProductType([...selectedProductType]);
+        }
+    }, [isFilterOpen, selectedGoals, selectedForm, selectedProductType]);
     
     //=====FUNCTIONS=====
-    //Filters
-    const handleFilter = (filter: string) => {
-        const next = selectedGoals.includes(filter)
-            ? selectedGoals.filter(f => f !== filter)
-            : [...selectedGoals, filter];
-        onGoalsChange(next);
-    }
-
-    const handleFilterForm = (filter: string) => {
-        const next = selectedForm.includes(filter)
-            ? selectedForm.filter(f => f !== filter)
-            : [...selectedForm, filter];
-        onFormChange(next);
-    }
-
-    const handleFilterProductType = (filter: string) => {
-        const next = selectedProductType.includes(filter)
-            ? selectedProductType.filter(f => f !== filter)
-            : [...selectedProductType, filter];
-        onProductTypeChange(next);
-    }
+    const createFilterHandler = (
+        selected: string[],
+        onChange: (values: string[]) => void
+    ) => (filter: string) => {
+        const next = selected.includes(filter)
+            ? selected.filter((f) => f !== filter)
+            : [...selected, filter];
+        onChange(next);
+    };
+    const handleFilterGoals = createFilterHandler(draftGoals, setDraftGoals);
+    const handleFilterForm = createFilterHandler(draftForm, setDraftForm);
+    const handleFilterProductType = createFilterHandler(draftProductType, setDraftProductType); 
 
     const handleSave = () => {
-        onSave();
+        onSave(draftGoals, draftForm, draftProductType);
         setIsFilterOpen(false);
     }
 
     const handleCancel = () => {
-        onReset();
+        // Просто закрываем — родительский state не менялся, откатывать нечего
         setIsFilterOpen(false);
     }
 
@@ -89,20 +93,20 @@ export const Filter = ({
                         <FilterColumn 
                             title="Goals"
                             filters={GOALS_MOCK}
-                            onChange={handleFilter}
-                            checked={selectedGoals}
+                            onChange={handleFilterGoals}
+                            checked={draftGoals}
                         />
                         <FilterColumn 
                             title="Form"
                             filters={FORM_MOCK}
                             onChange={handleFilterForm}
-                            checked={selectedForm}
+                            checked={draftForm}
                         />
                         <FilterColumn 
                             title="Product Type"
                             filters={PRODUCT_TYPE_MOCK}
                             onChange={handleFilterProductType}
-                            checked={selectedProductType}
+                            checked={draftProductType}
                         />
                     </div>
 

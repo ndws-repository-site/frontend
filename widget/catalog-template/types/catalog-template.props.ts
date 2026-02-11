@@ -5,8 +5,5 @@ export interface CatalogTemplateProps {
     subtitle: string;
     description: string;
     loading?: boolean;
-    // forms: string[];
-    // goals: string[];
-    // productType: string;
     products: IProduct[];
 }

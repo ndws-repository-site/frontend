@@ -1,6 +1,6 @@
 "use client";
 
-//My UI
+//UI
 import { RoundedBlock } from "@/shared/ui";
 import { ProductCard } from "@/entity/product-card";
 import { Filter } from "./filters";
@@ -42,14 +42,21 @@ export const CatalogTemplate = ({
     const isInitialMount = useRef(true);
 
     //=====FUNCTIONS=====
-    const filterProducts = () => {
+    const applyFilters = (
+        goals: string[],
+        form: string[],
+        productType: string[]
+    ) => {
         const filtered = products.filter(product => {
-            const goalMatch = selectedGoals.length === 0 || selectedGoals.includes(product.goal);
-            const formMatch = selectedForm.length === 0 || selectedForm.includes(product.form);
-            const productTypeMatch = selectedProductType.length === 0 || selectedProductType.includes(product.productType);
+            const goalMatch = goals.length === 0 || goals.includes(product.goal);
+            const formMatch = form.length === 0 || form.includes(product.form);
+            const productTypeMatch = productType.length === 0 || productType.includes(product.productType);
             return goalMatch && formMatch && productTypeMatch;
         });
 
+        setSelectedGoals(goals);
+        setSelectedForm(form);
+        setSelectedProductType(productType);
         setFilteredProducts(filtered);
     }
 
@@ -118,21 +125,21 @@ export const CatalogTemplate = ({
                 </div>
 
                 <div className="justify-self-end">
-                <Filter 
-                    selectedGoals={selectedGoals}
-                    selectedForm={selectedForm}
-                    selectedProductType={selectedProductType}
-                    onGoalsChange={setSelectedGoals}
-                    onFormChange={setSelectedForm}
-                    onProductTypeChange={setSelectedProductType}
-                    onSave={filterProducts}
-                    onReset={() => {
-                        setSelectedGoals([]);
-                        setSelectedForm([]);
-                        setSelectedProductType([]);
-                        setFilteredProducts(products);
-                    }}
-                />
+                    <Filter 
+                        selectedGoals={selectedGoals}
+                        selectedForm={selectedForm}
+                        selectedProductType={selectedProductType}
+                        onGoalsChange={setSelectedGoals}
+                        onFormChange={setSelectedForm}
+                        onProductTypeChange={setSelectedProductType}
+                        onSave={applyFilters}
+                        onReset={() => {
+                            setSelectedGoals([]);
+                            setSelectedForm([]);
+                            setSelectedProductType([]);
+                            setFilteredProducts(products);
+                        }}
+                    />
                 </div>
             </div>
 
