@@ -37,14 +37,17 @@ export const ProductCard = ({
                 </Link>
             </div>
 
-            <div className="relative w-full min-h-[200px] flex items-center justify-center">
-                <Image
-                    src={image}
-                    alt={name}
-                    width={400}
-                    height={400}
-                    className="object-contain object-center w-full h-full max-h-[320px]"
-                />
+            <div className="relative w-full flex items-center justify-center">
+                <div className="w-[50%]">
+                    <Image
+                        src={image}
+                        alt={name}
+                        width={400}
+                        height={400}
+                        quality={100}
+                        className="object-contain object-center w-full h-auto"
+                    />
+                </div>
             </div>
         </div>
     );
