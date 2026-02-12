@@ -8,7 +8,7 @@ export const SUBTITLE_PARTS = ["Athlete.", " Entrepreneur.", " Man of discipline
 export const FULL_SUBTITLE = SUBTITLE_PARTS.join("");
 
 /** Задержка между символами при печати (мс) */
-export const CHAR_DELAY_MS = 60;
+export const CHAR_DELAY_MS = 20;
 
 /** Пауза после каждой части подзаголовка (мс) */
 export const PAUSE_AFTER_PART_MS = 100;

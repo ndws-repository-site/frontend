@@ -1,0 +1,14 @@
+{
+  "ignores": [
+    "@commitlint/cli",
+    "@commitlint/config-conventional",
+    "@tailwindcss/postcss",
+    "tailwindcss",
+    "@types/node",
+    "@types/react",
+    "@types/react-dom",
+    "@tanstack/react-query",
+    "react-hook-form",
+    "zustand"
+  ]
+}
