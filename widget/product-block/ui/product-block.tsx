@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useSyncExternalStore } from "react";
 import { cn } from "@/shared/utils";
 import {
     WHITE_BASIC_CLASS,
@@ -33,6 +33,15 @@ export const ProductBlock = ({
 }: ProductBlockProps) => {
     const ref = useRef(null);
     const inView = useInView(ref, { amount: 0.6, once: true });
+    const showMarquee = useSyncExternalStore(
+        (cb) => {
+            const mq = window.matchMedia("(min-width: 501px)");
+            mq.addEventListener("change", cb);
+            return () => mq.removeEventListener("change", cb);
+        },
+        () => window.matchMedia("(min-width: 501px)").matches,
+        () => false
+    );
 
     const backgroundLabel = product.toUpperCase();
     const slideIn = getSlideIn(left);
@@ -41,18 +50,19 @@ export const ProductBlock = ({
     return (
         <section
             ref={ref}
-            className="rounded-[30px] overflow-hidden p-2.5 pb mx-2.5 min-h-[810px] flex flex-col justify-between relative"
+            className="rounded-[30px] overflow-hidden p-2.5 pb mx-2.5 mob:min-h-[810px] min-h-[700px] flex flex-col justify-between relative"
             style={{
                 backgroundColor: color,
             }}
         >
-            <motion.div
-                className="absolute inset-0 overflow-hidden pointer-events-none z-0 flex items-center"
-                initial={slideIn.initial}
-                animate={inView ? slideIn.animate : slideIn.initial}
-                transition={slideIn.transition}
-            >
-                <Marquee
+            {showMarquee && (
+                <motion.div
+                    className="absolute inset-0 overflow-hidden pointer-events-none z-0 flex items-center"
+                    initial={slideIn.initial}
+                    animate={inView ? slideIn.animate : slideIn.initial}
+                    transition={slideIn.transition}
+                >
+                    <Marquee
                     speed={MARQUEE_SPEED}
                     direction={left ? "left" : "right"}
                     gradient={false}
@@ -67,8 +77,9 @@ export const ProductBlock = ({
                             </span>
                         </span>
                     ))}
-                </Marquee>
-            </motion.div>
+                    </Marquee>
+                </motion.div>
+            )}
 
             <div className="relative z-10">
                 <div className={cn("flex items-center justify-between mb-5", ALEXANDRIA_FONT.className)}>
@@ -87,13 +98,18 @@ export const ProductBlock = ({
                     </div>
                 </div>
 
-                <p className="text-[30px] leading-none text-white">
-                    {title}
-                </p>
+                <div>
+                    <p className="lg:text-[30px] mob:text-[24px] text-[16px] lg:font-normal font-light leading-none text-white">
+                        {title}
+                    </p>
+                    <p className="mob:hidden block text-white text-[46px] uppercase">
+                        {product}
+                    </p>
+                </div>
             </div>
 
             <div className="flex items-center justify-between">
-                <p className={cn(ALEXANDRIA_FONT.className, "text-[24px] leading-none text-white pl-3")}>
+                <p className={cn(ALEXANDRIA_FONT.className, "mob:text-[24px] text-[16px] leading-none text-white pl-3")}>
                     {subtitle}
                 </p>
 

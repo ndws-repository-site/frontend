@@ -13,13 +13,13 @@ export const WhyWe = () => {
                 Why we are trusted
             </Tag>
 
-            <div className="flex justify-center mb-10">
-                <h3 className="text-black leading-[110%] text-[38px]">
+            <div className="flex justify-center lg:mb-10 mob:mb-9.5 mb-6">
+                <h3 className="text-black leading-[110%] lg:text-[38px] mob:text-[24px] text-[22px] lg:text-left text-center">
                     We don&apos;t promise miracles. <br/> We make a product that works.
                 </h3>
             </div>
 
-            <div className="grid grid-cols-3 gap-2.5">
+            <div className="grid mob:grid-cols-3 grid-cols-1 gap-2.5">
                 {WHY_WE_CARD_DATA.map((card, index) => (
                     <motion.div
                         key={index}

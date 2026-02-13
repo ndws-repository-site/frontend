@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${JOST_FONT.className} antialiased bg-white flex flex-col min-h-screen justify-between mt-2.5`}
+        className={`${JOST_FONT.className} antialiased bg-white flex flex-col min-h-screen justify-between mt-2.5 overflow-x-hidden`}
       >
         <Header />
         <main className="flex-1 overflow-visible">

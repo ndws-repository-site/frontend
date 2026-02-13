@@ -1,5 +1,5 @@
 export interface TagProps {
     children: React.ReactNode;
     className?: string;
-    variant?: 'white' | 'gray';
+    variant?: 'white' | 'gray' | 'dark';
 }

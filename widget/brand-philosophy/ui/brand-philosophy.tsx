@@ -7,13 +7,13 @@ import { fadeInUp } from "../config/animations";
 
 export const BrandPhilosophy = () => {
     return (
-        <RoundedBlock className="p-2.5 relative flex flex-col justify-between min-h-[1000px]">
+        <RoundedBlock className="p-2.5 relative flex flex-col justify-between mob:min-h-[1000px] min-h-[518px]">
             <Tag className="w-fit">Brand Philosophy</Tag>
 
             <div className="text-center leading-none">
                 <div className="flex justify-center">
                     <motion.h2
-                        className="text-white text-[46px] max-w-[1078px] mb-9"
+                        className="text-white lg:text-[46px] mob:text-[32px] text-[22px] max-w-[1078px] mb-9"
                         variants={fadeInUp}
                         initial="hidden"
                         whileInView="visible"

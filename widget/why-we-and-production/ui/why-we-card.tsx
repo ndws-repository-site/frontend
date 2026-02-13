@@ -13,7 +13,7 @@ export const WhyWeCard = ({
                 <p
                     className={cn(
                         ALEXANDRIA_FONT.className,
-                        "text-white text-[40px] leading-[120%]"
+                        "text-white text-[40px] leading-[120%] relative z-10"
                     )}
                 >
                     {number}
@@ -22,7 +22,7 @@ export const WhyWeCard = ({
                 <p
                     className={cn(
                         ALEXANDRIA_FONT.className,
-                        "text-white text-[20px] leading-[120%] max-w-[332px] font-light"
+                        "text-white text-[20px] leading-[120%] max-w-[332px] font-light relative z-10"
                     )}
                 >
                     {title}

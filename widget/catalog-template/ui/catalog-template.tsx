@@ -79,8 +79,8 @@ export const CatalogTemplate = ({
     }, [productsCount]);
 
     return (
-        <RoundedBlock className="bg-black px-5 pb-5">
-            <h1 className="text-white text-[120px] leading-none text-center uppercase pt-18.5 pb-5 overflow-hidden">
+        <RoundedBlock className="bg-black mob:px-5 px-2.5 pb-5">
+            <h1 className="text-white lg:text-[120px] mob:text-[80px] text-[36px] leading-none text-center uppercase pt-18.5 pb-5 overflow-hidden">
                 {titleLetters.map((letter, i) => (
                     <motion.span
                         key={i}
@@ -95,9 +95,29 @@ export const CatalogTemplate = ({
                 ))}
             </h1>
 
-            <div className="grid grid-cols-3 items-end mb-5">
+            {/* Subheadings — на mob отдельно от строки products/filter */}
+            <div className="text-white/60 lg:text-[20px] mob:text-[16px] text-[14px] leading-[110%] text-center max-w-[461px] mx-auto mb-5 block lg:hidden">
                 <motion.p
-                    className="text-white text-[20px] leading-none tabular-nums justify-self-start"
+                    className="mb-3"
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: titleLetters.length * 0.04 + 0.2, duration: 0.5, ease: "easeOut" }}
+                >
+                    {subtitle}
+                </motion.p>
+
+                <motion.p
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: titleLetters.length * 0.04 + 0.5, duration: 0.5, ease: "easeOut" }}
+                >
+                    {description}
+                </motion.p>
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-3 items-end mb-5">
+                <motion.p
+                    className="text-white lg:text-[20px] mob:text-[16px] text-[14px] leading-none tabular-nums justify-self-start"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
@@ -105,7 +125,8 @@ export const CatalogTemplate = ({
                     {displayCount} products
                 </motion.p>
 
-                <div className="text-white/60 text-[20px] leading-[110%] text-center max-w-[461px] justify-self-center">
+                {/* Subheadings — на lg в центре строки */}
+                <div className="text-white/60 lg:text-[20px] leading-[110%] text-center max-w-[461px] justify-self-center hidden lg:block">
                     <motion.p
                         className="mb-3"
                         initial={{ opacity: 0, y: 16 }}
@@ -141,7 +162,7 @@ export const CatalogTemplate = ({
             </div>
 
             {loading ? (
-                <div className="grid grid-cols-2 gap-2.5">
+                <div className="grid mob:grid-cols-2 grid-cols-1 gap-2.5">
                     {Array.from({ length: 8 }).map((_, index) => (
                         <ProductCard 
                             key={index}
@@ -157,7 +178,7 @@ export const CatalogTemplate = ({
                             No products found
                         </div>
                     ) : (
-                        <div className="grid grid-cols-2 gap-2.5">
+                        <div className="grid mob:grid-cols-2 grid-cols-1 gap-2.5">
                             {currentProducts.map((product, index) => (
                                 <ProductCard key={index} {...product} />
                             ))}

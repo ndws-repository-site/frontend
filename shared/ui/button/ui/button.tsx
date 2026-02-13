@@ -20,6 +20,7 @@ export const Button = ({
     iconPosition = "left",
     size = "medium",
     variant = "secondary",
+    compact = false,
     className,
     ...rest
 }: ButtonProps) => {
@@ -37,13 +38,14 @@ export const Button = ({
         styles.container,
         size === "small" && "min-h-[36px]",
         size === "large" && "min-h-[48px]",
+        compact && "min-h-[32px]",
         ALEXANDRIA_FONT.className,
         className
     );
 
     // 3px от краёв = как по Y (h-[86%] → 7% сверху/снизу). Анимация доезжает до края.
     const circlePadding = 3;
-    const circleWidthPx = CIRCLE_WIDTH_BY_SIZE[size ?? "medium"];
+    const circleWidthPx = compact ? 27 : CIRCLE_WIDTH_BY_SIZE[size ?? "medium"];
     const circleWidthRem = `${circleWidthPx / 16}rem`;
     const circleLeftEndCalc = `calc(100% - ${circlePadding}px - ${circleWidthRem})`;
     const circleLeftEnd =
@@ -79,12 +81,12 @@ export const Button = ({
             variants={{ initial: {}, hover: {} }}
             {...(rest as HTMLMotionProps<"button">)}
         >
-            <div className="invisible flex items-center pl-5 pr-14 whitespace-nowrap font-medium text-[16px]">
+            <div className={cn("invisible flex items-center whitespace-nowrap font-medium", compact ? "pl-3 pr-8 text-[14px]" : "pl-5 pr-14 text-[16px]")}>
                 {children}
             </div>
 
             <motion.div
-                className="absolute left-5 z-10 flex items-center pointer-events-none"
+                className={cn("absolute z-10 flex items-center pointer-events-none", compact ? "left-3" : "left-5")}
                 variants={{
                     initial: {
                         opacity: isIconLeft ? 0 : 1,
@@ -97,13 +99,13 @@ export const Button = ({
                 }}
                 transition={{ duration: 0.3 }}
             >
-                <span className="text-inherit font-medium text-[16px] whitespace-nowrap">
+                <span className={cn("text-inherit font-medium whitespace-nowrap", compact ? "text-[14px]" : "text-[16px]")}>
                     {children}
                 </span>
             </motion.div>
 
             <motion.div
-                className="absolute right-5 z-10 flex items-center justify-end pointer-events-none"
+                className={cn("absolute z-10 flex items-center justify-end pointer-events-none", compact ? "right-3" : "right-5")}
                 variants={{
                     initial: {
                         opacity: isIconLeft ? 1 : 0,
@@ -116,7 +118,7 @@ export const Button = ({
                 }}
                 transition={{ duration: 0.3 }}
             >
-                <span className="text-inherit font-medium text-[16px] whitespace-nowrap">
+                <span className={cn("text-inherit font-medium whitespace-nowrap", compact ? "text-[14px]" : "text-[16px]")}>
                     {children}
                 </span>
             </motion.div>

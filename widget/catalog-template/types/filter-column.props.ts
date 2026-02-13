@@ -3,4 +3,6 @@ export interface FilterColumnProps {
     filters: string[];
     onChange: (filter: string) => void;
     checked: string[];
+    className?: string;
+    variant?: "default" | "mobile";
 }

@@ -3,7 +3,7 @@ import { cn } from "@/shared/utils";
 import { RoundedBlockProps } from "../types/rounded-block.props";
 
 export const RoundedBlock = forwardRef<HTMLElement, RoundedBlockProps>(
-    ({ children, className, ...props }, ref) => {
+    ({ children, className, style, ...props }, ref) => {
         return (
             <section
                 ref={ref}
@@ -11,6 +11,7 @@ export const RoundedBlock = forwardRef<HTMLElement, RoundedBlockProps>(
                 style={{
                     marginLeft: "10px",
                     marginRight: "10px",
+                    ...style,
                 }}
                 {...props}
             >

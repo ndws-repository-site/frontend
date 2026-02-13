@@ -67,23 +67,23 @@ export const Founder = () => {
 
     return (
         <RoundedBlock ref={blockRef} className="bg-black p-2.5 min-h-[614px] relative">
-            <Tag className="w-fit mb-7.5">
+            <Tag variant="gray" className="w-fit mb-7.5 max-lg:mb-6">
                 Founder
             </Tag>
 
-            <div className="relative grid grid-cols-[1fr_auto_1fr] items-start gap-4">
-                <div>
-                    <h3 className="text-white text-[66px] leading-[110%] uppercase mb-4">
+            <div className="relative flex flex-col items-center gap-6 max-lg:pb-10 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-start lg:gap-4">
+                <div className="w-full max-lg:text-center lg:block">
+                    <h3 className="text-white lg:text-[66px] mob:text-[40px] text-[24px] leading-[110%] uppercase mb-4">
                         {FOUNDER_TITLE.slice(0, titleLength)}
                     </h3>
 
-                    <p className={cn(ALEXANDRIA_FONT.className, "text-white text-[20px] leading-[120%] font-light min-h-[1.2em]")}>
+                    <p className={cn(ALEXANDRIA_FONT.className, "text-white mob:text-[20px] text-[14px] leading-[120%] font-light min-h-[1.2em] max-lg:text-[16px]")}>
                         {displayedSubtitle}
                     </p>
                 </div>
 
                 <motion.div
-                    className="max-w-[321px] max-h-[369px] w-full overflow-hidden rounded-[20px] justify-self-center"
+                    className="max-w-[321px] max-h-[369px] w-full overflow-hidden rounded-[20px] justify-self-center max-lg:border max-lg:border-white/30"
                     variants={photoEntrance}
                     initial="hidden"
                     animate={inView ? "visible" : "hidden"}
@@ -93,7 +93,7 @@ export const Founder = () => {
                         alt="Edil Kasenov"
                         width={321}
                         height={369}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover max-lg:grayscale"
                         quality={100}
                         unoptimized={false}
                         priority
@@ -101,10 +101,10 @@ export const Founder = () => {
                     />
                 </motion.div>
 
-                <div />
+                <div className="hidden lg:block" />
             </div>
 
-            <p className="absolute right-5 bottom-[70px] uppercase text-[30px] text-white w-[692px]">
+            <p className="max-lg:block max-lg:text-center max-lg:uppercase text-[16px] max-lg:text-white max-lg:px-4 max-lg:leading-[140%] max-lg:mt-4 lg:absolute lg:right-5 lg:bottom-[70px] lg:uppercase lg:text-[30px] lg:text-white lg:w-[692px]">
                 {QUOTE_TEXT.slice(0, quoteLength)}
             </p>
 

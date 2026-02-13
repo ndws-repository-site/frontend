@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { CONTACT_LINKS, DOCUMENTS_LINKS, NAVIGATION_LINKS } from "../config/link";
@@ -19,9 +20,9 @@ export const Footer = () => {
             ref={footerRef}
             className="m-2.5 px-2.5 pt-[37px] pb-0 bg-black rounded-[30px] overflow-hidden"
         >
-            {/* Верхний блок: 4 колонки в ряд */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 pb-8">
-                {/* 1. Social media — заголовок и иконки в ряд */}
+            {/* Верхний блок: mob — 2 колонки (2x2), tablet — 3 колонки, lg — 4 колонки */}
+            <div className="grid grid-cols-2 mob:grid-cols-3 lg:grid-cols-4 gap-8 mob:gap-8 lg:gap-10 pb-8">
+                {/* 1. Social media */}
                 <div>
                     <ColumnTitle title="Social media" className="mb-5" />
                     <div className="flex items-center gap-2.5">
@@ -31,9 +32,27 @@ export const Footer = () => {
                     </div>
                 </div>
 
-                <ColumnLink title="Navigation" links={NAVIGATION_LINKS} />
-                <ColumnLink title="Contact" links={CONTACT_LINKS} />
-                <ColumnLink title="Documents" links={DOCUMENTS_LINKS} />
+                {/* 2. Navigation */}
+                <div>
+                    <ColumnLink title="Navigation" links={NAVIGATION_LINKS} />
+                </div>
+
+                {/* 3. Contact */}
+                <div>
+                    <ColumnLink title="Contact" links={CONTACT_LINKS} />
+                </div>
+
+                {/* 4. Documents — tablet: под Navigation и Contact, span 2 колонки */}
+                <div className="mob:col-start-2 mob:col-span-2 mob:row-start-2 lg:col-start-auto lg:col-span-1 lg:row-start-auto">
+                    <ColumnTitle title="Documents" className="mb-5" />
+                    <div className="grid grid-cols-1 mob:grid-cols-2 lg:grid-cols-1 gap-2.5 max-w-[208px] mob:max-w-none lg:max-w-[208px]">
+                        {DOCUMENTS_LINKS.map(link => (
+                            <Link key={link.href} href={link.href} className="uppercase text-[14px] mob:text-[20px] text-white leading-[110%] cursor-pointer transition hover:text-primary">
+                                {link.text}
+                            </Link>
+                        ))}
+                    </div>
+                </div>
             </div>
 
             {/* Нижний блок: NDWS — буквы «прорисовываются» при появлении */}

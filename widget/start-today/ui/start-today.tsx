@@ -15,7 +15,7 @@ import { BACKGROUND_IMAGE_OPACITY, START_TODAY_BACKGROUND_IMAGES } from "../conf
 
 export const StartToday = () => {
     return (
-        <RoundedBlock className="bg-primary p-2.5 relative min-h-[614px] flex flex-col items-center justify-center overflow-hidden">
+        <RoundedBlock className="bg-primary p-2.5 relative mob:min-h-[614px] min-h-[465px] flex flex-col items-center justify-center overflow-hidden">
             <div className="absolute inset-0 pointer-events-none rounded-[30px] overflow-hidden">
                 {START_TODAY_BACKGROUND_IMAGES.map((pos, i) => {
                     const motionConfig = startTodayIdleMotions[i % startTodayIdleMotions.length];
@@ -78,7 +78,7 @@ export const StartToday = () => {
                 variants={{ initial: {}, animate: {} }}
             >
                 <motion.h2
-                    className="text-white text-[66px] leading-[110%] uppercase text-center mb-7"
+                    className="text-white lg:text-[66px] mob:text-[40px] text-[22px] leading-[110%] uppercase text-center mb-7"
                     variants={{ initial: {}, animate: {} }}
                 >
                     <motion.span

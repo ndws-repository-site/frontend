@@ -1,14 +1,22 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useSyncExternalStore } from "react";
 import { RoundedBlock } from "@/shared/ui";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { fadeUp, stagger, backgroundJarMotions, backgroundJarEntrance } from "../config/animations";
 import { BACKGROUND_JARS } from "../config/background-jars";
 
+const subscribeResize = (cb: () => void) => {
+    window.addEventListener("resize", cb);
+    return () => window.removeEventListener("resize", cb);
+};
+const getHeight = () => window.innerHeight;
+const getServerHeight = () => null;
+
 export const Hero = () => {
     const heroRef = useRef<HTMLElement>(null);
+    const height = useSyncExternalStore(subscribeResize, getHeight, getServerHeight);
     const { scrollYProgress } = useScroll({
         target: heroRef,
         offset: ["start start", "end start"],
@@ -17,7 +25,11 @@ export const Hero = () => {
     const creatineOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.3]);
 
     return (
-        <RoundedBlock ref={heroRef} className="relative min-h-screen z-0 overflow-hidden">
+        <RoundedBlock
+            ref={heroRef}
+            className="relative z-0 overflow-hidden"
+            style={{ minHeight: height ?? "100vh", height: height ?? undefined }}
+        >
             <Image
                 src="/hero/background.jpg"
                 alt="No Day Without Sport"
@@ -100,7 +112,7 @@ export const Hero = () => {
             </div>
 
             <motion.div
-                className="text-center pt-[30vh]"
+                className="text-center lg:pt-[30vh] mob:pt-[22vh] pt-[27vh]"
                 variants={stagger}
                 initial="initial"
                 animate="animate"
@@ -108,7 +120,7 @@ export const Hero = () => {
                 <motion.h1
                     variants={fadeUp}
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                    className="text-white text-[120px] uppercase leading-none"
+                    className="text-white lg:text-[120px] mob:text-[80px] text-[36px] uppercase leading-none"
                 >
                     No Day
                     <br /> Without Sport
@@ -116,7 +128,7 @@ export const Hero = () => {
             </motion.div>
 
             <motion.div
-                className="absolute z-10 -bottom-[5vh] left-1/2 -translate-x-1/2 w-[48vh] h-auto pointer-events-none"
+                className="absolute z-10 mob:-bottom-[5vh] bottom-[15vh] left-1/2 -translate-x-1/2 mob:w-[48vh] w-[60vw] h-auto pointer-events-none"
                 style={{ y: creatineY, opacity: creatineOpacity }}
             >
                 <motion.div

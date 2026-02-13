@@ -9,8 +9,10 @@ export const Tag = ({
 }: TagProps) => {
     return (
         <p className={cn(
-            "rounded-full px-6 py-3.5 text-black text-[14px]", 
-            variant === 'white' ? 'bg-white' : 'bg-[#F0F0F0]',
+            "rounded-full mob:px-6 px-5 mob:py-3.5 py-2.5 text-[14px]", 
+            (variant === 'white' || !variant) && 'bg-white text-black',
+            variant === 'gray' && 'bg-[#F0F0F0] text-black',
+            variant === 'dark' && 'bg-black text-white',
             ALEXANDRIA_FONT.className,
             className
         )}>

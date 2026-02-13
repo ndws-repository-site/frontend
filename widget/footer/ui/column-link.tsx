@@ -10,7 +10,7 @@ export const ColumnLink = ({ title, links }: ColumnLinkProps) => {
 
             <div className="grid grid-cols-1 gap-2.5 max-w-[208px]">
                 {links.map(link => (
-                    <Link key={link.href} href={link.href} className={cn("uppercase text-[20px] text-white leading-[110%] cursor-pointer transition hover:text-primary", link.underline && "underline underline-offset-2")}>
+                    <Link key={link.href} href={link.href} className={cn("uppercase text-[14px] mob:text-[20px] text-white leading-[110%] cursor-pointer transition hover:text-primary", link.underline && "underline underline-offset-2")}>
                         {link.text}
                     </Link>
                 ))}

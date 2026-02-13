@@ -26,12 +26,19 @@ export const ProductCard = ({
     return (
         <div className={cn("bg-white px-3.5 pt-3.5 rounded-[25px]", className)}>
             <div className="flex items-center justify-between mb-6.5">
-                <p className="text-black uppercase text-[60px] leading-none">
+                <p className="text-black uppercase lg:text-[60px] mob:text-[30px] text-[28px] leading-none min-w-0">
                     {name}
                 </p>
 
-                <Link href={`/product/${slug}`}>
-                    <Button icon={<Blocks />} iconPosition="right" variant="primary" size="large">
+                <Link href={`/product/${slug}`} className="shrink-0">
+                    <Button
+                        icon={<Blocks />}
+                        iconPosition="right"
+                        variant="primary"
+                        size="large"
+                        compact
+                        className="min-h-[32px] mob:min-h-[36px] lg:min-h-[48px]"
+                    >
                         See more
                     </Button>
                 </Link>
