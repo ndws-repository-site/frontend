@@ -6,13 +6,7 @@ import { cn } from "@/shared/utils";
 import { buttonVariantStyles } from "../config/button.config";
 import type { ButtonProps } from "../types/button.props";
 import { ALEXANDRIA_FONT } from "@/shared/config";
-
-// Ширина круга (86% от высоты кнопки): small 36px→31, medium 40px→34.4, large 48px→41.3
-const CIRCLE_WIDTH_BY_SIZE = {
-    small: 31,
-    medium: 34.4,
-    large: 41.3,
-} as const;
+import { CIRCLE_WIDTH_BY_SIZE } from "../config/circle-width-by-size";
 
 export const Button = ({
     children,
@@ -97,7 +91,7 @@ export const Button = ({
                         x: isIconLeft ? 0 : -10,
                     },
                 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.65 }}
             >
                 <span className={cn("text-inherit font-medium whitespace-nowrap", compact ? "text-[14px]" : "text-[16px]")}>
                     {children}
@@ -116,7 +110,7 @@ export const Button = ({
                         x: isIconLeft ? 10 : 0,
                     },
                 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.45 }}
             >
                 <span className={cn("text-inherit font-medium whitespace-nowrap", compact ? "text-[14px]" : "text-[16px]")}>
                     {children}
@@ -141,9 +135,9 @@ export const Button = ({
                 }}
                 transition={{
                     type: "spring",
-                    stiffness: 120,
-                    damping: 20,
-                    mass: 1,
+                    stiffness: 80,
+                    damping: 18,
+                    mass: 1.2,
                 }}
             >
                 <motion.div
@@ -157,7 +151,7 @@ export const Button = ({
                         hover: { rotate: iconRotation },
                     }}
                     transition={{
-                        duration: 0.4,
+                        duration: 0.55,
                         ease: "easeInOut",
                     }}
                 >
