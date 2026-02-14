@@ -33,6 +33,9 @@ export const AdminFaq = () => {
                 await queryClient.invalidateQueries({
                     queryKey: ["faq-table"],
                 });
+                await queryClient.invalidateQueries({
+                    queryKey: ["faq", faq.id],
+                });
             },
         });
     };

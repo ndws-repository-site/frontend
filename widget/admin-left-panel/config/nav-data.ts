@@ -27,8 +27,8 @@ export const NAV_DATA: Navigation[] = [
         name: "Блок товаров",
         href: "/admin/products-block",
         additionalHrefs: [
-            "/admin/products-block/edit",
             "/admin/products-block/create",
+            "/admin/products-block/edit",
         ],
     },
     {

@@ -49,7 +49,17 @@ export const ProductTypeForm = ({ type, id }: AdminFormProps) => {
             } else {
                 await $apiAdmin.post("/product-type", data);
             }
-            queryClient.invalidateQueries({ queryKey: ["product-type-table"] });
+            queryClient.invalidateQueries({
+                queryKey: ["product-type-table"],
+            });
+            queryClient.invalidateQueries({
+                queryKey: ["product-type-for-product-table"],
+            });
+            if (isEdit && id) {
+                queryClient.invalidateQueries({
+                    queryKey: ["product-type", id],
+                });
+            }
             router.push("/admin/product-type");
         } catch (e) {
             setSubmitError(getErrorMessage(e) ?? "Ошибка сохранения");

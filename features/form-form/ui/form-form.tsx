@@ -49,6 +49,12 @@ export const FormForm = ({ type, id }: AdminFormProps) => {
                 await $apiAdmin.post("/form", data);
             }
             queryClient.invalidateQueries({ queryKey: ["form-table"] });
+            queryClient.invalidateQueries({
+                queryKey: ["form-for-product-table"],
+            });
+            if (isEdit && id) {
+                queryClient.invalidateQueries({ queryKey: ["form", id] });
+            }
             router.push("/admin/form");
         } catch (e) {
             setSubmitError(getErrorMessage(e) ?? "Ошибка сохранения");

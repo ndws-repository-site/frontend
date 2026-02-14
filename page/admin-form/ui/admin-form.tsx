@@ -33,6 +33,12 @@ export const AdminForm = () => {
                 await queryClient.invalidateQueries({
                     queryKey: ["form-table"],
                 });
+                await queryClient.invalidateQueries({
+                    queryKey: ["form-for-product-table"],
+                });
+                await queryClient.invalidateQueries({
+                    queryKey: ["form", form.id],
+                });
             },
         });
     };

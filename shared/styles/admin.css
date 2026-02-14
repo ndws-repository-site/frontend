@@ -33,4 +33,14 @@
     .custom-scrollbar::-webkit-scrollbar-thumb:hover {
         background-color: #5a5a5a; /* Цвет при наведении */
     }
+
+    /* Скрыть скроллбар, сохранив прокрутку */
+    .scrollbar-hide {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
 }

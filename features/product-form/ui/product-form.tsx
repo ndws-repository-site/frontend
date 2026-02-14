@@ -169,6 +169,12 @@ const ProductFormContent = ({
             }
 
             queryClient.invalidateQueries({ queryKey: ["product-table"] });
+            queryClient.invalidateQueries({
+                queryKey: ["admin-product-block-table"],
+            });
+            if (isEdit && id) {
+                queryClient.invalidateQueries({ queryKey: ["product", id] });
+            }
             router.push("/admin/product");
         } catch (e) {
             setSubmitError(getErrorMessage(e) ?? "Ошибка сохранения");

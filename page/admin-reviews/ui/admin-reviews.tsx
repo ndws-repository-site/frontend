@@ -41,6 +41,9 @@ export const AdminReviews = () => {
                 await queryClient.invalidateQueries({
                     queryKey: ["admin-reviews"],
                 });
+                await queryClient.invalidateQueries({
+                    queryKey: ["review-form", review.id],
+                });
             },
         });
     };

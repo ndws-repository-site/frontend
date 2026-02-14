@@ -42,7 +42,7 @@ export const AdminLeftPanel = () => {
                 className="mb-9.5"
             />
 
-            <div className="flex flex-col gap-3 w-full">
+            <div className="scrollbar-hide flex flex-col gap-3 w-full max-h-[calc(7*2.75rem+6*0.75rem)] overflow-y-auto min-h-0">
                 {isLoading
                     ? Array.from({ length: 4 }).map((_, index) => (
                           <NavigationSkeleton key={index} />

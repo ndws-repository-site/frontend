@@ -125,6 +125,11 @@ export const ReviewForm = ({ type, id }: AdminFormProps) => {
             }
 
             queryClient.invalidateQueries({ queryKey: ["admin-reviews"] });
+            if (isEdit && id) {
+                queryClient.invalidateQueries({
+                    queryKey: ["review-form", id],
+                });
+            }
             router.push("/admin/reviews");
         } catch (e) {
             setSubmitError(getErrorMessage(e) ?? "Ошибка сохранения");

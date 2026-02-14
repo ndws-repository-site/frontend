@@ -33,6 +33,12 @@ export const AdminGoal = () => {
                 await queryClient.invalidateQueries({
                     queryKey: ["goal-table"],
                 });
+                await queryClient.invalidateQueries({
+                    queryKey: ["goal-for-product-table"],
+                });
+                await queryClient.invalidateQueries({
+                    queryKey: ["goal", goal.id],
+                });
             },
         });
     };

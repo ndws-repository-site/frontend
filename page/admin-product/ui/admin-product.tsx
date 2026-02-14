@@ -81,6 +81,12 @@ export const AdminProduct = () => {
                 await queryClient.invalidateQueries({
                     queryKey: ["product-table"],
                 });
+                await queryClient.invalidateQueries({
+                    queryKey: ["admin-product-block-table"],
+                });
+                await queryClient.invalidateQueries({
+                    queryKey: ["product", product.id],
+                });
             },
         });
     };

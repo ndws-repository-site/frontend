@@ -77,6 +77,9 @@ export const FaqForm = ({ type, id }: AdminFormProps) => {
                 await $apiAdmin.post("/faq", payload);
             }
             queryClient.invalidateQueries({ queryKey: ["faq-table"] });
+            if (isEdit && id) {
+                queryClient.invalidateQueries({ queryKey: ["faq", id] });
+            }
             router.push("/admin/faq");
         } catch (e) {
             setSubmitError(getErrorMessage(e) ?? "Ошибка сохранения");

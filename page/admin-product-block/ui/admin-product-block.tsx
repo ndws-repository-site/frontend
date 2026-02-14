@@ -14,61 +14,67 @@ import { useConfirm } from "@/shared/lib/confirm-dialog";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { useProductTypeTable } from "../api/use-product-type-table";
+import { useAdminProductBlockTable } from "../api/use-admin-product-table";
 import { GRID_CLASS } from "../config/constants";
+import type { ProductBlockResponse } from "@/shared/types/responses";
 
-export const AdminProductType = () => {
+export const AdminProductBlock = () => {
     const { confirm } = useConfirm();
     const queryClient = useQueryClient();
     const [search, setSearch] = useState("");
-    const { data: productTypes = [], isLoading: loadingProductTypes } =
-        useProductTypeTable();
+    const { data: blocks = [], isLoading: loadingBlocks } =
+        useAdminProductBlockTable();
 
-    const handleDelete = (productType: { id: number; name: string }) => {
+    const handleDelete = (block: ProductBlockResponse) => {
         confirm({
-            title: "Удалить тип товара?",
-            description: `Тип товара «${productType.name}» будет удалён безвозвратно.`,
+            title: "Удалить блок продуктов?",
+            description: `Блок «${block.title}» будет удалён безвозвратно.`,
             confirmText: "Удалить",
             onConfirm: async () => {
-                await $apiAdmin.delete(`/product-type/${productType.id}`);
+                await $apiAdmin.delete(`/product-block/${block.id}`);
                 await queryClient.invalidateQueries({
-                    queryKey: ["product-type-table"],
+                    queryKey: ["admin-product-block-table"],
                 });
                 await queryClient.invalidateQueries({
-                    queryKey: ["product-type-for-product-table"],
-                });
-                await queryClient.invalidateQueries({
-                    queryKey: ["product-type", productType.id],
+                    queryKey: ["product-block", block.id],
                 });
             },
         });
     };
 
-    const filteredProductTypes = useMemo(() => {
-        if (!search.trim()) return productTypes;
+    const filteredBlocks = useMemo(() => {
+        if (!search.trim()) return blocks;
         const q = search.toLowerCase().trim();
-        return productTypes.filter((pt) => pt.name.toLowerCase().includes(q));
-    }, [productTypes, search]);
+        return blocks.filter(
+            (b) =>
+                b.title.toLowerCase().includes(q) ||
+                b.subtitle.toLowerCase().includes(q) ||
+                b.product?.name?.toLowerCase().includes(q),
+        );
+    }, [blocks, search]);
 
-    if (loadingProductTypes) {
-        return <AdminLoading title="Загрузка типов товаров..." />;
+    if (loadingBlocks) {
+        return <AdminLoading title="Загрузка блоков продуктов..." />;
     }
 
     return (
         <div>
             <div className="mb-8 flex items-center justify-between">
-                <AdminPageTitle title="Типы товаров" className="mb-0!" />
+                <AdminPageTitle
+                    title="Редактировать блок продуктов"
+                    className="mb-0!"
+                />
 
-                <Link href="/admin/product-type/create">
+                <Link href="/admin/products-block/create">
                     <AdminButton variant="primary">
-                        Добавить тип товара
+                        Добавить блок продуктов
                     </AdminButton>
                 </Link>
             </div>
 
             <div className="mb-6">
                 <AdminInput
-                    placeholder="Поиск по названию..."
+                    placeholder="Поиск по названию, подзаголовку или товару..."
                     variant="alternative"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
@@ -78,27 +84,37 @@ export const AdminProductType = () => {
 
             <AdminTable
                 columns={[
-                    { header: "Название" },
+                    { header: "Заголовок" },
+                    { header: "Подзаголовок" },
+                    { header: "Товар" },
                     { header: "Действия", align: "right" },
                 ]}
                 gridClassName={GRID_CLASS}
-                isLoading={loadingProductTypes}
-                itemsCount={filteredProductTypes.length}
+                isLoading={loadingBlocks}
+                itemsCount={filteredBlocks.length}
                 searchTerm={search}
-                emptyMessage="Типов товаров пока нет"
+                emptyMessage="Блоков продуктов пока нет"
                 emptySearchMessage="По вашему запросу ничего не найдено"
             >
-                {filteredProductTypes.map((productType) => (
-                    <AdminTableRow
-                        key={productType.id}
-                        gridClassName={GRID_CLASS}
-                    >
+                {filteredBlocks.map((block) => (
+                    <AdminTableRow key={block.id} gridClassName={GRID_CLASS}>
                         <div className="truncate">
-                            {highlightSearchText(productType.name, search)}
+                            {highlightSearchText(block.title, search)}
+                        </div>
+                        <div className="truncate text-gray-400">
+                            {highlightSearchText(block.subtitle, search)}
+                        </div>
+                        <div className="truncate">
+                            {block.product
+                                ? highlightSearchText(
+                                      block.product.name,
+                                      search,
+                                  )
+                                : "—"}
                         </div>
                         <div className="flex justify-end gap-2">
                             <Link
-                                href={`/admin/product-type/${productType.id}/edit`}
+                                href={`/admin/products-block/${block.id}/edit`}
                                 className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/5 text-gray-400 transition-all hover:bg-white/10 hover:text-white"
                                 title="Изменить"
                             >
@@ -106,7 +122,7 @@ export const AdminProductType = () => {
                             </Link>
                             <button
                                 type="button"
-                                onClick={() => handleDelete(productType)}
+                                onClick={() => handleDelete(block)}
                                 className="flex h-8 w-8 items-center justify-center rounded-full bg-white/5 text-gray-400 transition-all hover:bg-red-500/20 hover:text-red-500"
                                 title="Удалить"
                             >
