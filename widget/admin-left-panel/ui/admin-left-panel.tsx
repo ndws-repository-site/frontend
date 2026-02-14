@@ -50,6 +50,7 @@ export const AdminLeftPanel = () => {
                     : NAV_DATA.map((item) => {
                           const isActive =
                               pathname === item.href ||
+                              pathname.startsWith(item.href + "/") ||
                               item.additionalHrefs?.some((path) =>
                                   pathname.startsWith(path),
                               );

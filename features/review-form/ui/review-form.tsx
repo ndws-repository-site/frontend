@@ -15,7 +15,12 @@ import {
     AdminPageTitle,
     AdminTextarea,
 } from "@/shared/admin";
-import { deleteImage, uploadImage, $apiAdmin } from "@/shared/utils";
+import {
+    deleteImage,
+    uploadImage,
+    $apiAdmin,
+    getErrorMessage,
+} from "@/shared/utils";
 import { useQueryClient } from "@tanstack/react-query";
 import { ReviewFormSchema } from "../types/review-form-schema";
 import {
@@ -121,8 +126,8 @@ export const ReviewForm = ({ type, id }: AdminFormProps) => {
 
             queryClient.invalidateQueries({ queryKey: ["admin-reviews"] });
             router.push("/admin/reviews");
-        } catch {
-            setSubmitError("Ошибка сохранения");
+        } catch (e) {
+            setSubmitError(getErrorMessage(e) ?? "Ошибка сохранения");
         }
     };
 

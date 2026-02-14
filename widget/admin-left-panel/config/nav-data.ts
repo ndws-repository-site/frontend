@@ -26,36 +26,46 @@ export const NAV_DATA: Navigation[] = [
         icon: Boxes,
         name: "Блок товаров",
         href: "/admin/products-block",
+        additionalHrefs: [
+            "/admin/products-block/edit",
+            "/admin/products-block/create",
+        ],
     },
     {
         icon: Eye,
         name: "Отзывы",
         href: "/admin/reviews",
+        additionalHrefs: ["/admin/reviews/edit", "/admin/reviews/create"],
     },
     {
         icon: Target,
         name: "Цели",
         href: "/admin/goal",
+        additionalHrefs: ["/admin/goal/create", "/admin/goal/"],
     },
     {
         icon: FileText,
         name: "Формы",
         href: "/admin/form",
+        additionalHrefs: ["/admin/form/create", "/admin/form/"],
     },
     {
         icon: Tags,
         name: "Типы товаров",
         href: "/admin/product-type",
+        additionalHrefs: ["/admin/product-type/create", "/admin/product-type/"],
     },
     {
         icon: HelpCircle,
         name: "FAQ",
         href: "/admin/faq",
+        additionalHrefs: ["/admin/faq/create", "/admin/faq/"],
     },
     {
         icon: Package,
         name: "Товары",
         href: "/admin/product",
+        additionalHrefs: ["/admin/product/create", "/admin/product/"],
     },
     {
         icon: CreditCard,
@@ -64,7 +74,8 @@ export const NAV_DATA: Navigation[] = [
     },
     {
         icon: User,
-        name: "Админисраторы",
+        name: "Администраторы",
         href: "/admin/admin",
+        additionalHrefs: ["/admin/admin/create"],
     },
 ];

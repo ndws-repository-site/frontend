@@ -10,15 +10,40 @@ import {
     AdminTable,
     AdminTableRow,
 } from "@/shared/admin";
-import { highlightSearchText } from "@/shared/utils";
+import { deleteImage, highlightSearchText, $apiAdmin } from "@/shared/utils";
+import { useConfirm } from "@/shared/lib/confirm-dialog";
 import { useReviewsTable } from "../api/use-hero-table";
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { useQueryClient } from "@tanstack/react-query";
 import { GRID_CLASS } from "../config/constants";
 
 export const AdminReviews = () => {
+    const { confirm } = useConfirm();
+    const queryClient = useQueryClient();
     const [search, setSearch] = useState("");
     const { data: reviews = [], isLoading: loadingReviews } = useReviewsTable();
+
+    const handleDelete = (review: {
+        id: number;
+        name: string;
+        avatar?: string;
+    }) => {
+        confirm({
+            title: "Удалить отзыв?",
+            description: `Отзыв от «${review.name}» будет удалён безвозвратно.`,
+            confirmText: "Удалить",
+            onConfirm: async () => {
+                if (review.avatar) {
+                    await deleteImage(review.avatar);
+                }
+                await $apiAdmin.delete(`/review/${review.id}`);
+                await queryClient.invalidateQueries({
+                    queryKey: ["admin-reviews"],
+                });
+            },
+        });
+    };
 
     const filteredReviews = useMemo(() => {
         if (!search.trim()) return reviews;
@@ -101,7 +126,7 @@ export const AdminReviews = () => {
                             </Link>
                             <button
                                 type="button"
-                                onClick={() => {}}
+                                onClick={() => handleDelete(review)}
                                 className="w-8 h-8 rounded-full bg-white/5 hover:bg-red-500/20 flex items-center justify-center text-gray-400 hover:text-red-500 transition-all cursor-pointer"
                                 title="Удалить"
                             >
