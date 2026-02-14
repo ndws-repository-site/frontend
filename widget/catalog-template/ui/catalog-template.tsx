@@ -22,16 +22,19 @@ export const CatalogTemplate = ({
     subtitle,
     description,
     products,
-    loading = false
+    loading = false,
 }: CatalogTemplateProps) => {
     //=====STATES=====
     //Products
-    const [filteredProducts, setFilteredProducts] = useState<IProduct[]>(products);
+    const [filteredProducts, setFilteredProducts] =
+        useState<IProduct[]>(products);
     const [displayCount, setDisplayCount] = useState(0);
     //Filter
     const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
     const [selectedForm, setSelectedForm] = useState<string[]>([]);
-    const [selectedProductType, setSelectedProductType] = useState<string[]>([]);
+    const [selectedProductType, setSelectedProductType] = useState<string[]>(
+        [],
+    );
 
     //=====CONSTANTS=====
     const titleLetters = title.split("");
@@ -45,12 +48,15 @@ export const CatalogTemplate = ({
     const applyFilters = (
         goals: string[],
         form: string[],
-        productType: string[]
+        productType: string[],
     ) => {
-        const filtered = products.filter(product => {
-            const goalMatch = goals.length === 0 || goals.includes(product.goal);
+        const filtered = products.filter((product) => {
+            const goalMatch =
+                goals.length === 0 || goals.includes(product.goal);
             const formMatch = form.length === 0 || form.includes(product.form);
-            const productTypeMatch = productType.length === 0 || productType.includes(product.productType);
+            const productTypeMatch =
+                productType.length === 0 ||
+                productType.includes(product.productType);
             return goalMatch && formMatch && productTypeMatch;
         });
 
@@ -58,7 +64,7 @@ export const CatalogTemplate = ({
         setSelectedForm(form);
         setSelectedProductType(productType);
         setFilteredProducts(filtered);
-    }
+    };
 
     //=====Effects=====
     useEffect(() => {
@@ -72,7 +78,7 @@ export const CatalogTemplate = ({
                 const rounded = Math.round(latest);
                 prevCountRef.current = rounded;
                 setDisplayCount(rounded);
-            }
+            },
         });
 
         return () => controls.stop();
@@ -101,7 +107,11 @@ export const CatalogTemplate = ({
                     className="mb-3"
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: titleLetters.length * 0.04 + 0.2, duration: 0.5, ease: "easeOut" }}
+                    transition={{
+                        delay: titleLetters.length * 0.04 + 0.2,
+                        duration: 0.5,
+                        ease: "easeOut",
+                    }}
                 >
                     {subtitle}
                 </motion.p>
@@ -109,7 +119,11 @@ export const CatalogTemplate = ({
                 <motion.p
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: titleLetters.length * 0.04 + 0.5, duration: 0.5, ease: "easeOut" }}
+                    transition={{
+                        delay: titleLetters.length * 0.04 + 0.5,
+                        duration: 0.5,
+                        ease: "easeOut",
+                    }}
                 >
                     {description}
                 </motion.p>
@@ -131,7 +145,11 @@ export const CatalogTemplate = ({
                         className="mb-3"
                         initial={{ opacity: 0, y: 16 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: titleLetters.length * 0.04 + 0.2, duration: 0.5, ease: "easeOut" }}
+                        transition={{
+                            delay: titleLetters.length * 0.04 + 0.2,
+                            duration: 0.5,
+                            ease: "easeOut",
+                        }}
                     >
                         {subtitle}
                     </motion.p>
@@ -139,14 +157,18 @@ export const CatalogTemplate = ({
                     <motion.p
                         initial={{ opacity: 0, y: 16 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: titleLetters.length * 0.04 + 0.5, duration: 0.5, ease: "easeOut" }}
+                        transition={{
+                            delay: titleLetters.length * 0.04 + 0.5,
+                            duration: 0.5,
+                            ease: "easeOut",
+                        }}
                     >
                         {description}
                     </motion.p>
                 </div>
 
                 <div className="justify-self-end">
-                    <Filter 
+                    <Filter
                         selectedGoals={selectedGoals}
                         selectedForm={selectedForm}
                         selectedProductType={selectedProductType}
@@ -164,7 +186,7 @@ export const CatalogTemplate = ({
             {loading ? (
                 <div className="grid mob:grid-cols-2 grid-cols-1 gap-2.5">
                     {Array.from({ length: 8 }).map((_, index) => (
-                        <ProductCard 
+                        <ProductCard
                             key={index}
                             {...PRODUCT_MOCK}
                             loading={true}
@@ -187,5 +209,5 @@ export const CatalogTemplate = ({
                 </>
             )}
         </RoundedBlock>
-    )
-}
+    );
+};

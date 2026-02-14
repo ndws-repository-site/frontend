@@ -3,15 +3,10 @@ export const GOALS_MOCK: string[] = [
     "Drying / fat burning",
     "Endurance",
     "Recovery",
-    "Health / tone"
+    "Health / tone",
 ];
 
-export const FORM_MOCK: string[] = [
-    "Powder",
-    "Capsules",
-    "Tablets",
-    "Liquid"
-];
+export const FORM_MOCK: string[] = ["Powder", "Capsules", "Tablets", "Liquid"];
 
 export const PRODUCT_TYPE_MOCK: string[] = [
     "Protein",
@@ -20,5 +15,5 @@ export const PRODUCT_TYPE_MOCK: string[] = [
     "Creatine",
     "Fat burners",
     "Vitamins and minerals",
-    "Pre-workout complexes"
+    "Pre-workout complexes",
 ];

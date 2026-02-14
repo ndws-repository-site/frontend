@@ -29,7 +29,7 @@ export const ProductBlock = ({
     left,
     color,
     icon: Icon,
-    link
+    link,
 }: ProductBlockProps) => {
     const ref = useRef(null);
     const inView = useInView(ref, { amount: 0.6, once: true });
@@ -40,7 +40,7 @@ export const ProductBlock = ({
             return () => mq.removeEventListener("change", cb);
         },
         () => window.matchMedia("(min-width: 501px)").matches,
-        () => false
+        () => false,
     );
 
     const backgroundLabel = product.toUpperCase();
@@ -63,38 +63,47 @@ export const ProductBlock = ({
                     transition={slideIn.transition}
                 >
                     <Marquee
-                    speed={MARQUEE_SPEED}
-                    direction={left ? "left" : "right"}
-                    gradient={false}
-                    className="flex items-center text-white select-none"
-                    style={{ fontSize: MARQUEE_FONT_SIZE }}
-                >
-                    {[1, 2, 3, 4, 5].map((i) => (
-                        <span key={i} className="flex items-center gap-4 shrink-0 mx-2">
-                            <span className="tracking-tight">{backgroundLabel}</span>
-                            <span className="shrink-0 w-[0.4em] h-[0.4em] [&>svg]:w-full [&>svg]:h-full">
-                                <Icon />
+                        speed={MARQUEE_SPEED}
+                        direction={left ? "left" : "right"}
+                        gradient={false}
+                        className="flex items-center text-white select-none"
+                        style={{ fontSize: MARQUEE_FONT_SIZE }}
+                    >
+                        {[1, 2, 3, 4, 5].map((i) => (
+                            <span
+                                key={i}
+                                className="flex items-center gap-4 shrink-0 mx-2"
+                            >
+                                <span className="tracking-tight">
+                                    {backgroundLabel}
+                                </span>
+                                <span className="shrink-0 w-[0.4em] h-[0.4em] [&>svg]:w-full [&>svg]:h-full">
+                                    <Icon />
+                                </span>
                             </span>
-                        </span>
-                    ))}
+                        ))}
                     </Marquee>
                 </motion.div>
             )}
 
             <div className="relative z-10">
-                <div className={cn("flex items-center justify-between mb-5", ALEXANDRIA_FONT.className)}>
-                    <p className={WHITE_BASIC_CLASS}>
-                        {tag}
-                    </p>
+                <div
+                    className={cn(
+                        "flex items-center justify-between mb-5",
+                        ALEXANDRIA_FONT.className,
+                    )}
+                >
+                    <p className={WHITE_BASIC_CLASS}>{tag}</p>
 
-                    <div className={cn(WHITE_BASIC_CLASS, "flex items-center gap-1")}>
-                        <p className="text-black">
-                            {formatPage(page)}
-                        </p>
+                    <div
+                        className={cn(
+                            WHITE_BASIC_CLASS,
+                            "flex items-center gap-1",
+                        )}
+                    >
+                        <p className="text-black">{formatPage(page)}</p>
                         <div className="h-px w-7 bg-black" />
-                        <p className="text-black/60">
-                            {formatPage(maxPage)}
-                        </p>
+                        <p className="text-black/60">{formatPage(maxPage)}</p>
                     </div>
                 </div>
 
@@ -109,12 +118,22 @@ export const ProductBlock = ({
             </div>
 
             <div className="flex items-center justify-between">
-                <p className={cn(ALEXANDRIA_FONT.className, "mob:text-[24px] text-[16px] leading-none text-white pl-3")}>
+                <p
+                    className={cn(
+                        ALEXANDRIA_FONT.className,
+                        "mob:text-[24px] text-[16px] leading-none text-white pl-3",
+                    )}
+                >
                     {subtitle}
                 </p>
 
                 <Link href={link}>
-                    <Button icon={<ButtonMenu />} variant="secondary" size="large" iconPosition="right">
+                    <Button
+                        icon={<ButtonMenu />}
+                        variant="secondary"
+                        size="large"
+                        iconPosition="right"
+                    >
                         See more
                     </Button>
                 </Link>
@@ -131,7 +150,7 @@ export const ProductBlock = ({
                     animate={{ y: [...IMAGE_IDLE_ANIMATION.animate.y] }}
                     transition={IMAGE_IDLE_ANIMATION.transition}
                 >
-                    <Image 
+                    <Image
                         sizes="800px"
                         src={productImage}
                         alt={product}
@@ -145,5 +164,5 @@ export const ProductBlock = ({
                 </motion.div>
             </motion.div>
         </section>
-    )
-}
+    );
+};

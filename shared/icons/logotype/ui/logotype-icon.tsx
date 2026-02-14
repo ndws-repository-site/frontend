@@ -45,7 +45,13 @@ export const LogotypeIcon: FC<LogotypeIconProps> = ({ className }) => (
             strokeLinecap="butt"
             initial={{ pathLength: 0 }}
             animate={{ pathLength: 1 }}
-            transition={{ pathLength: { duration: 0.3, delay: 0.72, ease: [0.22, 1, 0.36, 1] } }}
+            transition={{
+                pathLength: {
+                    duration: 0.3,
+                    delay: 0.72,
+                    ease: [0.22, 1, 0.36, 1],
+                },
+            }}
         />
         {/* Текст — появление слева */}
         <motion.path
@@ -53,7 +59,11 @@ export const LogotypeIcon: FC<LogotypeIconProps> = ({ className }) => (
             fill="#17411B"
             initial={{ opacity: 0, x: -8 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            transition={{
+                duration: 0.5,
+                delay: 0.55,
+                ease: [0.22, 1, 0.36, 1],
+            }}
         />
     </motion.svg>
 );

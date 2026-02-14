@@ -1,2 +1,2 @@
-export * from './animations';
-export * from './mocks';
+export * from "./animations";
+export * from "./mocks";

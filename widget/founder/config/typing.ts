@@ -2,7 +2,11 @@
 export const FOUNDER_TITLE = "EDIL KASENOV";
 
 /** Части подзаголовка: слово с точкой печатается целиком, потом пауза */
-export const SUBTITLE_PARTS = ["Athlete.", " Entrepreneur.", " Man of discipline."] as const;
+export const SUBTITLE_PARTS = [
+    "Athlete.",
+    " Entrepreneur.",
+    " Man of discipline.",
+] as const;
 
 /** Готовая строка подзаголовка */
 export const FULL_SUBTITLE = SUBTITLE_PARTS.join("");

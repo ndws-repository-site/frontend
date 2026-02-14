@@ -17,7 +17,10 @@ import {
     SUBTITLE_PART_END_INDEXES,
 } from "../config/typing";
 import { sleep } from "../utils/sleep";
-import { FirstBackgroundIcon, SecondBackgroundIcon } from "../icons/background-icon";
+import {
+    FirstBackgroundIcon,
+    SecondBackgroundIcon,
+} from "../icons/background-icon";
 
 export const Founder = () => {
     const blockRef = useRef<HTMLElement>(null);
@@ -66,7 +69,10 @@ export const Founder = () => {
     const displayedSubtitle = FULL_SUBTITLE.slice(0, subtitleLength);
 
     return (
-        <RoundedBlock ref={blockRef} className="bg-black p-2.5 min-h-[614px] relative">
+        <RoundedBlock
+            ref={blockRef}
+            className="bg-black p-2.5 min-h-[614px] relative"
+        >
             <Tag variant="gray" className="w-fit mb-7.5 max-lg:mb-6">
                 Founder
             </Tag>
@@ -77,7 +83,12 @@ export const Founder = () => {
                         {FOUNDER_TITLE.slice(0, titleLength)}
                     </h3>
 
-                    <p className={cn(ALEXANDRIA_FONT.className, "text-white mob:text-[20px] text-[14px] leading-[120%] font-light min-h-[1.2em] max-lg:text-[16px]")}>
+                    <p
+                        className={cn(
+                            ALEXANDRIA_FONT.className,
+                            "text-white mob:text-[20px] text-[14px] leading-[120%] font-light min-h-[1.2em] max-lg:text-[16px]",
+                        )}
+                    >
                         {displayedSubtitle}
                     </p>
                 </div>

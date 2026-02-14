@@ -18,7 +18,7 @@ export const RoundedBlock = forwardRef<HTMLElement, RoundedBlockProps>(
                 {children}
             </section>
         );
-    }
+    },
 );
 
 RoundedBlock.displayName = "RoundedBlock";

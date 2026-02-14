@@ -1,6 +1,8 @@
 import React from "react";
 
-export const QuotationMarks: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+export const QuotationMarks: React.FC<React.SVGProps<SVGSVGElement>> = (
+    props,
+) => (
     <svg
         width={28}
         height={24}

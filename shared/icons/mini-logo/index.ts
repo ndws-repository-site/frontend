@@ -1,1 +1,1 @@
-export * from './ui/mini-logo';
+export * from "./ui/mini-logo";

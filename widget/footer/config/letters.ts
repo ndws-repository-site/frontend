@@ -1,1 +1,1 @@
-export const LETTERS = ["N", "D", "W", "S"]
+export const LETTERS = ["N", "D", "W", "S"];

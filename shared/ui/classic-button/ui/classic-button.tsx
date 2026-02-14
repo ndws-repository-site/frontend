@@ -14,13 +14,11 @@ export const ClassicButton = ({
             className={cn(
                 ALEXANDRIA_FONT.className,
                 size === "small" ? "px-8 py-3.5" : "px-13 py-5.5 text-[18px]",
-                variant === "primary" 
-                                ? 
-                                    "bg-primary border-primary text-white hover:bg-white hover:text-black/50 hover:border-black/50"
-                                :
-                                    "bg-white border-black/50 text-black/50 hover:bg-primary hover:text-white hover:border-primary",
+                variant === "primary"
+                    ? "bg-primary border-primary text-white hover:bg-white hover:text-black/50 hover:border-black/50"
+                    : "bg-white border-black/50 text-black/50 hover:bg-primary hover:text-white hover:border-primary",
                 "rounded-full transition-all ease duration-300 cursor-pointer border leading-none",
-                className
+                className,
             )}
             {...props}
         >

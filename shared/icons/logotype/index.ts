@@ -1,1 +1,1 @@
-export * from './ui/logotype-icon';
+export * from "./ui/logotype-icon";

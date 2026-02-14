@@ -1,1 +1,1 @@
-export * from './ui/brand-philosophy';
+export * from "./ui/brand-philosophy";

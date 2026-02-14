@@ -11,14 +11,18 @@ import {
     HEADLINE_STEP_DELAY,
     startTodayIdleMotions,
 } from "../config/animations";
-import { BACKGROUND_IMAGE_OPACITY, START_TODAY_BACKGROUND_IMAGES } from "../config/background-images";
+import {
+    BACKGROUND_IMAGE_OPACITY,
+    START_TODAY_BACKGROUND_IMAGES,
+} from "../config/background-images";
 
 export const StartToday = () => {
     return (
         <RoundedBlock className="bg-primary p-2.5 relative mob:min-h-[614px] min-h-[465px] flex flex-col items-center justify-center overflow-hidden">
             <div className="absolute inset-0 pointer-events-none rounded-[30px] overflow-hidden">
                 {START_TODAY_BACKGROUND_IMAGES.map((pos, i) => {
-                    const motionConfig = startTodayIdleMotions[i % startTodayIdleMotions.length];
+                    const motionConfig =
+                        startTodayIdleMotions[i % startTodayIdleMotions.length];
                     return (
                         <motion.div
                             key={i}
@@ -32,7 +36,9 @@ export const StartToday = () => {
                             animate={{
                                 y: motionConfig.y,
                                 x: motionConfig.x ?? [0, 0, 0],
-                                rotate: motionConfig.rotate.map((r) => pos.rotate + r),
+                                rotate: motionConfig.rotate.map(
+                                    (r) => pos.rotate + r,
+                                ),
                             }}
                             transition={{
                                 y: {
@@ -138,12 +144,17 @@ export const StartToday = () => {
                     }}
                 >
                     <Link href="/catalog">
-                        <Button variant="white" size="large" iconPosition="right" icon={<StartTodayButtonIcon />}>
+                        <Button
+                            variant="white"
+                            size="large"
+                            iconPosition="right"
+                            icon={<StartTodayButtonIcon />}
+                        >
                             Go to catalog
                         </Button>
                     </Link>
                 </motion.div>
             </motion.div>
         </RoundedBlock>
-    )
-}
+    );
+};

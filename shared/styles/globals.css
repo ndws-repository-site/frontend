@@ -7,6 +7,6 @@
 @source "../../shared";
 
 @theme {
-  --color-primary: #17411B;
-  --breakpoint-mob: 31.25rem; /* 500px */
+    --color-primary: #17411b;
+    --breakpoint-mob: 31.25rem; /* 500px */
 }

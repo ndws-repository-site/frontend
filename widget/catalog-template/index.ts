@@ -1,1 +1,1 @@
-export * from './ui/catalog-template';
+export * from "./ui/catalog-template";

@@ -10,11 +10,16 @@ export const ProductCard = ({
     image,
     slug,
     loading = false,
-    className
+    className,
 }: ProductCardProps) => {
     if (loading) {
         return (
-            <div className={cn("bg-white px-3.5 pt-3.5 rounded-[25px] min-h-[420px]", className)}>
+            <div
+                className={cn(
+                    "bg-white px-3.5 pt-3.5 rounded-[25px] min-h-[420px]",
+                    className,
+                )}
+            >
                 <div className="flex items-center justify-between mb-6.5">
                     <div className="h-[60px] w-48 bg-gray-200 rounded-lg animate-pulse" />
                     <div className="h-12 w-28 bg-gray-200 rounded-full animate-pulse" />
@@ -58,4 +63,4 @@ export const ProductCard = ({
             </div>
         </div>
     );
-}
+};

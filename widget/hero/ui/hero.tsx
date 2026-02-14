@@ -4,7 +4,12 @@ import { useRef, useSyncExternalStore } from "react";
 import { RoundedBlock } from "@/shared/ui";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { fadeUp, stagger, backgroundJarMotions, backgroundJarEntrance } from "../config/animations";
+import {
+    fadeUp,
+    stagger,
+    backgroundJarMotions,
+    backgroundJarEntrance,
+} from "../config/animations";
 import { BACKGROUND_JARS } from "../config/background-jars";
 
 const subscribeResize = (cb: () => void) => {
@@ -16,7 +21,11 @@ const getServerHeight = () => null;
 
 export const Hero = () => {
     const heroRef = useRef<HTMLElement>(null);
-    const height = useSyncExternalStore(subscribeResize, getHeight, getServerHeight);
+    const height = useSyncExternalStore(
+        subscribeResize,
+        getHeight,
+        getServerHeight,
+    );
     const { scrollYProgress } = useScroll({
         target: heroRef,
         offset: ["start start", "end start"],
@@ -28,7 +37,10 @@ export const Hero = () => {
         <RoundedBlock
             ref={heroRef}
             className="relative z-0 overflow-hidden"
-            style={{ minHeight: height ?? "100vh", height: height ?? undefined }}
+            style={{
+                minHeight: height ?? "100vh",
+                height: height ?? undefined,
+            }}
         >
             <Image
                 src="/hero/background.jpg"
@@ -46,7 +58,8 @@ export const Hero = () => {
 
             <div className="absolute inset-0 pointer-events-none rounded-[30px] overflow-hidden">
                 {BACKGROUND_JARS.map((pos, i) => {
-                    const motionConfig = backgroundJarMotions[i % backgroundJarMotions.length];
+                    const motionConfig =
+                        backgroundJarMotions[i % backgroundJarMotions.length];
                     return (
                         <motion.div
                             key={i}
@@ -67,34 +80,47 @@ export const Hero = () => {
                                 scale: backgroundJarEntrance.animate.scale,
                                 y: motionConfig.y,
                                 x: motionConfig.x ?? [0, 0, 0],
-                                rotate: motionConfig.rotate.map((r) => pos.rotate + r),
+                                rotate: motionConfig.rotate.map(
+                                    (r) => pos.rotate + r,
+                                ),
                             }}
                             transition={{
                                 opacity: {
                                     ...backgroundJarEntrance.transition,
-                                    delay: i * backgroundJarEntrance.staggerDelay,
+                                    delay:
+                                        i * backgroundJarEntrance.staggerDelay,
                                 },
                                 scale: {
                                     ...backgroundJarEntrance.transition,
-                                    delay: i * backgroundJarEntrance.staggerDelay,
+                                    delay:
+                                        i * backgroundJarEntrance.staggerDelay,
                                 },
                                 y: {
                                     duration: motionConfig.duration,
                                     repeat: Infinity,
                                     ease: "easeInOut",
-                                    delay: motionConfig.delay + 0.5 + i * backgroundJarEntrance.staggerDelay,
+                                    delay:
+                                        motionConfig.delay +
+                                        0.5 +
+                                        i * backgroundJarEntrance.staggerDelay,
                                 },
                                 x: {
                                     duration: motionConfig.duration,
                                     repeat: Infinity,
                                     ease: "easeInOut",
-                                    delay: motionConfig.delay + 0.5 + i * backgroundJarEntrance.staggerDelay,
+                                    delay:
+                                        motionConfig.delay +
+                                        0.5 +
+                                        i * backgroundJarEntrance.staggerDelay,
                                 },
                                 rotate: {
                                     duration: motionConfig.duration,
                                     repeat: Infinity,
                                     ease: "easeInOut",
-                                    delay: motionConfig.delay + 0.5 + i * backgroundJarEntrance.staggerDelay,
+                                    delay:
+                                        motionConfig.delay +
+                                        0.5 +
+                                        i * backgroundJarEntrance.staggerDelay,
                                 },
                             }}
                         >
@@ -137,7 +163,11 @@ export const Hero = () => {
                         opacity: 1,
                         y: 0,
                     }}
-                    transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{
+                        duration: 0.8,
+                        delay: 0.3,
+                        ease: [0.22, 1, 0.36, 1],
+                    }}
                     className="relative w-full"
                 >
                     <motion.div

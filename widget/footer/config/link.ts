@@ -36,24 +36,24 @@ export const CONTACT_LINKS: ColumnLinkItem[] = [
         text: "leave a question",
         href: "/leave-a-question",
         underline: true,
-    }
+    },
 ];
 
 export const DOCUMENTS_LINKS: ColumnLinkItem[] = [
     {
         text: "Privacy Policy",
-        href: "/docs/privacy-policy"
+        href: "/docs/privacy-policy",
     },
     {
         text: "Personal data processing policy",
-        href: "/docs/personal-data-processing-policy"
+        href: "/docs/personal-data-processing-policy",
     },
     {
         text: "consent to the processing of personal data",
-        href: "/docs/consent-to-the-processing-of-personal-data"
+        href: "/docs/consent-to-the-processing-of-personal-data",
     },
     {
         text: "Cookie Policy",
-        href: "/docs/cookie-policy"
-    }
-]
+        href: "/docs/cookie-policy",
+    },
+];

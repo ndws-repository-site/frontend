@@ -9,5 +9,5 @@ export const Catalog = () => {
             description="We focus on the basics — the things that make growth possible. Choose a product that suits your goals and take the next step toward achieving results."
             products={PRODUCTS_MOCK}
         />
-    )
-}
+    );
+};

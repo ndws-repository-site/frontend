@@ -31,10 +31,28 @@ export const backgroundJarEntrance = {
 
 /** Наборы анимаций для фоновых баночек (плавное парение + лёгкое вращение) */
 export const backgroundJarMotions: BackgroundJarMotion[] = [
-    { y: [0, -18, 0], x: [0, 6, 0], rotate: [0, 5, -3, 0], duration: 4.2, delay: 0 },
+    {
+        y: [0, -18, 0],
+        x: [0, 6, 0],
+        rotate: [0, 5, -3, 0],
+        duration: 4.2,
+        delay: 0,
+    },
     { y: [0, 12, -8, 0], rotate: [0, -6, 4, 0], duration: 5.0, delay: 0.3 },
-    { y: [0, -14, 0], x: [0, -5, 0], rotate: [0, -4, 6, 0], duration: 4.6, delay: 0.6 },
+    {
+        y: [0, -14, 0],
+        x: [0, -5, 0],
+        rotate: [0, -4, 6, 0],
+        duration: 4.6,
+        delay: 0.6,
+    },
     { y: [0, 10, 0], rotate: [0, 3, -5, 0], duration: 5.2, delay: 0.2 },
     { y: [0, -16, 8, 0], rotate: [0, 7, -2, 0], duration: 4.8, delay: 0.5 },
-    { y: [0, 8, -12, 0], x: [0, 4, 0], rotate: [0, -5, 5, 0], duration: 5.4, delay: 0.4 },
+    {
+        y: [0, 8, -12, 0],
+        x: [0, 4, 0],
+        rotate: [0, -5, 5, 0],
+        duration: 5.4,
+        delay: 0.4,
+    },
 ];

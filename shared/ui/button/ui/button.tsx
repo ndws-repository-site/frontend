@@ -22,7 +22,7 @@ export const Button = ({
     const styles = buttonVariantStyles[variant];
     const buttonRef = useRef<HTMLButtonElement>(null);
     const [circleRightLeftPx, setCircleRightLeftPx] = useState<number | null>(
-        null
+        null,
     );
 
     const containerClasses = cn(
@@ -34,7 +34,7 @@ export const Button = ({
         size === "large" && "min-h-[48px]",
         compact && "min-h-[32px]",
         ALEXANDRIA_FONT.className,
-        className
+        className,
     );
 
     // 3px от краёв = как по Y (h-[86%] → 7% сверху/снизу). Анимация доезжает до края.
@@ -75,12 +75,22 @@ export const Button = ({
             variants={{ initial: {}, hover: {} }}
             {...(rest as HTMLMotionProps<"button">)}
         >
-            <div className={cn("invisible flex items-center whitespace-nowrap font-medium", compact ? "pl-3 pr-8 text-[14px]" : "pl-5 pr-14 text-[16px]")}>
+            <div
+                className={cn(
+                    "invisible flex items-center whitespace-nowrap font-medium",
+                    compact
+                        ? "pl-3 pr-8 text-[14px]"
+                        : "pl-5 pr-14 text-[16px]",
+                )}
+            >
                 {children}
             </div>
 
             <motion.div
-                className={cn("absolute z-10 flex items-center pointer-events-none", compact ? "left-3" : "left-5")}
+                className={cn(
+                    "absolute z-10 flex items-center pointer-events-none",
+                    compact ? "left-3" : "left-5",
+                )}
                 variants={{
                     initial: {
                         opacity: isIconLeft ? 0 : 1,
@@ -93,13 +103,21 @@ export const Button = ({
                 }}
                 transition={{ duration: 0.65 }}
             >
-                <span className={cn("text-inherit font-medium whitespace-nowrap", compact ? "text-[14px]" : "text-[16px]")}>
+                <span
+                    className={cn(
+                        "text-inherit font-medium whitespace-nowrap",
+                        compact ? "text-[14px]" : "text-[16px]",
+                    )}
+                >
                     {children}
                 </span>
             </motion.div>
 
             <motion.div
-                className={cn("absolute z-10 flex items-center justify-end pointer-events-none", compact ? "right-3" : "right-5")}
+                className={cn(
+                    "absolute z-10 flex items-center justify-end pointer-events-none",
+                    compact ? "right-3" : "right-5",
+                )}
                 variants={{
                     initial: {
                         opacity: isIconLeft ? 1 : 0,
@@ -112,7 +130,12 @@ export const Button = ({
                 }}
                 transition={{ duration: 0.45 }}
             >
-                <span className={cn("text-inherit font-medium whitespace-nowrap", compact ? "text-[14px]" : "text-[16px]")}>
+                <span
+                    className={cn(
+                        "text-inherit font-medium whitespace-nowrap",
+                        compact ? "text-[14px]" : "text-[16px]",
+                    )}
+                >
                     {children}
                 </span>
             </motion.div>
@@ -121,13 +144,9 @@ export const Button = ({
                 className={cn(
                     "absolute top-1/2 z-20 flex -translate-y-1/2 items-center justify-center rounded-full aspect-square h-[86%]",
                     isIconLeft && "left-[3px]",
-                    styles.circle
+                    styles.circle,
                 )}
-                style={
-                    isIconLeft
-                        ? undefined
-                        : { left: circleLeftEnd }
-                }
+                style={isIconLeft ? undefined : { left: circleLeftEnd }}
                 initial={circleInitial}
                 variants={{
                     initial: circleInitial,

@@ -1,9 +1,13 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { CONTACT_LINKS, DOCUMENTS_LINKS, NAVIGATION_LINKS } from "../config/link";
+import {
+    CONTACT_LINKS,
+    DOCUMENTS_LINKS,
+    NAVIGATION_LINKS,
+} from "../config/link";
 import { Social } from "../types/social";
 import { ColumnLink } from "./column-link";
 import { ColumnTitle } from "./column-title";
@@ -12,8 +16,8 @@ import { LETTERS } from "../config/letters";
 import { drawLetterTransition } from "../config/draw-letter-transition";
 
 export const Footer = () => {
-    const footerRef = useRef<HTMLElement>(null)
-    const ndwsInView = useInView(footerRef, { amount: 0.7, once: true })
+    const footerRef = useRef<HTMLElement>(null);
+    const ndwsInView = useInView(footerRef, { amount: 0.7, once: true });
 
     return (
         <footer
@@ -46,8 +50,12 @@ export const Footer = () => {
                 <div className="mob:col-start-2 mob:col-span-2 mob:row-start-2 lg:col-start-auto lg:col-span-1 lg:row-start-auto">
                     <ColumnTitle title="Documents" className="mb-5" />
                     <div className="grid grid-cols-1 mob:grid-cols-2 lg:grid-cols-1 gap-2.5 max-w-[208px] mob:max-w-none lg:max-w-[208px]">
-                        {DOCUMENTS_LINKS.map(link => (
-                            <Link key={link.href} href={link.href} className="uppercase text-[14px] mob:text-[20px] text-white leading-[110%] cursor-pointer transition hover:text-primary">
+                        {DOCUMENTS_LINKS.map((link) => (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                className="uppercase text-[14px] mob:text-[20px] text-white leading-[110%] cursor-pointer transition hover:text-primary"
+                            >
                                 {link.text}
                             </Link>
                         ))}
@@ -82,5 +90,5 @@ export const Footer = () => {
                 </h2>
             </div>
         </footer>
-    )
-}
+    );
+};

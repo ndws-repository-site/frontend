@@ -1,2 +1,2 @@
-export * from './figures';
-export * from './star-in-box';
+export * from "./figures";
+export * from "./star-in-box";
