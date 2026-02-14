@@ -13,6 +13,7 @@ export { AdminTextarea } from "./ui/form/admin-textarea";
 export { AdminSelect } from "./ui/form/admin-select";
 export { AdminCheckbox } from "./ui/form/admin-checkbox";
 export { AdminFileUpload } from "./ui/form/admin-file-upload";
+export { AdminMultiFileUpload } from "./ui/form/admin-multi-file-upload";
 export { AdminColorPicker } from "./ui/form/admin-color-picker";
 export { AdminToggleGroup } from "./ui/form/admin-toggle-group";
 export { AdminRowSelect } from "./ui/form/admin-row-select";
@@ -36,6 +37,7 @@ export type {
     AdminSelectOption,
 } from "./types/admin-select.props";
 export type { AdminFileUploadProps } from "./types/admin-file-upload.props";
+export type { AdminMultiFileUploadProps } from "./types/admin-multi-file-upload.props";
 export type {
     AdminToggleGroupProps,
     AdminToggleOption,

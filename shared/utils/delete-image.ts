@@ -33,22 +33,11 @@ export async function deleteImage(
         return { success: false, error: "Path is required" };
     }
 
-    let baseUrl: string;
-    if (typeof path === "string" && path.startsWith("http")) {
-        try {
-            baseUrl = new URL(path).origin;
-        } catch {
-            baseUrl =
-                typeof window !== "undefined"
-                    ? window.location.origin
-                    : process.env.NEXT_PUBLIC_SITE_API_ORIGIN || "";
-        }
-    } else {
-        baseUrl =
-            typeof window !== "undefined"
-                ? window.location.origin
-                : process.env.NEXT_PUBLIC_SITE_API_ORIGIN || "";
-    }
+    // Всегда используем origin текущего приложения — загрузка идёт через Next.js /api/upload
+    const baseUrl =
+        typeof window !== "undefined"
+            ? window.location.origin
+            : process.env.NEXT_PUBLIC_SITE_API_ORIGIN || "";
     const url = `${baseUrl}/api/upload/${pathSegments.join("/")}`;
 
     try {
