@@ -8,9 +8,7 @@ export interface DeleteImageResult {
  * @param url - URL вида '/uploads/hero/123.jpg' или полный URL
  */
 export function imageUrlToPath(url: string): string[] {
-    const pathname = url.startsWith("http")
-        ? new URL(url).pathname
-        : url;
+    const pathname = url.startsWith("http") ? new URL(url).pathname : url;
     const segments = pathname.split("/").filter(Boolean);
     const uploadsIndex = segments.indexOf("uploads");
     if (uploadsIndex >= 0 && uploadsIndex < segments.length - 1) {
@@ -29,17 +27,28 @@ export function imageUrlToPath(url: string): string[] {
 export async function deleteImage(
     path: string[] | string,
 ): Promise<DeleteImageResult> {
-    const pathSegments =
-        typeof path === "string" ? imageUrlToPath(path) : path;
+    const pathSegments = typeof path === "string" ? imageUrlToPath(path) : path;
 
     if (!pathSegments.length) {
         return { success: false, error: "Path is required" };
     }
 
-    const baseUrl =
-        typeof window !== "undefined"
-            ? window.location.origin
-            : process.env.NEXT_PUBLIC_SITE_API_ORIGIN || "";
+    let baseUrl: string;
+    if (typeof path === "string" && path.startsWith("http")) {
+        try {
+            baseUrl = new URL(path).origin;
+        } catch {
+            baseUrl =
+                typeof window !== "undefined"
+                    ? window.location.origin
+                    : process.env.NEXT_PUBLIC_SITE_API_ORIGIN || "";
+        }
+    } else {
+        baseUrl =
+            typeof window !== "undefined"
+                ? window.location.origin
+                : process.env.NEXT_PUBLIC_SITE_API_ORIGIN || "";
+    }
     const url = `${baseUrl}/api/upload/${pathSegments.join("/")}`;
 
     try {

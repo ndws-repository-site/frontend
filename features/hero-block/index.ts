@@ -1,1 +1,1 @@
-export * from './ui/hero-block';
+export * from "./ui/hero-block";

@@ -13,10 +13,10 @@ export const AdminFormGroup = ({
     className?: string;
 }) => {
     return (
-        <div className={cn(className)}>
+        <div>
             <p className="text-white leading-[112%] mb-4">{title}</p>
 
-            {children}
+            <div className={cn(className)}>{children}</div>
         </div>
     );
 };

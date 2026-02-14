@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, ChangeEvent, DragEvent } from "react";
+import { useRef, useState, useEffect, ChangeEvent, DragEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Trash } from "lucide-react";
 import { cn } from "@/shared/utils";
@@ -28,6 +28,12 @@ export const AdminFileUpload = ({
     );
 
     const file = value !== undefined ? value : internalFile;
+
+    useEffect(() => {
+        if (value === null && inputRef.current) {
+            inputRef.current.value = "";
+        }
+    }, [value]);
 
     const handleClick = () => {
         if (!disabled) inputRef.current?.click();

@@ -3,7 +3,8 @@ import type { NextRequest } from "next/server";
 
 const LOGIN_ROUTE = "/admin/auth";
 
-const STATIC_FILE_EXT = /\.(png|jpg|jpeg|gif|svg|ico|webp|woff2?|css|js)(\?.*)?$/i;
+const STATIC_FILE_EXT =
+    /\.(png|jpg|jpeg|gif|svg|ico|webp|woff2?|css|js)(\?.*)?$/i;
 
 export async function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
@@ -54,7 +55,9 @@ export async function proxy(request: NextRequest) {
 
             return NextResponse.next();
         } catch {
-            const response = NextResponse.redirect(new URL(LOGIN_ROUTE, request.url));
+            const response = NextResponse.redirect(
+                new URL(LOGIN_ROUTE, request.url),
+            );
             response.cookies.delete("accessToken");
             return response;
         }
