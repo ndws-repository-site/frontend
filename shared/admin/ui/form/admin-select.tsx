@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Loader2, X, Search as SearchIcon } from "lucide-react";
 import { cn } from "@/shared/utils";
@@ -27,6 +27,11 @@ export const AdminSelect = ({
     const containerRef = useRef<HTMLDivElement>(null);
     const searchInputRef = useRef<HTMLInputElement>(null);
 
+    const closeDropdown = useCallback(() => {
+        setIsOpen(false);
+        setSearchQuery("");
+    }, []);
+
     // Находим выбранный лейбл (сравниваем как строки, чтобы избежать проблем '1' != 1)
     const selectedOption = options.find(
         (opt) => String(opt.value) === String(value),
@@ -40,25 +45,24 @@ export const AdminSelect = ({
                 containerRef.current &&
                 !containerRef.current.contains(event.target as Node)
             ) {
-                setIsOpen(false);
+                closeDropdown();
             }
         };
         document.addEventListener("mousedown", handleClickOutside);
         return () =>
             document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
+    }, [closeDropdown]);
 
-    // Фокус на поиск и сброс строки при открытии/закрытии
+    // Фокус на поиск при открытии
     useEffect(() => {
         if (isOpen && isSearchable) {
             setTimeout(() => searchInputRef.current?.focus(), 50);
         }
-        if (!isOpen) setSearchQuery("");
     }, [isOpen, isSearchable]);
 
     const handleSelect = (val: string | number) => {
         onChange(val);
-        setIsOpen(false);
+        closeDropdown();
     };
 
     const handleClear = (e: React.MouseEvent) => {

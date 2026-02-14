@@ -12,6 +12,7 @@ export const AdminInlineButton = ({
 }: AdminButtonProps) => {
     return (
         <button
+            type={type}
             className={cn(
                 "text-white/60 underline underline-offset-3 cursor-pointer transition duration-300 ease-in-out hover:text-white text-[12px]",
                 className,

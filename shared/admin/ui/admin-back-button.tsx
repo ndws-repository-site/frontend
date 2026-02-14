@@ -12,6 +12,7 @@ export const AdminBackButton = ({
 }: AdminButtonProps) => {
     return (
         <button
+            type={type}
             className={cn(
                 "flex items-center gap-3.5 cursor-pointer",
                 className,

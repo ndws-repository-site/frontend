@@ -1,6 +1,12 @@
 "use client";
 
-import { AdminButton, AdminFileUpload, AdminFormCard, AdminLoading, AdminPageTitle } from "@/shared/admin"
+import {
+    AdminButton,
+    AdminFileUpload,
+    AdminFormCard,
+    AdminLoading,
+    AdminPageTitle,
+} from "@/shared/admin";
 import { useEffect, useState } from "react";
 import { useHero } from "../api/use-hero";
 import { AdminFormError } from "@/shared/admin/ui/form/admin-form-error";
@@ -58,7 +64,7 @@ export const HeroBlock = () => {
             setImage(uploadResult.url);
             await $apiAdmin.put("/hero", { image: uploadResult.url });
             queryClient.invalidateQueries({ queryKey: ["hero-block"] });
-        } catch (err) {
+        } catch {
             setError("Ошибка сохранения");
         } finally {
             setIsLoading(false);
@@ -68,7 +74,10 @@ export const HeroBlock = () => {
     return (
         <div>
             <div className="flex items-center justify-between mb-8">
-                <AdminPageTitle title="Редактировать хиро блок" className="mb-0!" />
+                <AdminPageTitle
+                    title="Редактировать хиро блок"
+                    className="mb-0!"
+                />
 
                 <div className="flex items-center gap-2">
                     <AdminButton
@@ -96,7 +105,7 @@ export const HeroBlock = () => {
                 {error && <AdminFormError error={error} />}
                 <AdminFormCard title="Изображение">
                     <AdminFileUpload
-                        name="image" 
+                        name="image"
                         placeholder="Загрузить изображение"
                         accept="image/png, image/svg+xml"
                         variant="standard"
@@ -107,5 +116,5 @@ export const HeroBlock = () => {
                 </AdminFormCard>
             </form>
         </div>
-    )
-}
+    );
+};
