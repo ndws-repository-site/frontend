@@ -9,6 +9,7 @@ import {
     Package,
     CreditCard,
     User,
+    BarChart3,
 } from "lucide-react";
 import { Navigation } from "../types/navigation";
 
@@ -17,6 +18,11 @@ import { Navigation } from "../types/navigation";
  * Заполните пунктами меню: icon (из lucide-react), name, href, roles?, additionalHrefs?
  */
 export const NAV_DATA: Navigation[] = [
+    {
+        icon: BarChart3,
+        name: "Статистика",
+        href: "/admin/stats",
+    },
     {
         icon: Home,
         name: "Хиро блок",

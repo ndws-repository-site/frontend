@@ -7,3 +7,4 @@ export * from "./product.response";
 export * from "./faq.reponse";
 export * from "./admin.response";
 export * from "./product-block.response";
+export * from "./stats.reponse";
