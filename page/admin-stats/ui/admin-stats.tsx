@@ -37,7 +37,7 @@ const formatDate = (dateStr: string) => {
 const formatMoney = (value: number) =>
     new Intl.NumberFormat("ru-RU", {
         style: "currency",
-        currency: "RUB",
+        currency: "USD",
         maximumFractionDigits: 0,
     }).format(value);
 
