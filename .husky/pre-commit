@@ -1,1 +1,2 @@
+bun run depcheck
 bun run lint-staged

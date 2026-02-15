@@ -7,7 +7,6 @@
         "@types/node",
         "@types/react",
         "@types/react-dom",
-        "react-hook-form",
-        "zustand"
+        "lint-staged"
     ]
 }
