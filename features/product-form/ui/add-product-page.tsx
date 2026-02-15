@@ -51,9 +51,7 @@ export const AddProductPage = ({
     return (
         <div>
             <AdminPageTitle title="Выбор рекомендуемых товаров" />
-            <AdminBackButton onClick={onBack} className="mb-6">
-                <></>
-            </AdminBackButton>
+            <AdminBackButton onClick={onBack} className="mb-6" />
 
             <div className="mb-6">
                 <AdminInput

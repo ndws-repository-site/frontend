@@ -4,8 +4,9 @@ import * as Icons from "lucide-react";
 
 const createOption = (name: string, ruKeywords: string): AdminSelectOption => {
     const Icon =
-        (Icons as Record<string, ComponentType<{ size?: number }>>)[name] ??
-        Icons.HelpCircle;
+        (Icons as unknown as Record<string, ComponentType<{ size?: number }>>)[
+            name
+        ] ?? Icons.HelpCircle;
 
     return {
         value: name,

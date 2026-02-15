@@ -174,16 +174,19 @@ export const AdminStats = () => {
                                     color: "#fff",
                                 }}
                                 labelStyle={{ color: "#a3a3a3" }}
-                                formatter={(value: number) => [
-                                    value,
+                                formatter={(value: number | undefined) => [
+                                    value ?? 0,
                                     "Заказов",
                                 ]}
                                 labelFormatter={(_, payload) => {
                                     const p = Array.isArray(payload)
                                         ? payload[0]
                                         : payload;
-                                    return p?.payload?.fullDate
-                                        ? formatDate(p.payload.fullDate)
+                                    const item = p as
+                                        | { payload?: { fullDate?: string } }
+                                        | undefined;
+                                    return item?.payload?.fullDate
+                                        ? formatDate(item.payload.fullDate)
                                         : "";
                                 }}
                             />
@@ -255,8 +258,8 @@ export const AdminStats = () => {
                                         borderRadius: "12px",
                                         color: "#fff",
                                     }}
-                                    formatter={(value: number) => [
-                                        formatMoney(value),
+                                    formatter={(value: number | undefined) => [
+                                        formatMoney(value ?? 0),
                                         "Выручка",
                                     ]}
                                 />
