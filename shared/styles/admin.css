@@ -16,7 +16,7 @@
 
     /* Chrome, Edge, Safari */
     .custom-scrollbar::-webkit-scrollbar {
-        width: 4px; /* Ширина полоски */
+        width: 8px; /* Ширина полоски */
     }
 
     .custom-scrollbar::-webkit-scrollbar-track {
@@ -42,5 +42,46 @@
 
     .scrollbar-hide::-webkit-scrollbar {
         display: none;
+    }
+
+    /* Left panel scrollbar: 13px offset, трек 8px (2+4+2), thumb 4px по центру с отступом 2px от трека.
+       Без scrollbar-width/scrollbar-color, иначе в Chrome 121+ игнорируются ::-webkit-scrollbar. */
+    .left-panel-scrollbar {
+        padding-right: 21px; /* 13px offset + 8px scrollbar */
+    }
+
+    /* Firefox: стандартные свойства */
+    @supports not (selector(::-webkit-scrollbar)) {
+        .left-panel-scrollbar {
+            scrollbar-width: thin;
+            scrollbar-color: #212121 #383838;
+        }
+    }
+
+    .left-panel-scrollbar::-webkit-scrollbar {
+        width: 8px; /* 2px зазор + 4px thumb + 2px зазор */
+    }
+
+    .left-panel-scrollbar::-webkit-scrollbar-button:vertical:start,
+    .left-panel-scrollbar::-webkit-scrollbar-button:vertical:end {
+        height: 0;
+        display: none;
+    }
+
+    .left-panel-scrollbar::-webkit-scrollbar-track {
+        background: #383838;
+        margin: 4px 0;
+        border-radius: 9999px;
+    }
+
+    .left-panel-scrollbar::-webkit-scrollbar-thumb {
+        background: #212121;
+        border-radius: 9999px;
+        margin: 2px; /* отступ от фона (трека) 2px */
+        min-height: 40px;
+    }
+
+    .left-panel-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #2d2d2d;
     }
 }

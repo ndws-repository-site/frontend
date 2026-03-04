@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
@@ -18,8 +19,33 @@ import { AdminCard } from "@/shared/admin";
  */
 export const AdminLeftPanel = () => {
     const { data: profile, isLoading } = useAdminProfile();
-
     const pathname = usePathname();
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const [showBottomGradient, setShowBottomGradient] = useState(true);
+
+    const checkScroll = useCallback(() => {
+        const el = scrollRef.current;
+        if (!el) return;
+        const { scrollTop, clientHeight, scrollHeight } = el;
+        const hasOverflow = scrollHeight > clientHeight;
+        const isAtBottom =
+            !hasOverflow || scrollTop + clientHeight >= scrollHeight - 2;
+        setShowBottomGradient(hasOverflow && !isAtBottom);
+    }, []);
+
+    useEffect(() => {
+        const el = scrollRef.current;
+        if (!el) return;
+        const id = requestAnimationFrame(() => checkScroll());
+        el.addEventListener("scroll", checkScroll);
+        const ro = new ResizeObserver(checkScroll);
+        ro.observe(el);
+        return () => {
+            cancelAnimationFrame(id);
+            el.removeEventListener("scroll", checkScroll);
+            ro.disconnect();
+        };
+    }, [checkScroll, isLoading]);
 
     const handleLogout = async () => {
         await logout();
@@ -42,29 +68,44 @@ export const AdminLeftPanel = () => {
                 className="mb-9.5"
             />
 
-            <div className="scrollbar-hide flex flex-col gap-3 w-full max-h-[calc(7*2.75rem+6*0.75rem)] overflow-y-auto min-h-0">
-                {isLoading
-                    ? Array.from({ length: 4 }).map((_, index) => (
-                          <NavigationSkeleton key={index} />
-                      ))
-                    : NAV_DATA.map((item) => {
-                          const isActive =
-                              pathname === item.href ||
-                              pathname.startsWith(item.href + "/") ||
-                              item.additionalHrefs?.some((path) =>
-                                  pathname.startsWith(path),
-                              );
+            <div className="relative w-full max-h-[calc(7*2.75rem+6*0.75rem)] min-h-0 shrink-0">
+                <div
+                    ref={scrollRef}
+                    className="left-panel-scrollbar flex flex-col gap-3 w-full h-full max-h-[calc(7*2.75rem+6*0.75rem)] overflow-y-auto min-h-0"
+                >
+                    {isLoading
+                        ? Array.from({ length: 4 }).map((_, index) => (
+                              <NavigationSkeleton key={index} />
+                          ))
+                        : NAV_DATA.map((item) => {
+                              const isActive =
+                                  pathname === item.href ||
+                                  pathname.startsWith(item.href + "/") ||
+                                  item.additionalHrefs?.some((path) =>
+                                      pathname.startsWith(path),
+                                  );
 
-                          return (
-                              <NavigationItem
-                                  key={item.name + item.href}
-                                  icon={item.icon}
-                                  name={item.name}
-                                  href={item.href}
-                                  active={!!isActive} // Передаем результат новой проверки
-                              />
-                          );
-                      })}
+                              return (
+                                  <NavigationItem
+                                      key={item.name + item.href}
+                                      icon={item.icon}
+                                      name={item.name}
+                                      href={item.href}
+                                      active={!!isActive}
+                                  />
+                              );
+                          })}
+                </div>
+                <div
+                    className="pointer-events-none absolute -bottom-3 right-5 h-26 transition-opacity duration-300 w-[250px]"
+                    style={{
+                        opacity: showBottomGradient ? 1 : 0,
+                        background:
+                            "linear-gradient(to top, #212121 0%, transparent 100%)",
+                        filter: "blur(4px)",
+                    }}
+                    aria-hidden
+                />
             </div>
 
             <button

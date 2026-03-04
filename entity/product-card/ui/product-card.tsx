@@ -1,9 +1,7 @@
 import { cn } from "@/shared/utils";
 import { ProductCardProps } from "../types/product-card.props";
-import Link from "next/link";
-import { Button } from "@/shared/ui";
-import { Blocks } from "@/shared/icons";
 import Image from "next/image";
+import SeeMoreButton from "./see-more-button";
 
 export const ProductCard = ({
     name,
@@ -35,18 +33,10 @@ export const ProductCard = ({
                     {name}
                 </p>
 
-                <Link href={`/product/${slug}`} className="shrink-0">
-                    <Button
-                        icon={<Blocks />}
-                        iconPosition="right"
-                        variant="primary"
-                        size="large"
-                        compact
-                        className="min-h-[32px] mob:min-h-[36px] lg:min-h-[48px]"
-                    >
-                        See more
-                    </Button>
-                </Link>
+                <SeeMoreButton
+                    href={`/product/${slug}`}
+                    className="min-h-[32px] mob:min-h-[36px] lg:min-h-[48px] shrink-0"
+                />
             </div>
 
             <div className="relative w-full flex items-center justify-center">

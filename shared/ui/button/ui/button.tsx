@@ -42,17 +42,22 @@ export const Button = ({
     const circleWidthPx = compact ? 27 : CIRCLE_WIDTH_BY_SIZE[size ?? "medium"];
     const circleWidthRem = `${circleWidthPx / 16}rem`;
     const circleLeftEndCalc = `calc(100% - ${circlePadding}px - ${circleWidthRem})`;
+    const compactIconRight = compact && !isIconLeft;
     const circleLeftEnd =
         !isIconLeft && circleRightLeftPx != null
             ? `${circleRightLeftPx}px`
             : circleLeftEndCalc;
     const circleLeftStart = `${circlePadding}px`;
-    const circleInitial = isIconLeft
-        ? { left: circleLeftStart, rotate: 0 }
-        : { left: circleLeftEnd, rotate: 0 };
-    const circleHover = isIconLeft
-        ? { left: circleLeftEndCalc, rotate: 360 }
-        : { left: circleLeftStart, rotate: -360 };
+    const circleInitial = compactIconRight
+        ? { left: circleLeftEnd, rotate: 0 }
+        : isIconLeft
+          ? { left: circleLeftStart, rotate: 0 }
+          : { left: circleLeftEnd, rotate: 0 };
+    const circleHover = compactIconRight
+        ? { left: circleLeftStart, rotate: -360 }
+        : isIconLeft
+          ? { left: circleLeftEndCalc, rotate: 360 }
+          : { left: circleLeftStart, rotate: -360 };
 
     useLayoutEffect(() => {
         if (isIconLeft) return;
@@ -79,7 +84,7 @@ export const Button = ({
                 className={cn(
                     "invisible flex items-center whitespace-nowrap font-medium",
                     compact
-                        ? "pl-3 pr-8 text-[14px]"
+                        ? "pl-3 pr-14 text-[14px] min-w-[140px]"
                         : "pl-5 pr-14 text-[16px]",
                 )}
             >
@@ -89,7 +94,9 @@ export const Button = ({
             <motion.div
                 className={cn(
                     "absolute z-10 flex items-center pointer-events-none",
-                    compact ? "left-3" : "left-5",
+                    compact && isIconLeft && "left-3",
+                    !compact && !compactIconRight && "left-5",
+                    compactIconRight && "left-[44px] right-0",
                 )}
                 variants={{
                     initial: {
@@ -116,7 +123,10 @@ export const Button = ({
             <motion.div
                 className={cn(
                     "absolute z-10 flex items-center justify-end pointer-events-none",
-                    compact ? "right-3" : "right-5",
+                    compact && isIconLeft && "right-3",
+                    !compact && !compactIconRight && "right-5",
+                    isIconLeft && (compact ? "left-[30px]" : "left-11"),
+                    compactIconRight && "left-0 right-[44px]",
                 )}
                 variants={{
                     initial: {
@@ -146,7 +156,7 @@ export const Button = ({
                     isIconLeft && "left-[3px]",
                     styles.circle,
                 )}
-                style={isIconLeft ? undefined : { left: circleLeftEnd }}
+                style={!isIconLeft ? { left: circleLeftEnd } : undefined}
                 initial={circleInitial}
                 variants={{
                     initial: circleInitial,

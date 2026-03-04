@@ -21,7 +21,10 @@ export const Reviews = () => {
     }, []);
 
     return (
-        <section className="lg:pt-22.5 pt-13 lg:pb-32 mob:pb-20 pb-5 w-full overflow-hidden">
+        <section
+            id="reviews"
+            className="lg:pt-22.5 pt-13 lg:pb-32 mob:pb-20 pb-5 w-full overflow-hidden"
+        >
             <h2 className="text-center text-black lg:text-[60px] mob:text-[40px] text-[24px] leading-[110%] uppercase mb-12">
                 We are chosen by those who
                 <br /> train regularly
