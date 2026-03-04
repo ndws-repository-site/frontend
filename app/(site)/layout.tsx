@@ -4,9 +4,26 @@ import "@/shared/styles/globals.css";
 import { Header } from "@/widget/header";
 import { Footer } from "@/widget/footer";
 
-import { JOST_FONT, SEO } from "@/shared/config";
+import {
+    JOST_FONT,
+    KEY_WORDS,
+    SEO_DESCRIPTION,
+    SEO_TITLE,
+} from "@/shared/config";
 
-export const metadata: Metadata = SEO;
+export const metadata: Metadata = {
+    title: SEO_TITLE,
+    description: SEO_DESCRIPTION,
+    keywords: KEY_WORDS,
+    openGraph: {
+        title: SEO_TITLE,
+        description: SEO_DESCRIPTION,
+    },
+    twitter: {
+        title: SEO_TITLE,
+        description: SEO_DESCRIPTION,
+    },
+};
 
 export default function RootLayout({
     children,
