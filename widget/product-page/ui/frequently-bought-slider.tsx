@@ -17,11 +17,11 @@ export const FrequentlyBoughtSlider = ({
     return (
         <Swiper
             spaceBetween={10}
-            slidesPerView={1.15}
+            slidesPerView={1.05}
             breakpoints={{
                 768: {
                     slidesPerView: 2,
-                    spaceBetween: 10,
+                    spaceBetween: 8,
                 },
                 1024: {
                     slidesPerView: 3,

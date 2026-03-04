@@ -41,7 +41,7 @@ export const Header = () => {
     const menuFlex = isMenuOpen ? 1 : isProductsOpen ? collapsedFlex : 0.5;
 
     return (
-        <header className="fixed top-0 left-0 w-full px-5 pt-5 flex items-center justify-between z-50">
+        <header className="fixed top-0 left-0 w-full px-5 pt-5 flex items-center justify-between gap-3 z-50">
             <Link
                 href="/"
                 className="bg-white rounded-full py-3 px-7 cursor-pointer block max-[500px]:py-1.5 max-[500px]:px-3 shrink-0"

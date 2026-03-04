@@ -51,7 +51,7 @@ export const ProductSlider = ({ images }: ProductSliderProps) => {
                 }}
                 spaceBetween={0}
                 slidesPerView={1}
-                className="w-full"
+                className="w-full swiper-navigation-disabled"
                 loop={images.length > 1}
             >
                 {images.map((image, index) => (
