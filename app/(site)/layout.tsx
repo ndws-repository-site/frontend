@@ -4,12 +4,9 @@ import "@/shared/styles/globals.css";
 import { Header } from "@/widget/header";
 import { Footer } from "@/widget/footer";
 
-import { JOST_FONT } from "@/shared/config";
+import { JOST_FONT, SEO } from "@/shared/config";
 
-export const metadata: Metadata = {
-    title: "NDWS",
-    description: "NDWS",
-};
+export const metadata: Metadata = SEO;
 
 export default function RootLayout({
     children,
