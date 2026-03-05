@@ -20,18 +20,22 @@ export const ProductPage = ({
     return (
         <section>
             <RoundedBlock className="bg-black min-h-screen pt-[123px] mb-2.5">
-                <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-25 gap-10 lg:px-10 px-2.5 mob:mb-27.5 mb-23">
-                    <ProductSlider images={images} />
+                <div className="flex lg:flex-row flex-col lg:gap-25 gap-10 lg:px-10 px-2.5 mob:mb-27.5 mb-23">
+                    <div className="w-full lg:w-1/2">
+                        <ProductSlider images={images} />
+                    </div>
 
-                    <ProductRightCard
-                        id={id}
-                        name={name}
-                        price={price}
-                        description={description}
-                        forWho={forWho}
-                        howToUse={howToUse}
-                        ingredients={ingredients}
-                    />
+                    <div className="w-full lg:w-1/2">
+                        <ProductRightCard
+                            id={id}
+                            name={name}
+                            price={price}
+                            description={description}
+                            forWho={forWho}
+                            howToUse={howToUse}
+                            ingredients={ingredients}
+                        />
+                    </div>
                 </div>
 
                 <div className="px-2.5 pb-3 overflow-hidden">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/shared/ui";
 import { Blocks, LogotypeIcon, MenuBlock } from "@/shared/icons";
@@ -10,10 +10,16 @@ import Link from "next/link";
 import { MenuItem } from "./menu-item";
 import { MenuItemType } from "../types";
 
+const TABS_ANIMATION_DURATION_MS = 300;
+
 export const Header = () => {
     const [isMobile, setIsMobile] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isProductsOpen, setIsProductsOpen] = useState(false);
+    const isAnimatingRef = useRef(false);
+    const animationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
+        null,
+    );
 
     useEffect(() => {
         const mq = window.matchMedia("(max-width: 500px)");
@@ -23,7 +29,25 @@ export const Header = () => {
         return () => mq.removeEventListener("change", update);
     }, []);
 
+    useEffect(() => {
+        return () => {
+            if (animationTimeoutRef.current)
+                clearTimeout(animationTimeoutRef.current);
+        };
+    }, []);
+
     const handleMenuProductsClick = (type: MenuItemType) => {
+        if (isAnimatingRef.current) return;
+
+        isAnimatingRef.current = true;
+        if (animationTimeoutRef.current) {
+            clearTimeout(animationTimeoutRef.current);
+        }
+        animationTimeoutRef.current = setTimeout(() => {
+            isAnimatingRef.current = false;
+            animationTimeoutRef.current = null;
+        }, TABS_ANIMATION_DURATION_MS);
+
         if (type === "menu") {
             setIsMenuOpen(!isMenuOpen);
             setIsProductsOpen(false);
@@ -116,6 +140,7 @@ export const Header = () => {
                                         {...item}
                                         number={`${index + 1}`}
                                         type="menu"
+                                        onClick={() => setIsMenuOpen(false)}
                                     />
                                 ))}
                                 <MenuItem
@@ -123,6 +148,7 @@ export const Header = () => {
                                     number="4"
                                     type="menu"
                                     cart="12"
+                                    onClick={() => setIsMenuOpen(false)}
                                 />
                             </motion.div>
                         )}
@@ -141,6 +167,7 @@ export const Header = () => {
                                         {...item}
                                         number={`${index + 1}`}
                                         type="products"
+                                        onClick={() => setIsProductsOpen(false)}
                                     />
                                 ))}
                             </motion.div>

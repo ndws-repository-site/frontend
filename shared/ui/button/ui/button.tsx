@@ -1,6 +1,12 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import {
+    useCallback,
+    useEffect,
+    useLayoutEffect,
+    useRef,
+    useState,
+} from "react";
 import { motion, type HTMLMotionProps } from "framer-motion";
 import { cn } from "@/shared/utils";
 import { buttonVariantStyles } from "../config/button.config";
@@ -24,6 +30,7 @@ export const Button = ({
     const [circleRightLeftPx, setCircleRightLeftPx] = useState<number | null>(
         null,
     );
+    const [circleLeftEndPx, setCircleLeftEndPx] = useState<number | null>(null);
 
     const containerClasses = cn(
         "group relative inline-flex w-fit items-center justify-center min-h-[40px] rounded-full overflow-hidden select-none isolate",
@@ -47,6 +54,10 @@ export const Button = ({
         !isIconLeft && circleRightLeftPx != null
             ? `${circleRightLeftPx}px`
             : circleLeftEndCalc;
+    const circleLeftEndForHover =
+        isIconLeft && circleLeftEndPx != null
+            ? `${circleLeftEndPx}px`
+            : circleLeftEndCalc;
     const circleLeftStart = `${circlePadding}px`;
     const circleInitial = compactIconRight
         ? { left: circleLeftEnd, rotate: 0 }
@@ -56,16 +67,31 @@ export const Button = ({
     const circleHover = compactIconRight
         ? { left: circleLeftStart, rotate: -360 }
         : isIconLeft
-          ? { left: circleLeftEndCalc, rotate: 360 }
+          ? { left: circleLeftEndForHover, rotate: 360 }
           : { left: circleLeftStart, rotate: -360 };
 
-    useLayoutEffect(() => {
-        if (isIconLeft) return;
+    const updateCirclePositions = useCallback(() => {
         const el = buttonRef.current;
         if (!el) return;
         const width = el.offsetWidth;
-        setCircleRightLeftPx(width - circlePadding - circleWidthPx);
+        if (!isIconLeft) {
+            setCircleRightLeftPx(width - circlePadding - circleWidthPx);
+        } else {
+            setCircleLeftEndPx(width - circlePadding - circleWidthPx);
+        }
     }, [isIconLeft, circlePadding, circleWidthPx]);
+
+    useLayoutEffect(() => {
+        updateCirclePositions();
+    }, [updateCirclePositions]);
+
+    useEffect(() => {
+        const el = buttonRef.current;
+        if (!el || !isIconLeft) return;
+        const ro = new ResizeObserver(() => updateCirclePositions());
+        ro.observe(el);
+        return () => ro.disconnect();
+    }, [isIconLeft, updateCirclePositions]);
 
     // Иконка компенсирует вращение круга, чтобы не крутилась
     const iconRotation = isIconLeft ? -360 : 360;

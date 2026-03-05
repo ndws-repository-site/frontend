@@ -1,7 +1,7 @@
-/** Параметры перехода для свайп-анимации контента табов */
+/** Параметры перехода для свайп-анимации контента табов (easeOut — меньше нагрузка на iOS) */
 export const TAB_SLIDE_TRANSITION = {
-    duration: 0.3,
-    ease: [0.32, 0.72, 0, 1] as const,
+    duration: 0.25,
+    ease: "easeOut" as const,
 } as const;
 
 export type TabSlideDirection = 1 | -1;

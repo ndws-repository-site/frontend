@@ -9,6 +9,12 @@ type TabContentSlideProps = {
     className?: string;
 };
 
+/** GPU-слой для iOS: отдельный слой композитинга, меньше лагов */
+const iosFriendlyStyle: React.CSSProperties = {
+    backfaceVisibility: "hidden",
+    WebkitBackfaceVisibility: "hidden",
+};
+
 export const TabContentSlide = ({
     direction,
     children,
@@ -23,6 +29,7 @@ export const TabContentSlide = ({
             animate="animate"
             exit="exit"
             className={className}
+            style={iosFriendlyStyle}
         >
             {children}
         </motion.div>

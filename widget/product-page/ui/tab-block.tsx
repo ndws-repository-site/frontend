@@ -26,7 +26,7 @@ export const TabBlock = ({ forWho, howToUse, ingredients }: TabBlockProps) => {
                 ))}
             </div>
 
-            <div className="min-h-[140px] overflow-x-hidden overflow-y-visible">
+            <div className="relative min-h-[140px] overflow-x-hidden overflow-y-visible">
                 <AnimatePresence mode="wait" initial={false}>
                     {currentTab === "forWho" && (
                         <TabContentSlide
