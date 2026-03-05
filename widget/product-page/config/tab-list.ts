@@ -8,9 +8,12 @@ export const TAB_ITEMS: { id: TabsType; label: string }[] = [
 
 export const TAB_ORDER: TabsType[] = TAB_ITEMS.map((item) => item.id);
 
-/** Только left в calc — одна анимируемая величина, плавная интерполяция */
-export const PILL_LEFT_CLASS: Record<TabsType, string> = {
-    forWho: "left-[4px]",
-    howToUse: "left-[calc(4px+(100%-8px)/3)]",
-    ingredients: "left-[calc(4px+2*(100%-8px)/3)]",
+/** Фиксированная позиция пилюли; сдвиг только через transform для GPU на iOS */
+export const PILL_BASE_CLASS = "left-[4px] w-[calc((100%-8px)/3)]";
+
+/** Смещение пилюли через translateX — анимация без reflow, плавно на iPhone */
+export const PILL_TRANSLATE_CLASS: Record<TabsType, string> = {
+    forWho: "translate-x-0",
+    howToUse: "translate-x-[100%]",
+    ingredients: "translate-x-[200%]",
 };

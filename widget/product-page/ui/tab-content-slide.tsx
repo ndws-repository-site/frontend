@@ -9,7 +9,7 @@ type TabContentSlideProps = {
     className?: string;
 };
 
-/** GPU-слой для iOS: отдельный слой композитинга, меньше лагов */
+/** GPU-слой для iOS: отдельный слой композитинга, меньше лагов при анимации */
 const iosFriendlyStyle: React.CSSProperties = {
     backfaceVisibility: "hidden",
     WebkitBackfaceVisibility: "hidden",
