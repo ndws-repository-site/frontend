@@ -1,3 +1,4 @@
+import { CartItemProps } from "@/entity/cart-item/props/cart-item.props";
 import { IProduct } from "@/shared/types";
 import { ProductPageProps } from "@/widget/product-page";
 
@@ -116,3 +117,20 @@ export const PRODUCT_PAGE_MOCK: ProductPageProps = {
         },
     ],
 };
+
+export const CART_ITEM_MOCK: CartItemProps = {
+    id: "2f0a3c30-3ade-4dfe-a835-c6f1d842e4ff",
+    image: "/product-creatine.png",
+    name: "NDWS CREATINE",
+    price: 25,
+    quantity: 1,
+    onChangeQuantity: (_id: string, _quantity: number) => {},
+    onRemove: (_id: string) => {},
+};
+
+export const CART_ITEMS_MOCK: CartItemProps[] = Array.from(
+    { length: 4 },
+    () => ({
+        ...CART_ITEM_MOCK,
+    }),
+);

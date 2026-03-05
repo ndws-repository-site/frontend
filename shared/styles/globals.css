@@ -10,3 +10,109 @@
     --color-primary: #17411b;
     --breakpoint-mob: 31.25rem; /* 500px */
 }
+
+/* Фон и базовые переменные */
+html,
+body {
+    background-color: #eaeaea;
+}
+
+@layer utilities {
+    .custom-scrollbar {
+        /* Firefox */
+        scrollbar-width: thin;
+        scrollbar-color: #17411b transparent;
+    }
+
+    /* Chrome, Edge, Safari — убираем стрелки */
+    .custom-scrollbar::-webkit-scrollbar-button:vertical:start,
+    .custom-scrollbar::-webkit-scrollbar-button:vertical:end,
+    .custom-scrollbar::-webkit-scrollbar-button:horizontal:start,
+    .custom-scrollbar::-webkit-scrollbar-button:horizontal:end {
+        display: none;
+        height: 0;
+        width: 0;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 8px; /* Ширина полоски */
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent; /* Фон дорожки прозрачный */
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #17411b;
+        border-radius: 9999px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background-color: #5a5a5a;
+    }
+
+    /* Скрыть скроллбар, сохранив прокрутку */
+    .scrollbar-hide {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Left panel scrollbar: 13px offset, трек 8px (2+4+2), thumb 4px по центру с отступом 2px от трека.
+       Без scrollbar-width/scrollbar-color, иначе в Chrome 121+ игнорируются ::-webkit-scrollbar. */
+    .left-panel-scrollbar {
+        padding-right: 21px; /* 13px offset + 8px scrollbar */
+    }
+
+    /* Firefox: стандартные свойства */
+    @supports not (selector(::-webkit-scrollbar)) {
+        .left-panel-scrollbar {
+            scrollbar-width: thin;
+            scrollbar-color: #212121 #383838;
+        }
+    }
+
+    .left-panel-scrollbar::-webkit-scrollbar {
+        width: 8px; /* 2px зазор + 4px thumb + 2px зазор */
+    }
+
+    .left-panel-scrollbar::-webkit-scrollbar-button:vertical:start,
+    .left-panel-scrollbar::-webkit-scrollbar-button:vertical:end {
+        height: 0;
+        display: none;
+    }
+
+    .left-panel-scrollbar::-webkit-scrollbar-track {
+        background: #383838;
+        margin: 4px 0;
+        border-radius: 9999px;
+    }
+
+    .left-panel-scrollbar::-webkit-scrollbar-thumb {
+        background: #212121;
+        border-radius: 9999px;
+        margin: 2px; /* отступ от фона (трека) 2px */
+        min-height: 40px;
+    }
+
+    .left-panel-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #2d2d2d;
+    }
+
+    /* Глобально убираем стрелки у скроллбара (html/body) */
+    html::-webkit-scrollbar-button:vertical:start,
+    html::-webkit-scrollbar-button:vertical:end,
+    html::-webkit-scrollbar-button:horizontal:start,
+    html::-webkit-scrollbar-button:horizontal:end,
+    body::-webkit-scrollbar-button:vertical:start,
+    body::-webkit-scrollbar-button:vertical:end,
+    body::-webkit-scrollbar-button:horizontal:start,
+    body::-webkit-scrollbar-button:horizontal:end {
+        display: none;
+        height: 0;
+        width: 0;
+    }
+}

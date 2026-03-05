@@ -9,6 +9,8 @@ import { MENU_ITEMS, PRODUCT_ITEMS_MOCK, DROPDOWN_ANIMATION } from "../config";
 import Link from "next/link";
 import { MenuItem } from "./menu-item";
 import { MenuItemType } from "../types";
+import { useModal } from "@/shared/hooks";
+import { Cart } from "@/widget/cart";
 
 const TABS_ANIMATION_DURATION_MS = 300;
 
@@ -20,6 +22,12 @@ export const Header = () => {
     const animationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
         null,
     );
+
+    const { Modal: CartModal, open } = useModal({
+        mode: "half",
+        children: ({ close }) => <Cart onClose={close} />,
+        className: "mob:py-5 mob:px-5 py-3.5 px-3.5",
+    });
 
     useEffect(() => {
         const mq = window.matchMedia("(max-width: 500px)");
@@ -148,7 +156,10 @@ export const Header = () => {
                                     number="4"
                                     type="menu"
                                     cart="12"
-                                    onClick={() => setIsMenuOpen(false)}
+                                    onClick={() => {
+                                        setIsMenuOpen(false);
+                                        open();
+                                    }}
                                 />
                             </motion.div>
                         )}
@@ -175,6 +186,8 @@ export const Header = () => {
                     </AnimatePresence>
                 </div>
             </div>
+
+            <CartModal />
         </header>
     );
 };
