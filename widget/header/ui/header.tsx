@@ -11,6 +11,7 @@ import { MenuItem } from "./menu-item";
 import { MenuItemType } from "../types";
 import { useModal } from "@/shared/hooks";
 import { Cart } from "@/widget/cart";
+import { Checkout } from "@/widget/checkout";
 
 const TABS_ANIMATION_DURATION_MS = 300;
 
@@ -25,7 +26,20 @@ export const Header = () => {
 
     const { Modal: CartModal, open } = useModal({
         mode: "half",
-        children: ({ close }) => <Cart onClose={close} />,
+        children: ({ close }) => (
+            <Cart
+                onClose={close}
+                onOrderNow={() => {
+                    close();
+                    openCheckoutModal();
+                }}
+            />
+        ),
+        className: "mob:py-5 mob:px-5 py-3.5 px-3.5",
+    });
+    const { Modal: CheckoutModal, open: openCheckoutModal } = useModal({
+        mode: "full",
+        children: ({ close }) => <Checkout onClose={close} />,
         className: "mob:py-5 mob:px-5 py-3.5 px-3.5",
     });
 
@@ -188,6 +202,7 @@ export const Header = () => {
             </div>
 
             <CartModal />
+            <CheckoutModal />
         </header>
     );
 };

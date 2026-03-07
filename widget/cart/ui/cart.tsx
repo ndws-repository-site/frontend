@@ -6,7 +6,7 @@ import { cn } from "@/shared/utils";
 import { Button } from "@/shared/ui";
 import { ButtonMenu } from "@/shared/icons";
 
-export const Cart = ({ onClose }: CartProps) => {
+export const Cart = ({ onClose, onOrderNow }: CartProps) => {
     return (
         <div className="flex flex-col h-full min-h-0">
             <div className="flex items-center justify-between mb-7 shrink-0">
@@ -51,6 +51,7 @@ export const Cart = ({ onClose }: CartProps) => {
                     iconPosition="right"
                     size="large"
                     variant="primary"
+                    onClick={onOrderNow}
                 >
                     Order now
                 </Button>

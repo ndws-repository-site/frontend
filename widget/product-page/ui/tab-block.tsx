@@ -10,7 +10,7 @@ import { useTabSwitch } from "../lib/use-tab-switch";
 import { IngredientItem } from "./ingredient-item";
 
 export const TabBlock = ({ forWho, howToUse, ingredients }: TabBlockProps) => {
-    const { currentTab, goToTab, direction } = useTabSwitch();
+    const { currentTab, goToTab } = useTabSwitch();
 
     return (
         <div>
@@ -29,29 +29,17 @@ export const TabBlock = ({ forWho, howToUse, ingredients }: TabBlockProps) => {
             <div className="relative min-h-[140px] overflow-x-hidden overflow-y-visible">
                 <AnimatePresence mode="wait" initial={false}>
                     {currentTab === "forWho" && (
-                        <TabContentSlide
-                            key="forWho"
-                            direction={direction}
-                            className="w-full"
-                        >
+                        <TabContentSlide key="forWho" className="w-full">
                             <p className={TAB_UNDER_TEXT_CLASS}>{forWho}</p>
                         </TabContentSlide>
                     )}
                     {currentTab === "howToUse" && (
-                        <TabContentSlide
-                            key="howToUse"
-                            direction={direction}
-                            className="w-full"
-                        >
+                        <TabContentSlide key="howToUse" className="w-full">
                             <p className={TAB_UNDER_TEXT_CLASS}>{howToUse}</p>
                         </TabContentSlide>
                     )}
                     {currentTab === "ingredients" && (
-                        <TabContentSlide
-                            key="ingredients"
-                            direction={direction}
-                            className="w-full"
-                        >
+                        <TabContentSlide key="ingredients" className="w-full">
                             <div className="grid mob:grid-cols-2 grid-cols-1 gap-x-3.5">
                                 {ingredients.map((ingredient, index) => (
                                     <IngredientItem

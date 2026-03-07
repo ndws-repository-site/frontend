@@ -1,10 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { getTabSlideVariants } from "../config";
+import { TAB_SLIDE_VARIANTS } from "../config/tab-slide-animation";
 
 type TabContentSlideProps = {
-    direction: number;
     children: React.ReactNode;
     className?: string;
 };
@@ -16,22 +15,17 @@ const iosFriendlyStyle: React.CSSProperties = {
 };
 
 export const TabContentSlide = ({
-    direction,
     children,
     className,
-}: TabContentSlideProps) => {
-    const variants = getTabSlideVariants(direction);
-
-    return (
-        <motion.div
-            variants={variants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            className={className}
-            style={iosFriendlyStyle}
-        >
-            {children}
-        </motion.div>
-    );
-};
+}: TabContentSlideProps) => (
+    <motion.div
+        variants={TAB_SLIDE_VARIANTS}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        className={className}
+        style={iosFriendlyStyle}
+    >
+        {children}
+    </motion.div>
+);
