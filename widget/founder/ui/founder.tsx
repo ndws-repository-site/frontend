@@ -72,7 +72,7 @@ export const Founder = () => {
         <RoundedBlock
             ref={blockRef}
             id="founder"
-            className="bg-black p-2.5 min-h-[614px] relative"
+            className="scroll-mt-28 bg-black p-2.5 min-h-[614px] relative"
         >
             <Tag variant="gray" className="w-fit mb-7.5 max-lg:mb-6">
                 Founder

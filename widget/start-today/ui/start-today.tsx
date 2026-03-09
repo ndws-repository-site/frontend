@@ -20,7 +20,7 @@ export const StartToday = () => {
     return (
         <RoundedBlock
             id="order"
-            className="bg-primary p-2.5 relative mob:min-h-[614px] min-h-[465px] flex flex-col items-center justify-center overflow-hidden"
+            className="scroll-mt-28 bg-primary p-2.5 relative mob:min-h-[614px] min-h-[465px] flex flex-col items-center justify-center overflow-hidden"
         >
             <div className="absolute inset-0 pointer-events-none rounded-[30px] overflow-hidden">
                 {START_TODAY_BACKGROUND_IMAGES.map((pos, i) => {

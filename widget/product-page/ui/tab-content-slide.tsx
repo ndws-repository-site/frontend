@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { TAB_SLIDE_VARIANTS } from "../config/tab-slide-animation";
+import { TAB_FADE_VARIANTS } from "../config/tab-slide-animation";
 
 type TabContentSlideProps = {
     children: React.ReactNode;
@@ -19,7 +19,7 @@ export const TabContentSlide = ({
     className,
 }: TabContentSlideProps) => (
     <motion.div
-        variants={TAB_SLIDE_VARIANTS}
+        variants={TAB_FADE_VARIANTS}
         initial="initial"
         animate="animate"
         exit="exit"

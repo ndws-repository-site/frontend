@@ -26,78 +26,94 @@ export const ProductSlider = ({ images }: ProductSliderProps) => {
                 }}
             />
 
-            <Swiper
-                modules={[Navigation]}
-                navigation={true}
-                onSwiper={(swiper: SwiperType) => {
-                    requestAnimationFrame(() => {
-                        if (prevRef.current && nextRef.current) {
-                            (
-                                swiper.params.navigation as {
-                                    prevEl?: HTMLElement;
-                                    nextEl?: HTMLElement;
-                                }
-                            ).prevEl = prevRef.current;
-                            (
-                                swiper.params.navigation as {
-                                    prevEl?: HTMLElement;
-                                    nextEl?: HTMLElement;
-                                }
-                            ).nextEl = nextRef.current;
-                            swiper.navigation.init();
-                            swiper.navigation.update();
-                        }
-                    });
+            {/* Обёртка с маской: сглаживает появление слайдов по краям */}
+            <div
+                className="relative w-full overflow-hidden"
+                style={{
+                    WebkitMaskImage:
+                        "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
+                    maskImage:
+                        "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
+                    WebkitMaskSize: "100% 100%",
+                    maskSize: "100% 100%",
                 }}
-                spaceBetween={0}
-                slidesPerView={1}
-                className="w-full swiper-navigation-disabled"
-                loop={images.length > 1}
             >
-                {images.map((image, index) => (
-                    <SwiperSlide key={index}>
-                        <div className="flex items-center justify-center min-h-[300px] md:min-h-[400px]">
-                            <motion.div
-                                className="w-full flex justify-center"
-                                animate={{
-                                    y: [...IMAGE_IDLE_ANIMATION.animate.y],
-                                }}
-                                transition={IMAGE_IDLE_ANIMATION.transition}
-                            >
-                                <Image
-                                    src={image}
-                                    alt={`Product image ${index + 1}`}
-                                    width={592}
-                                    height={619}
-                                    quality={100}
-                                    draggable={false}
-                                    className="w-full h-auto max-h-[619px] object-contain"
-                                />
-                            </motion.div>
-                        </div>
-                    </SwiperSlide>
-                ))}
+                <Swiper
+                    modules={[Navigation]}
+                    navigation={true}
+                    onSwiper={(swiper: SwiperType) => {
+                        requestAnimationFrame(() => {
+                            if (prevRef.current && nextRef.current) {
+                                (
+                                    swiper.params.navigation as {
+                                        prevEl?: HTMLElement;
+                                        nextEl?: HTMLElement;
+                                    }
+                                ).prevEl = prevRef.current;
+                                (
+                                    swiper.params.navigation as {
+                                        prevEl?: HTMLElement;
+                                        nextEl?: HTMLElement;
+                                    }
+                                ).nextEl = nextRef.current;
+                                swiper.navigation.init();
+                                swiper.navigation.update();
+                            }
+                        });
+                    }}
+                    spaceBetween={0}
+                    slidesPerView={1}
+                    className="w-full swiper-navigation-disabled"
+                    loop={images.length > 1}
+                >
+                    {images.map((image, index) => (
+                        <SwiperSlide key={index}>
+                            <div className="flex items-center justify-center min-h-[300px] md:min-h-[400px]">
+                                <motion.div
+                                    className="w-full flex justify-center"
+                                    animate={{
+                                        y: [...IMAGE_IDLE_ANIMATION.animate.y],
+                                    }}
+                                    transition={IMAGE_IDLE_ANIMATION.transition}
+                                >
+                                    <Image
+                                        src={image}
+                                        alt={`Product image ${index + 1}`}
+                                        width={592}
+                                        height={619}
+                                        quality={100}
+                                        draggable={false}
+                                        className="w-full h-auto max-h-[619px] object-contain"
+                                    />
+                                </motion.div>
+                            </div>
+                        </SwiperSlide>
+                    ))}
 
-                <button
-                    ref={prevRef}
-                    type="button"
-                    className={ARROW_CLASS.left}
-                    aria-label="Previous slide"
-                >
-                    <ChevronLeft className={ARROW_ICON_CLASS} strokeWidth={2} />
-                </button>
-                <button
-                    ref={nextRef}
-                    type="button"
-                    className={ARROW_CLASS.right}
-                    aria-label="Next slide"
-                >
-                    <ChevronRight
-                        className={ARROW_ICON_CLASS}
-                        strokeWidth={2}
-                    />
-                </button>
-            </Swiper>
+                    <button
+                        ref={prevRef}
+                        type="button"
+                        className={ARROW_CLASS.left}
+                        aria-label="Previous slide"
+                    >
+                        <ChevronLeft
+                            className={ARROW_ICON_CLASS}
+                            strokeWidth={2}
+                        />
+                    </button>
+                    <button
+                        ref={nextRef}
+                        type="button"
+                        className={ARROW_CLASS.right}
+                        aria-label="Next slide"
+                    >
+                        <ChevronRight
+                            className={ARROW_ICON_CLASS}
+                            strokeWidth={2}
+                        />
+                    </button>
+                </Swiper>
+            </div>
         </div>
     );
 };
