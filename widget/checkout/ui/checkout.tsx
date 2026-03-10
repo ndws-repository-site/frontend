@@ -50,7 +50,9 @@ export const Checkout = ({ onClose }: CheckoutProps) => {
                     />
                 </div>
 
-                <CheckoutForm productTotal={40} />
+                <div className="flex flex-col min-h-0 max-h-[calc(100vh-150px)]">
+                    <CheckoutForm productTotal={40} />
+                </div>
             </div>
         </div>
     );

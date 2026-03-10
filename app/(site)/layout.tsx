@@ -15,13 +15,40 @@ export const metadata: Metadata = {
     title: SEO_TITLE,
     description: SEO_DESCRIPTION,
     keywords: KEY_WORDS,
+    icons: {
+        icon: [
+            {
+                url: "/seo-icons/favicon-16x16.png",
+                sizes: "16x16",
+                type: "image/png",
+            },
+            {
+                url: "/seo-icons/favicon-32x32.png",
+                sizes: "32x32",
+                type: "image/png",
+            },
+            {
+                url: "/seo-icons/android-chrome-192x192.png",
+                sizes: "192x192",
+                type: "image/png",
+            },
+            {
+                url: "/seo-icons/android-chrome-512x512.png",
+                sizes: "512x512",
+                type: "image/png",
+            },
+        ],
+        apple: "/seo-icons/apple-touch-icon.png",
+    },
     openGraph: {
         title: SEO_TITLE,
         description: SEO_DESCRIPTION,
+        images: ["/seo-icons/android-chrome-192x192.png"],
     },
     twitter: {
         title: SEO_TITLE,
         description: SEO_DESCRIPTION,
+        images: ["/seo-icons/android-chrome-192x192.png"],
     },
 };
 

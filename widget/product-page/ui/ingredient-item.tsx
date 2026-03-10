@@ -10,7 +10,7 @@ export const IngredientItem = ({
     return (
         <div
             className={cn(
-                `flex items-center justify-between border-t border-[#262626] mob:py-3.5 py-2.5`,
+                `flex items-center justify-between border-t mob:last:border-t last:border-t-0 border-[#262626] mob:py-3.5 py-2.5`,
                 showBottomBorder ? "border-b" : "",
                 ALEXANDRIA_FONT.className,
             )}

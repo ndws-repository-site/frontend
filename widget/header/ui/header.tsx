@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/shared/ui";
-import { Blocks, LogotypeIcon, MenuBlock } from "@/shared/icons";
-import { MENU_ITEMS, PRODUCT_ITEMS_MOCK, DROPDOWN_ANIMATION } from "../config";
+import { CartBag, LogotypeIcon, MenuBlock } from "@/shared/icons";
+import { MENU_ITEMS, DROPDOWN_ANIMATION } from "../config";
 
 import Link from "next/link";
 import { MenuItem } from "./menu-item";
@@ -83,8 +83,8 @@ export const Header = () => {
     const buttonSize = isMobile ? "small" : "medium";
 
     const collapsedFlex = 0.001;
-    const productsFlex = isProductsOpen ? 1 : isMenuOpen ? collapsedFlex : 0.5;
-    const menuFlex = isMenuOpen ? 1 : isProductsOpen ? collapsedFlex : 0.5;
+    const cartFlex = isMenuOpen ? collapsedFlex : 0.5;
+    const menuFlex = isMenuOpen ? 1 : 0.5;
 
     return (
         <header className="fixed top-0 left-0 w-full px-5 pt-5 flex items-center justify-between gap-3 z-50">
@@ -99,8 +99,8 @@ export const Header = () => {
                 <motion.div
                     className="min-w-0 overflow-hidden flex"
                     animate={{
-                        flexGrow: productsFlex,
-                        opacity: productsFlex <= collapsedFlex ? 0 : 1,
+                        flexGrow: cartFlex,
+                        opacity: cartFlex <= collapsedFlex ? 0 : 1,
                         marginRight: menuFlex <= collapsedFlex ? -4 : 0,
                         minWidth: isMobile && !isMenuOpen ? "7rem" : "0px",
                     }}
@@ -108,15 +108,25 @@ export const Header = () => {
                     style={{ flexBasis: 0, flexShrink: 1 }}
                 >
                     <Button
-                        icon={<Blocks />}
+                        icon={
+                            <span className="relative flex h-full w-full items-center justify-center">
+                                <CartBag className="shrink-0 [&_path]:!fill-none [&_path]:stroke-black" />
+                                <span
+                                    className="absolute -right-1 top-0 flex h-4 min-w-4 items-center justify-center rounded-full bg-black px-1 text-[10px] font-medium leading-none text-white"
+                                    aria-hidden
+                                >
+                                    4
+                                </span>
+                            </span>
+                        }
                         iconPosition="left"
-                        variant="primary"
                         size={buttonSize}
                         compact={isMobile}
-                        onClick={() => handleMenuProductsClick("products")}
+                        onClick={() => open()}
+                        variant="primary"
                         className="w-full min-w-0 rounded-full"
                     >
-                        Products
+                        Cart
                     </Button>
                 </motion.div>
 
@@ -125,9 +135,8 @@ export const Header = () => {
                     animate={{
                         flexGrow: menuFlex,
                         opacity: menuFlex <= collapsedFlex ? 0 : 1,
-                        marginLeft: productsFlex <= collapsedFlex ? -4 : 0,
-                        minWidth:
-                            isMobile && !isProductsOpen ? "4.5rem" : "0px",
+                        marginLeft: cartFlex <= collapsedFlex ? -4 : 0,
+                        minWidth: isMobile && !isMenuOpen ? "4.5rem" : "0px",
                     }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     style={{ flexBasis: 0, flexShrink: 1 }}
@@ -163,36 +172,6 @@ export const Header = () => {
                                         number={`${index + 1}`}
                                         type="menu"
                                         onClick={() => setIsMenuOpen(false)}
-                                    />
-                                ))}
-                                <MenuItem
-                                    title="Order"
-                                    number="4"
-                                    type="menu"
-                                    cart="12"
-                                    onClick={() => {
-                                        setIsMenuOpen(false);
-                                        open();
-                                    }}
-                                />
-                            </motion.div>
-                        )}
-                        {isProductsOpen && (
-                            <motion.div
-                                key="products-dropdown"
-                                className="grid grid-cols-1 gap-1"
-                                initial={DROPDOWN_ANIMATION.initial}
-                                animate={DROPDOWN_ANIMATION.animate}
-                                exit={DROPDOWN_ANIMATION.exit}
-                                transition={DROPDOWN_ANIMATION.transition}
-                            >
-                                {PRODUCT_ITEMS_MOCK.map((item, index) => (
-                                    <MenuItem
-                                        key={item.href}
-                                        {...item}
-                                        number={`${index + 1}`}
-                                        type="products"
-                                        onClick={() => setIsProductsOpen(false)}
                                     />
                                 ))}
                             </motion.div>

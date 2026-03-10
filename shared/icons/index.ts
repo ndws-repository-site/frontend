@@ -3,3 +3,4 @@ export * from "./blocks";
 export * from "./menu-block";
 export * from "./button-menu";
 export * from "./logotype";
+export * from "./cart-bag";
