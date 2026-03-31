@@ -3,12 +3,14 @@ import { IProduct } from "@/shared/types";
 import { ProductPageProps } from "@/widget/product-page";
 
 export const PRODUCT_MOCK: IProduct = {
+    id: "6e8f4e02-c91c-465f-b22d-7f102fca381b",
     name: "Creatine",
     image: "/creatine.png",
     slug: "creatine",
     goal: "Endurance",
     form: "Capsules",
     productType: "Creatine",
+    price: 25,
 };
 
 export const PRODUCTS_MOCK: IProduct[] = Array.from({ length: 8 }, () => ({

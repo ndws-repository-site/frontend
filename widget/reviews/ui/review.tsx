@@ -1,7 +1,6 @@
 import { cn } from "@/shared/utils";
 import { ReviewProps } from "../types/review.props";
 import Image from "next/image";
-import { ALEXANDRIA_FONT } from "@/shared/config";
 import { TriangleReview } from "../icons/triangle-review";
 import { QuotationMarks } from "../icons/quotation-marks";
 
@@ -28,7 +27,6 @@ export const Review = ({
                 <div
                     className={cn(
                         "flex flex-col justify-between text-[#636363] leading-[120%]",
-                        ALEXANDRIA_FONT.className,
                     )}
                 >
                     <p className="text-[20px]">{name}</p>
@@ -43,7 +41,6 @@ export const Review = ({
                     <QuotationMarks />
                     <p
                         className={cn(
-                            ALEXANDRIA_FONT.className,
                             "mt-3 max-w-[318px] text-black/70 font-light text-[16px] leading-[120%]",
                         )}
                     >

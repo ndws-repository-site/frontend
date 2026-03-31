@@ -1,6 +1,8 @@
 import { RoundedBlock } from "@/shared/ui";
 import { FaqProps } from "../props";
 import { FaqItem } from "./faq-item";
+import { cn } from "@/shared/utils";
+import { BOUNDED_FONT } from "@/shared/config";
 
 export const Faq = ({ title, faq }: FaqProps) => {
     const mid = Math.ceil(faq.length / 2);
@@ -9,7 +11,12 @@ export const Faq = ({ title, faq }: FaqProps) => {
 
     return (
         <RoundedBlock className="bg-black mob:py-8 py-5.5 px-4.5">
-            <h1 className="text-white uppercase lg:text-[40px] mob:text-[24px] text-[20px] lg:mb-10 mob:mb-8 mb-5.5 leading-none">
+            <h1
+                className={cn(
+                    BOUNDED_FONT.className,
+                    "text-white uppercase lg:text-[40px] mob:text-[24px] text-[20px] lg:mb-10 mob:mb-8 mb-5.5 leading-none",
+                )}
+            >
                 {title}
             </h1>
 

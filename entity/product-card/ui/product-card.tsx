@@ -4,17 +4,20 @@ import { cn } from "@/shared/utils";
 import { ProductCardProps } from "../types/product-card.props";
 import Image from "next/image";
 import Link from "next/link";
+import { AddCartButtonProductCard } from "@/features/add-cart-button-product-card";
 import { useState } from "react";
-import SeeMoreButton from "./see-more-button";
 
 export const ProductCard = ({
+    id,
     name,
     image,
     slug,
+    price,
     loading = false,
     className,
 }: ProductCardProps) => {
-    const [isHovered, setIsHovered] = useState(false);
+    const [hover, setHover] = useState(false);
+
     if (loading) {
         return (
             <div
@@ -35,34 +38,33 @@ export const ProductCard = ({
         <Link
             href={`/product/${slug}`}
             className={cn(
-                "block bg-white px-3.5 pt-3.5 rounded-[25px] transition-colors group overflow-hidden",
+                "block bg-white px-3 py-4 mob:px-5 mob:py-5 rounded-[25px] transition-colors group overflow-hidden",
                 className,
             )}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
         >
-            <div className="flex items-center justify-between mb-6.5">
-                <p className="text-black uppercase lg:text-[60px] mob:text-[30px] text-[28px] leading-none min-w-0">
-                    {name}
-                </p>
+            <div className="w-full min-h-50 mob:min-h-[264px] relative flex justify-center mb-6">
+                <Image
+                    src={image}
+                    alt={name}
+                    width={1000}
+                    height={1000}
+                    quality={100}
+                    className="h-full w-auto group-hover:scale-105 transition duration-300 ease-in-out"
+                />
 
-                <SeeMoreButton
-                    className="min-h-[32px] mob:min-h-[36px] lg:min-h-[48px] shrink-0"
-                    forcedHover={isHovered}
+                <AddCartButtonProductCard
+                    id={id}
+                    isHover={hover}
+                    className="absolute top-0 right-0"
                 />
             </div>
 
-            <div className="relative w-full flex items-center justify-center">
-                <div className="w-[50%] translate-2.5 group-hover:translate-y-0 transition-all duration-300">
-                    <Image
-                        src={image}
-                        alt={name}
-                        width={400}
-                        height={400}
-                        quality={100}
-                        className="object-contain object-center w-full h-auto"
-                    />
-                </div>
+            <div className="flex items-center justify-between gap-1">
+                <p className="text-[18px] mob:text-[24px]">{name}</p>
+
+                <p className="text-[18px] mob:text-[24px]">{price}$</p>
             </div>
         </Link>
     );

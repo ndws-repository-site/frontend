@@ -1,5 +1,7 @@
 import { Tag, Text } from "@/shared/ui";
 import { TEXT_PRODUCTION_CLASSES } from "../config/text-production-classes";
+import { cn } from "@/shared/utils";
+import { BOUNDED_FONT } from "@/shared/config";
 
 export const Production = () => {
     return (
@@ -8,7 +10,12 @@ export const Production = () => {
                 Production and quality
             </Tag>
 
-            <h3 className="text-black leading-[110%] lg:text-[60px] mob:text-[40px] text-[24px] lg:mb-10 mob:mb-6 mb-5.5 uppercase">
+            <h3
+                className={cn(
+                    BOUNDED_FONT.className,
+                    "text-black leading-[110%] lg:text-[60px] mob:text-[40px] text-[24px] lg:mb-10 mob:mb-6 mb-5.5 uppercase",
+                )}
+            >
                 Every NDWS product undergoes
                 <br /> strict quality control.
             </h3>

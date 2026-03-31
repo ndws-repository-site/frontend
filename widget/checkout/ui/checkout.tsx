@@ -1,11 +1,12 @@
 "use client";
 
-import { CART_ITEMS_MOCK } from "@/shared/config";
+import { BOUNDED_FONT, CART_ITEMS_MOCK } from "@/shared/config";
 import { CheckoutProps } from "../props/checkout.props";
 import { X } from "lucide-react";
 import { CartItem } from "@/entity/cart-item";
 import { useScrollBottomGradient } from "../lib/use-scroll-bottom-gradient";
 import { CheckoutForm } from "@/features/checkout-form";
+import { cn } from "@/shared/utils";
 
 export const Checkout = ({ onClose }: CheckoutProps) => {
     const { scrollRef, showBottomGradient, onScroll } =
@@ -14,7 +15,12 @@ export const Checkout = ({ onClose }: CheckoutProps) => {
     return (
         <div>
             <div className="flex items-center justify-between mb-6">
-                <p className="text-black text-[40px] leading-none">
+                <p
+                    className={cn(
+                        BOUNDED_FONT.className,
+                        "text-black text-[40px] leading-none",
+                    )}
+                >
                     Your order
                 </p>
 

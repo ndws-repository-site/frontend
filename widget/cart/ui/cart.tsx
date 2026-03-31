@@ -1,6 +1,10 @@
 import { X } from "lucide-react";
 import { CartProps } from "../props/cart.props";
-import { ALEXANDRIA_FONT, CART_ITEMS_MOCK } from "@/shared/config";
+import {
+    ALEXANDRIA_FONT,
+    BOUNDED_FONT,
+    CART_ITEMS_MOCK,
+} from "@/shared/config";
 import { CartItem } from "@/entity/cart-item";
 import { cn } from "@/shared/utils";
 import { Button } from "@/shared/ui";
@@ -10,7 +14,12 @@ export const Cart = ({ onClose, onOrderNow }: CartProps) => {
     return (
         <div className="flex flex-col h-full min-h-0">
             <div className="flex items-center justify-between mb-7 shrink-0">
-                <p className="mob:text-[70px] text-[34px] leading-none text-black">
+                <p
+                    className={cn(
+                        BOUNDED_FONT.className,
+                        "mob:text-[70px] text-[34px] leading-none text-black",
+                    )}
+                >
                     BAG (4)
                 </p>
 

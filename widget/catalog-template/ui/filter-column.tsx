@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Checkbox } from "@/shared/ui";
 import { FilterColumnProps } from "../types/filter-column.props";
 import { cn } from "@/shared/utils";
+import { BOUNDED_FONT } from "@/shared/config";
 
 export const FilterColumn = ({
     title,
@@ -28,6 +29,7 @@ export const FilterColumn = ({
         >
             <p
                 className={cn(
+                    BOUNDED_FONT.className,
                     "uppercase leading-[110%] font-medium mb-4",
                     isMobile
                         ? "text-black text-[18px]"

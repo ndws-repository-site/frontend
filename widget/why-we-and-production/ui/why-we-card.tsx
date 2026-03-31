@@ -1,6 +1,6 @@
 import { cn } from "@/shared/utils";
 import { WhyWeCardProps } from "../types/why-we-card.props";
-import { ALEXANDRIA_FONT } from "@/shared/config";
+import { BOUNDED_FONT } from "@/shared/config";
 
 export const WhyWeCard = ({ number, title, icon: Icon }: WhyWeCardProps) => {
     return (
@@ -8,7 +8,7 @@ export const WhyWeCard = ({ number, title, icon: Icon }: WhyWeCardProps) => {
             <div className="flex flex-col justify-between flex-1">
                 <p
                     className={cn(
-                        ALEXANDRIA_FONT.className,
+                        BOUNDED_FONT.className,
                         "text-white text-[40px] leading-[120%] relative z-10",
                     )}
                 >
@@ -17,7 +17,6 @@ export const WhyWeCard = ({ number, title, icon: Icon }: WhyWeCardProps) => {
 
                 <p
                     className={cn(
-                        ALEXANDRIA_FONT.className,
                         "text-white text-[20px] leading-[120%] max-w-[332px] font-light relative z-10",
                     )}
                 >

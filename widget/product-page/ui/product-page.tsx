@@ -4,6 +4,8 @@ import { ProductSlider } from "./product-slider";
 import { ProductRightCard } from "./product-right-card";
 import { FrequentlyBoughtSlider } from "./frequently-bought-slider";
 import { Faq } from "./faq";
+import { cn } from "@/shared/utils";
+import { BOUNDED_FONT } from "@/shared/config";
 
 export const ProductPage = ({
     images,
@@ -39,7 +41,12 @@ export const ProductPage = ({
                 </div>
 
                 <div className="px-2.5 pb-3 overflow-hidden">
-                    <h1 className="text-white uppercase lg:text-[40px] mob:text-[24px] text-[20px] lg:mb-10 mob:mb-8 mb-5.5 leading-none">
+                    <h1
+                        className={cn(
+                            BOUNDED_FONT.className,
+                            "text-white uppercase lg:text-[40px] mob:text-[24px] text-[20px] lg:mb-10 mob:mb-8 mb-5.5 leading-none",
+                        )}
+                    >
                         Frequently Bought Together
                     </h1>
 

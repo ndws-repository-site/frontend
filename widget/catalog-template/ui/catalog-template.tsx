@@ -6,7 +6,7 @@ import { ProductCard } from "@/entity/product-card";
 import { Filter } from "./filters";
 
 //Config
-import { PRODUCT_MOCK } from "@/shared/config";
+import { BOUNDED_FONT, PRODUCT_MOCK } from "@/shared/config";
 import { letterVariants } from "../config";
 
 //Types
@@ -16,6 +16,7 @@ import type { IProduct } from "@/shared/types";
 //Libraries/Frameworks
 import { motion, animate } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
+import { cn } from "@/shared/utils";
 
 export const CatalogTemplate = ({
     title,
@@ -86,7 +87,12 @@ export const CatalogTemplate = ({
 
     return (
         <RoundedBlock className="bg-black mob:px-5 px-2.5 pb-5">
-            <h1 className="text-white lg:text-[120px] mob:text-[80px] text-[36px] leading-none text-center uppercase pt-18.5 pb-5 overflow-hidden">
+            <h1
+                className={cn(
+                    BOUNDED_FONT.className,
+                    "text-white lg:text-[120px] mob:text-[80px] text-[36px] leading-none text-center uppercase pt-18.5 pb-5 overflow-hidden",
+                )}
+            >
                 {titleLetters.map((letter, i) => (
                     <motion.span
                         key={i}

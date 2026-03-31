@@ -8,6 +8,8 @@ import { EffectCreative } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-creative";
 import { SLIDE_COUNT } from "../config/slider.config";
+import { cn } from "@/shared/utils";
+import { BOUNDED_FONT } from "@/shared/config";
 
 export const Reviews = () => {
     const [isStraightSwiper, setIsStraightSwiper] = useState(true);
@@ -25,7 +27,12 @@ export const Reviews = () => {
             id="reviews"
             className="scroll-mt-28 lg:pt-22.5 pt-13 lg:pb-32 mob:pb-20 pb-5 w-full overflow-hidden"
         >
-            <h2 className="text-center text-black lg:text-[60px] mob:text-[40px] text-[24px] leading-[110%] uppercase mb-12">
+            <h2
+                className={cn(
+                    BOUNDED_FONT.className,
+                    "text-center text-black lg:text-[60px] mob:text-[40px] text-[24px] leading-[110%] uppercase mb-12",
+                )}
+            >
                 We are chosen by those who
                 <br /> train regularly
             </h2>

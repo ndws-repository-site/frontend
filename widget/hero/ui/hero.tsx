@@ -11,13 +11,9 @@ import {
     backgroundJarEntrance,
 } from "../config/animations";
 import { BACKGROUND_JARS } from "../config/background-jars";
-
-const subscribeResize = (cb: () => void) => {
-    window.addEventListener("resize", cb);
-    return () => window.removeEventListener("resize", cb);
-};
-const getHeight = () => window.innerHeight;
-const getServerHeight = () => null;
+import { subscribeResize, getHeight, getServerHeight } from "../helpers";
+import { cn } from "@/shared/utils";
+import { BOUNDED_FONT } from "@/shared/config";
 
 export const Hero = () => {
     const heroRef = useRef<HTMLElement>(null);
@@ -146,7 +142,10 @@ export const Hero = () => {
                 <motion.h1
                     variants={fadeUp}
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                    className="text-white lg:text-[120px] mob:text-[80px] text-[36px] uppercase leading-none"
+                    className={cn(
+                        BOUNDED_FONT.className,
+                        "text-white lg:text-[120px] mob:text-[80px] text-[36px] uppercase leading-none",
+                    )}
                 >
                     No Day
                     <br /> Without Sport

@@ -1,3 +1,5 @@
+"use client";
+
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { UseModalOptions, UseModalControls } from "../types";
 import { AnimatePresence } from "framer-motion";

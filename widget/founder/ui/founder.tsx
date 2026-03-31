@@ -1,6 +1,6 @@
 "use client";
 
-import { ALEXANDRIA_FONT } from "@/shared/config";
+import { BOUNDED_FONT } from "@/shared/config";
 import { RoundedBlock, Tag } from "@/shared/ui";
 import { cn } from "@/shared/utils";
 import { motion, useInView } from "framer-motion";
@@ -80,13 +80,17 @@ export const Founder = () => {
 
             <div className="relative flex flex-col items-center gap-6 max-lg:pb-10 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-start lg:gap-4">
                 <div className="w-full max-lg:text-center lg:block">
-                    <h3 className="text-white lg:text-[66px] mob:text-[40px] text-[24px] leading-[110%] uppercase mb-4">
+                    <h3
+                        className={cn(
+                            BOUNDED_FONT.className,
+                            "text-white lg:text-[66px] mob:text-[40px] text-[24px] leading-[110%] uppercase mb-4",
+                        )}
+                    >
                         {FOUNDER_TITLE.slice(0, titleLength)}
                     </h3>
 
                     <p
                         className={cn(
-                            ALEXANDRIA_FONT.className,
                             "text-white mob:text-[20px] text-[14px] leading-[120%] font-light min-h-[1.2em] max-lg:text-[16px]",
                         )}
                     >

@@ -4,6 +4,8 @@ import { RoundedBlock, Tag, Text } from "@/shared/ui";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { fadeInUp } from "../config/animations";
+import { BOUNDED_FONT } from "@/shared/config";
+import { cn } from "@/shared/utils";
 
 export const BrandPhilosophy = () => {
     return (
@@ -13,7 +15,10 @@ export const BrandPhilosophy = () => {
             <div className="text-center leading-none">
                 <div className="flex justify-center">
                     <motion.h2
-                        className="text-white lg:text-[46px] mob:text-[32px] text-[22px] max-w-[1078px] mb-9"
+                        className={cn(
+                            BOUNDED_FONT.className,
+                            "text-white lg:text-[46px] mob:text-[32px] text-[22px] max-w-[1078px] mb-9",
+                        )}
                         variants={fadeInUp}
                         initial="hidden"
                         whileInView="visible"

@@ -1,0 +1,1 @@
+export const getServerHeight = () => null;

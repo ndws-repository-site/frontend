@@ -10,6 +10,7 @@ import {
     SEO_DESCRIPTION,
     SEO_TITLE,
 } from "@/shared/config";
+import { Toast } from "@/shared/hooks";
 
 export const metadata: Metadata = {
     title: SEO_TITLE,
@@ -63,6 +64,7 @@ export default function RootLayout({
                 className={`${JOST_FONT.className} antialiased bg-white flex flex-col min-h-screen justify-between mt-2.5 overflow-x-hidden`}
             >
                 <Header />
+                <Toast />
                 <main className="flex-1 overflow-visible">{children}</main>
                 <Footer />
             </body>

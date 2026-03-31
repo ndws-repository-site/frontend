@@ -15,6 +15,8 @@ import {
     BACKGROUND_IMAGE_OPACITY,
     START_TODAY_BACKGROUND_IMAGES,
 } from "../config/background-images";
+import { cn } from "@/shared/utils";
+import { BOUNDED_FONT } from "@/shared/config";
 
 export const StartToday = () => {
     return (
@@ -87,7 +89,10 @@ export const StartToday = () => {
                 variants={{ initial: {}, animate: {} }}
             >
                 <motion.h2
-                    className="text-white lg:text-[66px] mob:text-[40px] text-[22px] leading-[110%] uppercase text-center mb-7"
+                    className={cn(
+                        BOUNDED_FONT.className,
+                        "text-white lg:text-[66px] mob:text-[40px] text-[22px] leading-[110%] uppercase text-center mb-7",
+                    )}
                     variants={{ initial: {}, animate: {} }}
                 >
                     <motion.span

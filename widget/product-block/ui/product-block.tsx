@@ -10,7 +10,7 @@ import {
 } from "../config";
 import { ProductBlockProps } from "../types/prodcut-block.props";
 import { formatPage, getSlideIn, getImageSlideIn } from "../util";
-import { ALEXANDRIA_FONT } from "@/shared/config";
+import { ALEXANDRIA_FONT, BOUNDED_FONT } from "@/shared/config";
 import Link from "next/link";
 import { Button } from "@/shared/ui/button";
 import { ButtonMenu } from "@/shared/icons";
@@ -66,7 +66,10 @@ export const ProductBlock = ({
                         speed={MARQUEE_SPEED}
                         direction={left ? "left" : "right"}
                         gradient={false}
-                        className="flex items-center text-white select-none"
+                        className={cn(
+                            BOUNDED_FONT.className,
+                            "flex items-center text-white select-none",
+                        )}
                         style={{ fontSize: MARQUEE_FONT_SIZE }}
                     >
                         {[1, 2, 3, 4, 5].map((i) => (

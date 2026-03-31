@@ -1,8 +1,12 @@
+"use client";
+
+import { useToast } from "@/shared/hooks";
 import { AddCartButtonProps } from "../props/add-cart-button.props";
 
 export const AddCartButton = ({ id }: AddCartButtonProps) => {
+    const { showToast } = useToast();
     const handleAddCartClick = () => {
-        alert("Ждите когда бэк будет. вот кста айди мокнутый: " + id);
+        showToast("Ждите когда бэк будет. вот кста айди мокнутый: " + id);
     };
 
     return (

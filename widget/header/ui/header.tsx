@@ -110,7 +110,7 @@ export const Header = () => {
                     <Button
                         icon={
                             <span className="relative flex h-full w-full items-center justify-center">
-                                <CartBag className="shrink-0 [&_path]:!fill-none [&_path]:stroke-black" />
+                                <CartBag className="shrink-0 [&_path]:fill-none! [&_path]:stroke-black" />
                                 <span
                                     className="absolute -right-1 top-0 flex h-4 min-w-4 items-center justify-center rounded-full bg-black px-1 text-[10px] font-medium leading-none text-white"
                                     aria-hidden
