@@ -190,7 +190,7 @@ export const CatalogTemplate = ({
             </div>
 
             {loading ? (
-                <div className="grid mob:grid-cols-2 grid-cols-1 gap-2.5">
+                <div className="grid lg:grid-cols-3 mob:grid-cols-2 grid-cols-1 gap-2.5">
                     {Array.from({ length: 8 }).map((_, index) => (
                         <ProductCard
                             key={index}
@@ -206,7 +206,7 @@ export const CatalogTemplate = ({
                             No products found
                         </div>
                     ) : (
-                        <div className="grid mob:grid-cols-2 grid-cols-1 gap-2.5">
+                        <div className="grid lg:grid-cols-3 mob:grid-cols-2 grid-cols-1 gap-2.5">
                             {currentProducts.map((product, index) => (
                                 <ProductCard key={index} {...product} />
                             ))}
