@@ -51,7 +51,7 @@ export const ProductCard = ({
                     width={1000}
                     height={1000}
                     quality={100}
-                    className="h-full w-auto group-hover:scale-105 transition duration-300 ease-in-out"
+                    className="h-auto w-[70%] group-hover:scale-105 transition duration-300 ease-in-out"
                 />
 
                 <AddCartButtonProductCard
@@ -62,7 +62,9 @@ export const ProductCard = ({
             </div>
 
             <div className="flex items-center justify-between gap-1">
-                <p className="text-[18px] mob:text-[24px]">{name}</p>
+                <p className="text-[18px] mob:text-[24px] leading-none">
+                    {name}
+                </p>
 
                 <p className="text-[18px] mob:text-[24px]">{price}$</p>
             </div>

@@ -4,7 +4,7 @@ import { ProductPageProps } from "@/widget/product-page";
 
 export const PRODUCT_MOCK: IProduct = {
     id: "6e8f4e02-c91c-465f-b22d-7f102fca381b",
-    name: "Creatine",
+    name: "Creatine Monohydrate",
     image: "/creatine.png",
     slug: "creatine",
     goal: "Endurance",
