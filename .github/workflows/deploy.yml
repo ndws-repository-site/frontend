@@ -53,9 +53,9 @@ jobs:
         env:
             GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             GITHUB_ACTOR: ${{ github.actor }}
-            REGISTRY: ${{ env.REGISTRY }}
-            IMAGE_NAME: ${{ env.IMAGE_NAME }}
-            FRONTEND_IMAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+            REGISTRY: ghcr.io
+            IMAGE_NAME: ${{ github.repository }}
+            FRONTEND_IMAGE: ghcr.io/${{ github.repository }}
             NEXT_PUBLIC_SITE_API_ORIGIN: ${{ secrets.NEXT_PUBLIC_SITE_API_ORIGIN }}
             NEXT_PUBLIC_RECAPTCHA_SITE_KEY: ${{ secrets.NEXT_PUBLIC_RECAPTCHA_SITE_KEY }}
             RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY }}
