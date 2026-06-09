@@ -53,6 +53,9 @@ jobs:
         env:
             GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             GITHUB_ACTOR: ${{ github.actor }}
+            REGISTRY: ${{ env.REGISTRY }}
+            IMAGE_NAME: ${{ env.IMAGE_NAME }}
+            FRONTEND_IMAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
             NEXT_PUBLIC_SITE_API_ORIGIN: ${{ secrets.NEXT_PUBLIC_SITE_API_ORIGIN }}
             NEXT_PUBLIC_RECAPTCHA_SITE_KEY: ${{ secrets.NEXT_PUBLIC_RECAPTCHA_SITE_KEY }}
             RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY }}
@@ -62,7 +65,7 @@ jobs:
                   host: ${{ secrets.SSH_HOST }}
                   username: ${{ secrets.SSH_USERNAME }}
                   key: ${{ secrets.SSH_KEY }}
-                  envs: GHCR_TOKEN,GITHUB_ACTOR,NEXT_PUBLIC_SITE_API_ORIGIN,NEXT_PUBLIC_RECAPTCHA_SITE_KEY,RECAPTCHA_SECRET_KEY
+                  envs: GHCR_TOKEN,GITHUB_ACTOR,REGISTRY,IMAGE_NAME,FRONTEND_IMAGE,NEXT_PUBLIC_SITE_API_ORIGIN,NEXT_PUBLIC_RECAPTCHA_SITE_KEY,RECAPTCHA_SECRET_KEY
                   script: |
                       set -euo pipefail
                       cd /opt/app
@@ -73,6 +76,8 @@ jobs:
                           echo "NEXT_PUBLIC_RECAPTCHA_SITE_KEY=${NEXT_PUBLIC_RECAPTCHA_SITE_KEY}"
                           echo "RECAPTCHA_SECRET_KEY=${RECAPTCHA_SECRET_KEY}"
                       } > .env.client
+
+                      export REGISTRY IMAGE_NAME FRONTEND_IMAGE
 
                       echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
                       docker compose pull client
