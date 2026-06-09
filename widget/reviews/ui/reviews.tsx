@@ -1,17 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { REVIEW_DATA } from "../config/review";
 import { Review } from "./review";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCreative } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-creative";
-import { SLIDE_COUNT } from "../config/slider.config";
 import { cn } from "@/shared/utils";
 import { BOUNDED_FONT } from "@/shared/config";
+import { useGetReviews } from "../api";
 
 export const Reviews = () => {
+    const { data: reviews = [] } = useGetReviews();
     const [isStraightSwiper, setIsStraightSwiper] = useState(true);
 
     useEffect(() => {
@@ -21,6 +21,9 @@ export const Reviews = () => {
         mq.addEventListener("change", update);
         return () => mq.removeEventListener("change", update);
     }, []);
+
+    if (reviews.length === 0) return null;
+    if (!reviews) return null;
 
     return (
         <section
@@ -67,14 +70,19 @@ export const Reviews = () => {
                 }
                 className="overflow-visible!"
             >
-                {Array.from({ length: SLIDE_COUNT }).map((_, index) => (
+                {reviews.map((review) => (
                     <SwiperSlide
-                        key={index}
+                        key={review.id}
                         style={{ width: 380 }}
                         className="h-auto"
                     >
                         <div className="select-none transition-transform duration-300">
-                            <Review {...REVIEW_DATA} />
+                            <Review
+                                avatar={review.avatar}
+                                name={review.name}
+                                sport={review.whoIs}
+                                review={review.review}
+                            />
                         </div>
                     </SwiperSlide>
                 ))}

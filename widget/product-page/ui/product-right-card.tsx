@@ -8,6 +8,7 @@ export const ProductRightCard = ({
     id,
     name,
     price,
+    image,
     description,
     forWho,
     howToUse,
@@ -24,7 +25,12 @@ export const ProductRightCard = ({
                     {price}$
                 </p>
 
-                <AddCartButton id={id} />
+                <AddCartButton
+                    id={id}
+                    name={name}
+                    price={price}
+                    image={image}
+                />
             </div>
 
             <p className="text-white/80 mob:text-[22px] text-[14px] leading-[110%] tracking-[0%] mob:mb-7.5 mb-4">

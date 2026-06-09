@@ -10,6 +10,7 @@ import {
     CreditCard,
     User,
     BarChart3,
+    Percent,
 } from "lucide-react";
 import { Navigation } from "../types/navigation";
 
@@ -24,24 +25,15 @@ export const NAV_DATA: Navigation[] = [
         href: "/admin/stats",
     },
     {
-        icon: Home,
-        name: "Хиро блок",
-        href: "/admin/hero-block",
+        icon: CreditCard,
+        name: "Заказы",
+        href: "/admin/order",
     },
     {
-        icon: Boxes,
-        name: "Блок товаров",
-        href: "/admin/products-block",
-        additionalHrefs: [
-            "/admin/products-block/create",
-            "/admin/products-block/edit",
-        ],
-    },
-    {
-        icon: Eye,
-        name: "Отзывы",
-        href: "/admin/reviews",
-        additionalHrefs: ["/admin/reviews/edit", "/admin/reviews/create"],
+        icon: Package,
+        name: "Товары",
+        href: "/admin/product",
+        additionalHrefs: ["/admin/product/create", "/admin/product/"],
     },
     {
         icon: Target,
@@ -68,15 +60,30 @@ export const NAV_DATA: Navigation[] = [
         additionalHrefs: ["/admin/faq/create", "/admin/faq/"],
     },
     {
-        icon: Package,
-        name: "Товары",
-        href: "/admin/product",
-        additionalHrefs: ["/admin/product/create", "/admin/product/"],
+        icon: Percent,
+        name: "Промокоды",
+        href: "/admin/promo-code",
+        additionalHrefs: ["/admin/promo-code/create", "/admin/promo-code/"],
     },
     {
-        icon: CreditCard,
-        name: "Заказы",
-        href: "/admin/order",
+        icon: Home,
+        name: "Хиро блок",
+        href: "/admin/hero-block",
+    },
+    {
+        icon: Boxes,
+        name: "Блок товаров",
+        href: "/admin/products-block",
+        additionalHrefs: [
+            "/admin/products-block/create",
+            "/admin/products-block/edit",
+        ],
+    },
+    {
+        icon: Eye,
+        name: "Отзывы",
+        href: "/admin/reviews",
+        additionalHrefs: ["/admin/reviews/edit", "/admin/reviews/create"],
     },
     {
         icon: User,

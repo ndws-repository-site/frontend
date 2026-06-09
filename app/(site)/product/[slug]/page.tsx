@@ -1,6 +1,11 @@
-import { PRODUCT_PAGE_MOCK } from "@/shared/config";
-import { ProductPage } from "@/widget/product-page";
+import { Product } from "@/page/product";
 
-export default function ProductCardPage() {
-    return <ProductPage {...PRODUCT_PAGE_MOCK} />;
+export default async function ProductCardPage({
+    params,
+}: {
+    params: Promise<{ slug: string }>;
+}) {
+    const { slug } = await params;
+
+    return <Product slug={slug} />;
 }

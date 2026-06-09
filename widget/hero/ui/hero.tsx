@@ -14,8 +14,11 @@ import { BACKGROUND_JARS } from "../config/background-jars";
 import { subscribeResize, getHeight, getServerHeight } from "../helpers";
 import { cn } from "@/shared/utils";
 import { BOUNDED_FONT } from "@/shared/config";
+import { useGetHero } from "../api";
 
 export const Hero = () => {
+    const { data: hero } = useGetHero();
+
     const heroRef = useRef<HTMLElement>(null);
     const height = useSyncExternalStore(
         subscribeResize,
@@ -121,7 +124,7 @@ export const Hero = () => {
                             }}
                         >
                             <Image
-                                src="/hero/creatine.png"
+                                src={hero || "/hero/creatine.png"}
                                 alt=""
                                 width={120}
                                 height={131}

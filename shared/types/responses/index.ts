@@ -9,3 +9,5 @@ export * from "./admin.response";
 export * from "./product-block.response";
 export * from "./stats.reponse";
 export * from "./order.response";
+export * from "./promocode.response";
+export * from "./check-promocode.response";

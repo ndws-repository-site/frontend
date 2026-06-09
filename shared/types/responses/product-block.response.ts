@@ -1,4 +1,11 @@
-import { RecommendedProductResponse } from "./product.response";
+export type ProductBlockProductResponse = {
+    id: string;
+    name: string;
+    slug: string;
+    price: number;
+    stock: number;
+    images: string[];
+};
 
 export type ProductBlockResponse = {
     id: number;
@@ -7,5 +14,8 @@ export type ProductBlockResponse = {
     title: string;
     subtitle: string;
     color: string;
-    product: RecommendedProductResponse;
+    productId: string;
+    product: ProductBlockProductResponse;
+    createdAt: string;
+    updatedAt: string;
 };

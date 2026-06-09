@@ -1,0 +1,73 @@
+name: Deploy
+
+on:
+    push:
+        branches: ["main"]
+
+env:
+    REGISTRY: ghcr.io
+    IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+    build:
+        name: Build
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            packages: write
+        steps:
+            - uses: actions/checkout@v4
+            - name: Validate required secrets
+              env:
+                  NEXT_PUBLIC_SITE_API_ORIGIN: ${{ secrets.NEXT_PUBLIC_SITE_API_ORIGIN }}
+              run: |
+                  if [ -z "$NEXT_PUBLIC_SITE_API_ORIGIN" ]; then
+                    echo "NEXT_PUBLIC_SITE_API_ORIGIN is not set"
+                    exit 1
+                  fi
+            - uses: docker/login-action@v3
+              with:
+                  registry: ${{ env.REGISTRY }}
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+            - uses: docker/build-push-action@v5
+              with:
+                  context: .
+                  file: ./Dockerfile
+                  push: true
+                  tags: |
+                      ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+                      ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+                  build-args: |
+                      NEXT_PUBLIC_SITE_API_ORIGIN=${{ secrets.NEXT_PUBLIC_SITE_API_ORIGIN }}
+    deploy:
+        name: Deploy
+        needs: build
+        runs-on: ubuntu-latest
+        env:
+            GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            NEXT_PUBLIC_SITE_API_ORIGIN: ${{ secrets.NEXT_PUBLIC_SITE_API_ORIGIN }}
+            NEXT_PUBLIC_RECAPTCHA_SITE_KEY: ${{ secrets.NEXT_PUBLIC_RECAPTCHA_SITE_KEY }}
+            RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY }}
+        steps:
+            - uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.SSH_HOST }}
+                  username: ${{ secrets.SSH_USERNAME }}
+                  key: ${{ secrets.SSH_KEY }}
+                  envs: GHCR_TOKEN,NEXT_PUBLIC_SITE_API_ORIGIN,NEXT_PUBLIC_RECAPTCHA_SITE_KEY,RECAPTCHA_SECRET_KEY,GITHUB_ACTOR
+                  script: |
+                      cd /opt/app
+
+                      printf "%c\n" \
+                          "NODE_ENV=production\n" \
+                          "NEXT_PUBLIC_SITE_API_ORIGIN=${NEXT_PUBLIC_SITE_API_ORIGIN}\n" \
+                          "NEXT_PUBLIC_RECAPTCHA_SITE_KEY=${NEXT_PUBLIC_RECAPTCHA_SITE_KEY}\n" \
+                          "RECAPTCHA_SECRET_KEY=${RECAPTCHA_SECRET_KEY}\n" \
+                      > .env.client
+
+                      echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+                      docker compose pull client
+                      docker compose up -d --no-deps client
+                      docker compose restart nginx
+                      docker image prune -f

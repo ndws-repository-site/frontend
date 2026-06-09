@@ -12,6 +12,7 @@ import { MenuItemType } from "../types";
 import { useModal } from "@/shared/hooks";
 import { Cart } from "@/widget/cart";
 import { Checkout } from "@/widget/checkout";
+import { CartButtonBadge } from "./cart-button-badge";
 
 const TABS_ANIMATION_DURATION_MS = 300;
 
@@ -111,12 +112,7 @@ export const Header = () => {
                         icon={
                             <span className="relative flex h-full w-full items-center justify-center">
                                 <CartBag className="shrink-0 [&_path]:fill-none! [&_path]:stroke-black" />
-                                <span
-                                    className="absolute -right-1 top-0 flex h-4 min-w-4 items-center justify-center rounded-full bg-black px-1 text-[10px] font-medium leading-none text-white"
-                                    aria-hidden
-                                >
-                                    4
-                                </span>
+                                <CartButtonBadge />
                             </span>
                         }
                         iconPosition="left"

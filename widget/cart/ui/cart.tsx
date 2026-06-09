@@ -1,16 +1,23 @@
+"use client";
+
 import { X } from "lucide-react";
 import { CartProps } from "../props/cart.props";
-import {
-    ALEXANDRIA_FONT,
-    BOUNDED_FONT,
-    CART_ITEMS_MOCK,
-} from "@/shared/config";
+import { ALEXANDRIA_FONT, BOUNDED_FONT } from "@/shared/config";
 import { CartItem } from "@/entity/cart-item";
 import { cn } from "@/shared/utils";
 import { Button } from "@/shared/ui";
 import { ButtonMenu } from "@/shared/icons";
+import { useCart } from "@/shared/stores/cart-store";
 
 export const Cart = ({ onClose, onOrderNow }: CartProps) => {
+    const items = useCart((state) => state.items);
+    const productPrice = useCart((state) => state.productPrice);
+    const itemsCount = useCart((state) => state.itemsCount);
+    const changeItemQuantity = useCart((state) => state.changeItemQuantity);
+    const removeItem = useCart((state) => state.removeItem);
+
+    const isEmpty = items.length === 0;
+
     return (
         <div className="flex flex-col h-full min-h-0">
             <div className="flex items-center justify-between mb-7 shrink-0">
@@ -20,7 +27,7 @@ export const Cart = ({ onClose, onOrderNow }: CartProps) => {
                         "mob:text-[70px] text-[34px] leading-none text-black",
                     )}
                 >
-                    BAG (4)
+                    BAG ({itemsCount})
                 </p>
 
                 <button className="cursor-pointer" onClick={onClose}>
@@ -29,42 +36,56 @@ export const Cart = ({ onClose, onOrderNow }: CartProps) => {
             </div>
 
             <div className="grid grid-cols-1 gap-0 pb-8 overflow-y-auto min-h-0 flex-1 pr-2 custom-scrollbar">
-                {CART_ITEMS_MOCK.map((item, index) => (
-                    <CartItem
-                        key={index}
-                        className="py-4 border-t border-black/22 last:border-b"
-                        {...item}
-                    />
-                ))}
+                {isEmpty ? (
+                    <p className="text-black/60 mob:text-[18px] text-[14px] leading-[120%] py-8">
+                        Your bag is empty
+                    </p>
+                ) : (
+                    items.map((item) => (
+                        <CartItem
+                            key={item.id}
+                            className="py-4 border-t border-black/22 last:border-b"
+                            id={item.id}
+                            image={item.image}
+                            name={item.name}
+                            price={item.price}
+                            quantity={item.quantity}
+                            onChangeQuantity={changeItemQuantity}
+                            onRemove={removeItem}
+                        />
+                    ))
+                )}
             </div>
 
-            <div className="shrink-0 mt-2.5">
-                <div className="flex items-center justify-between mb-5">
-                    <p className="text-black/60 mob:text-[18px] text-[14px] leading-[120%]">
-                        Estimated total
-                    </p>
+            {!isEmpty && (
+                <div className="shrink-0 mt-2.5">
+                    <div className="flex items-center justify-between mb-5">
+                        <p className="text-black/60 mob:text-[18px] text-[14px] leading-[120%]">
+                            Estimated total
+                        </p>
 
-                    <p
-                        className={cn(
-                            ALEXANDRIA_FONT.className,
-                            "text-black mob:text-[18px] text-[14px] leading-[120%]",
-                        )}
+                        <p
+                            className={cn(
+                                ALEXANDRIA_FONT.className,
+                                "text-black mob:text-[18px] text-[14px] leading-[120%]",
+                            )}
+                        >
+                            {productPrice}$
+                        </p>
+                    </div>
+
+                    <Button
+                        icon={<ButtonMenu />}
+                        className="w-full"
+                        iconPosition="right"
+                        size="large"
+                        variant="primary"
+                        onClick={onOrderNow}
                     >
-                        40$
-                    </p>
+                        Order now
+                    </Button>
                 </div>
-
-                <Button
-                    icon={<ButtonMenu />}
-                    className="w-full"
-                    iconPosition="right"
-                    size="large"
-                    variant="primary"
-                    onClick={onOrderNow}
-                >
-                    Order now
-                </Button>
-            </div>
+            )}
         </div>
     );
 };

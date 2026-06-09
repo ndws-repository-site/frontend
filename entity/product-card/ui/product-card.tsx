@@ -56,6 +56,9 @@ export const ProductCard = ({
 
                 <AddCartButtonProductCard
                     id={id}
+                    name={name}
+                    price={price}
+                    image={image}
                     isHover={hover}
                     className="absolute top-0 right-0"
                 />

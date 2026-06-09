@@ -1,13 +1,38 @@
 "use client";
 
+import { CartQuantityControl } from "@/entity/cart-quantity-control";
 import { useToast } from "@/shared/hooks";
+import { useCart } from "@/shared/stores/cart-store";
 import { AddCartButtonProps } from "../props/add-cart-button.props";
 
-export const AddCartButton = ({ id }: AddCartButtonProps) => {
+export const AddCartButton = ({
+    id,
+    name,
+    price,
+    image,
+}: AddCartButtonProps) => {
     const { showToast } = useToast();
+    const quantity = useCart(
+        (state) => state.items.find((item) => item.id === id)?.quantity ?? 0,
+    );
+    const addItem = useCart((state) => state.addItem);
+    const changeItemQuantity = useCart((state) => state.changeItemQuantity);
+
     const handleAddCartClick = () => {
-        showToast("Ждите когда бэк будет. вот кста айди мокнутый: " + id);
+        addItem({ id, name, price, image });
+        showToast("Added to cart");
     };
+
+    if (quantity > 0) {
+        return (
+            <CartQuantityControl
+                variant="dark"
+                quantity={quantity}
+                onDecrease={() => changeItemQuantity(id, quantity - 1)}
+                onIncrease={() => changeItemQuantity(id, quantity + 1)}
+            />
+        );
+    }
 
     return (
         <button

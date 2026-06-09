@@ -82,7 +82,7 @@ export function useModal({ mode, className, children }: UseModalOptions) {
                 controls={controls}
             />
         ),
-        [active, mode, className, children, controls],
+        [active, mode, className, controls, children],
     );
 
     return {

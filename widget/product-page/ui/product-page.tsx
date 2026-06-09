@@ -32,6 +32,7 @@ export const ProductPage = ({
                             id={id}
                             name={name}
                             price={price}
+                            image={images[0] ?? ""}
                             description={description}
                             forWho={forWho}
                             howToUse={howToUse}

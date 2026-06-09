@@ -1,5 +1,6 @@
-import { Minus, Plus, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { CartItemProps } from "../props/cart-item.props";
+import { CartQuantityControl } from "@/entity/cart-quantity-control";
 import Image from "next/image";
 import { cn } from "@/shared/utils";
 
@@ -37,29 +38,15 @@ export const CartItem = ({
                             Quantity
                         </p>
 
-                        <div className="flex items-center gap-3 rounded-full border border-black/22 mob:py-2 py-0.5 mob:px-3 px-2">
-                            <button
-                                onClick={() =>
-                                    onChangeQuantity(id, quantity - 1)
-                                }
-                                className="cursor-pointer"
-                            >
-                                <Minus className="w-2.5 h-2.5" />
-                            </button>
-
-                            <p className="mob:text-[18px] text-[14px] leading-[120%]">
-                                {quantity}
-                            </p>
-
-                            <button
-                                onClick={() =>
-                                    onChangeQuantity(id, quantity + 1)
-                                }
-                                className="cursor-pointer"
-                            >
-                                <Plus className="w-2.5 h-2.5" />
-                            </button>
-                        </div>
+                        <CartQuantityControl
+                            quantity={quantity}
+                            onDecrease={() =>
+                                onChangeQuantity(id, quantity - 1)
+                            }
+                            onIncrease={() =>
+                                onChangeQuantity(id, quantity + 1)
+                            }
+                        />
                     </div>
                 </div>
             </div>

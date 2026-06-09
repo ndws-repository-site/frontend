@@ -9,6 +9,7 @@ export const PromocodeButton = ({
 }: PromocodeButtonProps) => {
     return (
         <button
+            type="button"
             onClick={onClick}
             className={cn(
                 "px-7 py-3 rounded-full bg-[#636363] text-white cursor-pointer transition-all ease duration-300 hover:bg-black",

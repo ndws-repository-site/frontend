@@ -1,16 +1,26 @@
 "use client";
 
-import { BOUNDED_FONT, CART_ITEMS_MOCK } from "@/shared/config";
+import { useEffect } from "react";
+import { BOUNDED_FONT } from "@/shared/config";
 import { CheckoutProps } from "../props/checkout.props";
 import { X } from "lucide-react";
 import { CartItem } from "@/entity/cart-item";
 import { useScrollBottomGradient } from "../lib/use-scroll-bottom-gradient";
 import { CheckoutForm } from "@/features/checkout-form";
 import { cn } from "@/shared/utils";
+import { useCart } from "@/shared/stores/cart-store";
 
 export const Checkout = ({ onClose }: CheckoutProps) => {
     const { scrollRef, showBottomGradient, onScroll } =
         useScrollBottomGradient();
+
+    const items = useCart((state) => state.items);
+    const productPrice = useCart((state) => state.productPrice);
+    const deliveryPrice = useCart((state) => state.deliveryPrice);
+    const discountAmount = useCart((state) => state.discountAmount);
+    const totalPrice = useCart((state) => state.totalPrice);
+
+    useEffect(() => () => useCart.getState().clearPromocode(), []);
 
     return (
         <div>
@@ -36,10 +46,16 @@ export const Checkout = ({ onClose }: CheckoutProps) => {
                         className="custom-scrollbar pr-3 max-h-[calc(100vh-150px)] overflow-y-auto grid grid-cols-1"
                         onScroll={onScroll}
                     >
-                        {CART_ITEMS_MOCK.map((item, index) => (
+                        {items.map((item) => (
                             <CartItem
-                                key={index}
-                                {...item}
+                                key={item.id}
+                                id={item.id}
+                                image={item.image}
+                                name={item.name}
+                                price={item.price}
+                                quantity={item.quantity}
+                                onChangeQuantity={() => {}}
+                                onRemove={() => {}}
                                 className="py-4 border-b border-black/22"
                             />
                         ))}
@@ -57,7 +73,12 @@ export const Checkout = ({ onClose }: CheckoutProps) => {
                 </div>
 
                 <div className="flex flex-col min-h-0 max-h-[calc(100vh-150px)]">
-                    <CheckoutForm productTotal={40} />
+                    <CheckoutForm
+                        productTotal={productPrice}
+                        deliveryPrice={deliveryPrice}
+                        discountAmount={discountAmount}
+                        totalPrice={totalPrice}
+                    />
                 </div>
             </div>
         </div>
