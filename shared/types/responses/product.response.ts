@@ -1,3 +1,4 @@
+import { IngredientJson } from "../client/ingerident-json";
 import { FaqResponse } from "./faq.reponse";
 import { FormResponse } from "./form.response";
 import { GoalResponse } from "./goal.response";
@@ -13,12 +14,12 @@ export interface ProductResponse {
     images: string[];
     forWho: string;
     howToUse: string;
-    composition: string;
+    composition: IngredientJson[];
     productType: ProductTypeResponse;
     goal: GoalResponse;
     form: FormResponse;
     faq: FaqResponse;
-    recommmendedProducts: RecommendedProductResponse[];
+    recommendedProducts: RecommendedProductResponse[];
 }
 
 export interface RecommendedProductResponse {

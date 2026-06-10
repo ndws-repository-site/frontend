@@ -1,4 +1,5 @@
 export * from "./api";
+export * from "./composition";
 export * from "./api-admin";
 export * from "./cn";
 export * from "./delete-image";

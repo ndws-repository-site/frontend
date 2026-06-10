@@ -1,5 +1,16 @@
 import type { ProductResponse } from "@/shared/types/responses/product.response";
+import { parseComposition } from "@/shared/utils/composition";
 import type { ProductFormSchema } from "../types/product-form-schema";
+
+const emptyFormValues: ProductFormSchema = {
+    name: "",
+    description: "",
+    price: "",
+    stock: "",
+    forWho: "",
+    howToUse: "",
+    composition: parseComposition(""),
+};
 
 export const getDefaultFormValues = (
     product: ProductResponse | undefined,
@@ -12,14 +23,6 @@ export const getDefaultFormValues = (
               stock: product.stock.toString(),
               forWho: product.forWho ?? "",
               howToUse: product.howToUse ?? "",
-              composition: product.composition ?? "",
+              composition: parseComposition(product.composition),
           }
-        : {
-              name: "",
-              description: "",
-              price: "",
-              stock: "",
-              forWho: "",
-              howToUse: "",
-              composition: "",
-          };
+        : emptyFormValues;

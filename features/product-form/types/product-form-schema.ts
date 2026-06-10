@@ -1,3 +1,5 @@
+import { IngredientJson } from "@/shared/types";
+
 export interface ProductFormSchema {
     name: string;
     description: string;
@@ -5,5 +7,5 @@ export interface ProductFormSchema {
     stock: string;
     forWho: string;
     howToUse: string;
-    composition: string;
+    composition: IngredientJson[];
 }

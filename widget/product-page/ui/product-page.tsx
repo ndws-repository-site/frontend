@@ -41,18 +41,22 @@ export const ProductPage = ({
                     </div>
                 </div>
 
-                <div className="px-2.5 pb-3 overflow-hidden">
-                    <h1
-                        className={cn(
-                            BOUNDED_FONT.className,
-                            "text-white uppercase lg:text-[40px] mob:text-[24px] text-[20px] lg:mb-10 mob:mb-8 mb-5.5 leading-none",
-                        )}
-                    >
-                        Frequently Bought Together
-                    </h1>
+                {recommendedProducts.length > 0 && (
+                    <div className="px-2.5 pb-3 overflow-hidden">
+                        <h1
+                            className={cn(
+                                BOUNDED_FONT.className,
+                                "text-white uppercase lg:text-[40px] mob:text-[24px] text-[20px] lg:mb-10 mob:mb-8 mb-5.5 leading-none",
+                            )}
+                        >
+                            Frequently Bought Together
+                        </h1>
 
-                    <FrequentlyBoughtSlider products={recommendedProducts} />
-                </div>
+                        <FrequentlyBoughtSlider
+                            products={recommendedProducts}
+                        />
+                    </div>
+                )}
             </RoundedBlock>
 
             <Faq title={`FAQ - ${name}`} faq={faq} />

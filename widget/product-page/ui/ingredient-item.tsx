@@ -19,7 +19,7 @@ export const IngredientItem = ({
                 {title}
             </p>
 
-            <p className="text-white/70 text-[14px] font-extralight leading-none">
+            <p className="text-white/70 text-[14px] font-extralight leading-none text-right">
                 {description}
             </p>
         </div>

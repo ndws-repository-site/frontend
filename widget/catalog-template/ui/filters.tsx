@@ -1,7 +1,6 @@
 "use client";
 
 import { FilterIcon, XIcon, ChevronLeft } from "lucide-react";
-import { GOALS_MOCK, FORM_MOCK, PRODUCT_TYPE_MOCK } from "../config";
 import { FilterColumn } from "./filter-column";
 import { useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
@@ -36,6 +35,9 @@ const sheetVariants = {
 };
 
 export const Filter = ({
+    goals,
+    forms,
+    productTypes,
     selectedGoals,
     selectedForm,
     selectedProductType,
@@ -155,19 +157,19 @@ export const Filter = ({
                                             <div className="grid grid-cols-1 gap-5 mb-5.5">
                                                 <FilterColumn
                                                     title="Goals"
-                                                    filters={GOALS_MOCK}
+                                                    filters={goals}
                                                     onChange={handleFilterGoals}
                                                     checked={draftGoals}
                                                 />
                                                 <FilterColumn
                                                     title="Form"
-                                                    filters={FORM_MOCK}
+                                                    filters={forms}
                                                     onChange={handleFilterForm}
                                                     checked={draftForm}
                                                 />
                                                 <FilterColumn
                                                     title="Product Type"
-                                                    filters={PRODUCT_TYPE_MOCK}
+                                                    filters={productTypes}
                                                     onChange={
                                                         handleFilterProductType
                                                     }
@@ -210,19 +212,19 @@ export const Filter = ({
                             <div className="grid grid-cols-2 lg:grid-cols-[repeat(3,minmax(200px,1fr))] gap-5 mb-5.5">
                                 <FilterColumn
                                     title="Goals"
-                                    filters={GOALS_MOCK}
+                                    filters={goals}
                                     onChange={handleFilterGoals}
                                     checked={draftGoals}
                                 />
                                 <FilterColumn
                                     title="Form"
-                                    filters={FORM_MOCK}
+                                    filters={forms}
                                     onChange={handleFilterForm}
                                     checked={draftForm}
                                 />
                                 <FilterColumn
                                     title="Product Type"
-                                    filters={PRODUCT_TYPE_MOCK}
+                                    filters={productTypes}
                                     onChange={handleFilterProductType}
                                     checked={draftProductType}
                                     className="col-span-2 lg:col-span-1"

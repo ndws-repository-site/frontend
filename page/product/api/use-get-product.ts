@@ -1,20 +1,8 @@
-import { IngredientJson, ProductResponse } from "@/shared/types";
+import { ProductResponse } from "@/shared/types";
 import { $api } from "@/shared/utils";
+import { parseComposition } from "@/shared/utils/composition";
 import { ProductPageProps } from "@/widget/product-page";
 import { useQuery } from "@tanstack/react-query";
-
-const parseIngredients = (composition: string): IngredientJson[] => {
-    if (!composition) return [];
-
-    try {
-        const parsed = JSON.parse(composition) as unknown;
-        if (Array.isArray(parsed)) return parsed as IngredientJson[];
-    } catch {
-        // composition is plain text
-    }
-
-    return [{ title: "Composition", description: composition }];
-};
 
 const mapProductToPageProps = (product: ProductResponse): ProductPageProps => ({
     id: product.id,
@@ -24,9 +12,11 @@ const mapProductToPageProps = (product: ProductResponse): ProductPageProps => ({
     price: product.price,
     forWho: product.forWho,
     howToUse: product.howToUse,
-    ingredients: parseIngredients(product.composition),
+    ingredients: parseComposition(product.composition ?? []).filter(
+        (item) => item.title.trim() && item.description.trim(),
+    ),
     faq: product.faq?.faq ?? [],
-    recommendedProducts: (product.recommmendedProducts ?? []).map((item) => ({
+    recommendedProducts: (product.recommendedProducts ?? []).map((item) => ({
         id: item.id,
         name: item.name,
         slug: item.slug,

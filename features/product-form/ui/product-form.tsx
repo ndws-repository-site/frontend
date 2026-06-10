@@ -41,6 +41,8 @@ import { ProductFormSchema } from "../types/product-form-schema";
 import type { ProductFormContentProps } from "../types/product-form-content.props";
 import { getDefaultFormValues } from "../utils/get-default-form-values";
 import { handlePriceKeyDown, handleStockKeyDown } from "../utils/price";
+import { CompositionFields } from "./composition-fields";
+import { serializeComposition } from "@/shared/utils/composition";
 
 const ProductFormContent = ({
     product,
@@ -54,7 +56,7 @@ const ProductFormContent = ({
     );
     const [recommendedProductIds, setRecommendedProductIds] = useState<
         string[]
-    >(() => product?.recommmendedProducts?.map((p) => p.id) ?? []);
+    >(() => product?.recommendedProducts?.map((p) => p.id) ?? []);
     const [addProductPage, setAddProductPage] = useState(false);
     const [submitError, setSubmitError] = useState<string | null>(null);
     const [imagesError, setImagesError] = useState<string | undefined>();
@@ -83,6 +85,7 @@ const ProductFormContent = ({
 
     const {
         register,
+        control,
         handleSubmit,
         formState: { errors, isSubmitting },
     } = useForm<ProductFormSchema>({
@@ -154,7 +157,7 @@ const ProductFormContent = ({
                 images: allImages,
                 forWho: data.forWho,
                 howToUse: data.howToUse,
-                composition: data.composition,
+                composition: serializeComposition(data.composition),
                 productTypeId,
                 formId,
                 goalId,
@@ -285,7 +288,7 @@ const ProductFormContent = ({
                     title="Дополнительная информация"
                     className="mb-4"
                 >
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-2 gap-2">
                         <AdminInput
                             placeholder="Для кого предназначен товар"
                             disabled={isSubmitting}
@@ -297,13 +300,11 @@ const ProductFormContent = ({
                             disabled={isSubmitting}
                             {...register("howToUse")}
                         />
-
-                        <AdminInput
-                            placeholder="Состав товара"
-                            disabled={isSubmitting}
-                            {...register("composition")}
-                        />
                     </div>
+                </AdminFormCard>
+
+                <AdminFormCard title="Состав товара" className="mb-4">
+                    <CompositionFields control={control} register={register} />
                 </AdminFormCard>
 
                 <AdminFormCard title="Настройки товара" className="mb-4">

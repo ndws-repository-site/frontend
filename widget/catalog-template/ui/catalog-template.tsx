@@ -11,11 +11,9 @@ import { letterVariants } from "../config";
 
 //Types
 import type { CatalogTemplateProps } from "../types/catalog-template.props";
-import type { IProduct } from "@/shared/types";
-
 //Libraries/Frameworks
 import { motion, animate } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { cn } from "@/shared/utils";
 
 export const CatalogTemplate = ({
@@ -24,11 +22,11 @@ export const CatalogTemplate = ({
     description,
     products,
     loading = false,
+    goals,
+    forms,
+    productTypes,
 }: CatalogTemplateProps) => {
     //=====STATES=====
-    //Products
-    const [filteredProducts, setFilteredProducts] =
-        useState<IProduct[]>(products);
     const [displayCount, setDisplayCount] = useState(0);
     //Filter
     const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
@@ -39,7 +37,22 @@ export const CatalogTemplate = ({
 
     //=====CONSTANTS=====
     const titleLetters = title.split("");
-    //Products
+    const filteredProducts = useMemo(
+        () =>
+            products.filter((product) => {
+                const goalMatch =
+                    selectedGoals.length === 0 ||
+                    selectedGoals.includes(product.goal);
+                const formMatch =
+                    selectedForm.length === 0 ||
+                    selectedForm.includes(product.form);
+                const productTypeMatch =
+                    selectedProductType.length === 0 ||
+                    selectedProductType.includes(product.productType);
+                return goalMatch && formMatch && productTypeMatch;
+            }),
+        [products, selectedGoals, selectedForm, selectedProductType],
+    );
     const currentProducts = filteredProducts;
     const productsCount = loading ? products.length : currentProducts.length;
     const prevCountRef = useRef(0);
@@ -51,20 +64,9 @@ export const CatalogTemplate = ({
         form: string[],
         productType: string[],
     ) => {
-        const filtered = products.filter((product) => {
-            const goalMatch =
-                goals.length === 0 || goals.includes(product.goal);
-            const formMatch = form.length === 0 || form.includes(product.form);
-            const productTypeMatch =
-                productType.length === 0 ||
-                productType.includes(product.productType);
-            return goalMatch && formMatch && productTypeMatch;
-        });
-
         setSelectedGoals(goals);
         setSelectedForm(form);
         setSelectedProductType(productType);
-        setFilteredProducts(filtered);
     };
 
     //=====Effects=====
@@ -175,6 +177,9 @@ export const CatalogTemplate = ({
 
                 <div className="justify-self-end">
                     <Filter
+                        goals={goals}
+                        forms={forms}
+                        productTypes={productTypes}
                         selectedGoals={selectedGoals}
                         selectedForm={selectedForm}
                         selectedProductType={selectedProductType}
@@ -183,7 +188,6 @@ export const CatalogTemplate = ({
                             setSelectedGoals([]);
                             setSelectedForm([]);
                             setSelectedProductType([]);
-                            setFilteredProducts(products);
                         }}
                     />
                 </div>
