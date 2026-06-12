@@ -82,6 +82,7 @@ export const ProductSlider = ({ images }: ProductSliderProps) => {
                                         width={592}
                                         height={619}
                                         quality={100}
+                                        unoptimized
                                         draggable={false}
                                         className="w-full h-auto max-h-[619px] object-contain"
                                     />

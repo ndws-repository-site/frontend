@@ -160,7 +160,7 @@ export const ProductBlock = ({
                         width={800}
                         height={800}
                         quality={100}
-                        unoptimized={false}
+                        unoptimized
                         priority
                         className="absolute top-1/2 left-1/2 -translate-1/2 select-none"
                     />

@@ -6,3 +6,4 @@ export * from "./delete-image";
 export * from "./get-error-message";
 export * from "./highlight-search";
 export * from "./upload-image";
+export * from "./is-upload-src";

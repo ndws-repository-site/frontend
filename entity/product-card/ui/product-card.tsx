@@ -51,6 +51,7 @@ export const ProductCard = ({
                     width={1000}
                     height={1000}
                     quality={100}
+                    unoptimized
                     className="h-auto w-[70%] group-hover:scale-105 transition duration-300 ease-in-out"
                 />
 

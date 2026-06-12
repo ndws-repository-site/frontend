@@ -25,16 +25,13 @@ export const NAVIGATION_LINKS: ColumnLinkItem[] = [
 
 export const CONTACT_LINKS: ColumnLinkItem[] = [
     {
-        text: "+7 (999) 999-99-99",
-        href: "tel:+79999999999",
-    },
-    {
-        text: "nnnn@mail.ru",
-        href: "mailto:nnnn@mail.ru",
+        text: "info@ndws-nutrition.com",
+        href: "mailto:info@ndws-nutrition.com",
     },
     {
         text: "leave a question",
-        href: "/leave-a-question",
+        href: "https://www.instagram.com/no_day_without_sport?utm_source=qr",
+        target: "_blank",
         underline: true,
     },
 ];

@@ -6,6 +6,7 @@ import {
     AdminInput,
     AdminLoading,
     AdminPageTitle,
+    AdminSelect,
     AdminTable,
     AdminTableRow,
 } from "@/shared/admin";
@@ -16,27 +17,60 @@ import { useMemo, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useOrdersTable } from "../api/use-orders-table";
 import { GRID_CLASS } from "../config/constants";
-import type { OrderResponse } from "@/shared/types/responses/order.response";
+import {
+    getOrderStatusBadgeClass,
+    getOrderStatusLabel,
+    ORDER_STATUS_OPTIONS,
+} from "../config/order-status";
+import {
+    ORDER_SORT_OPTIONS,
+    sortOrders,
+    type OrderSortKey,
+} from "../config/order-sort";
+import { formatDelivery } from "../lib/format-delivery";
+import { formatOrderAddress } from "../lib/format-order-address";
+import type {
+    OrderResponse,
+    OrderStatus,
+} from "@/shared/types/responses/order.response";
 
 export const AdminOrder = () => {
     const { confirm } = useConfirm();
     const queryClient = useQueryClient();
     const [search, setSearch] = useState("");
+    const [statusFilter, setStatusFilter] = useState<OrderStatus | null>(null);
+    const [sortKey, setSortKey] = useState<OrderSortKey>("newest");
 
     const { data: orders = [], isLoading } = useOrdersTable();
 
     const filteredOrders = useMemo(() => {
-        if (!search.trim()) return orders;
-        const q = search.toLowerCase().trim();
-        return orders.filter(
-            (o) =>
-                o.firstName.toLowerCase().includes(q) ||
-                o.lastName.toLowerCase().includes(q) ||
-                o.email.toLowerCase().includes(q) ||
-                o.phone.includes(q) ||
-                o.address.toLowerCase().includes(q),
-        );
-    }, [orders, search]);
+        let result = [...orders];
+
+        if (statusFilter) {
+            result = result.filter((o) => o.status === statusFilter);
+        }
+
+        if (search.trim()) {
+            const q = search.toLowerCase().trim();
+            result = result.filter((o) => {
+                const address = formatOrderAddress(o).toLowerCase();
+                return (
+                    o.firstName.toLowerCase().includes(q) ||
+                    o.lastName.toLowerCase().includes(q) ||
+                    o.email.toLowerCase().includes(q) ||
+                    o.phone.includes(q) ||
+                    address.includes(q) ||
+                    o.street.toLowerCase().includes(q) ||
+                    o.city.toLowerCase().includes(q) ||
+                    o.country.toLowerCase().includes(q) ||
+                    o.id.toLowerCase().includes(q) ||
+                    (o.trackingNumber?.toLowerCase().includes(q) ?? false)
+                );
+            });
+        }
+
+        return sortOrders(result, sortKey);
+    }, [orders, search, statusFilter, sortKey]);
 
     const handleDelete = (order: OrderResponse) => {
         confirm({
@@ -60,7 +94,7 @@ export const AdminOrder = () => {
         <div>
             <AdminPageTitle title="Заказы" />
 
-            <div className="mb-6">
+            <div className="grid grid-cols-3 gap-2 items-center mb-6">
                 <AdminInput
                     placeholder="Поиск по имени, email, телефону, адресу..."
                     variant="alternative"
@@ -68,12 +102,29 @@ export const AdminOrder = () => {
                     onChange={(e) => setSearch(e.target.value)}
                     icon={<Search className="size-5" />}
                 />
+                <AdminSelect
+                    value={statusFilter ?? "all"}
+                    onChange={(v) =>
+                        setStatusFilter(v === "all" ? null : (v as OrderStatus))
+                    }
+                    options={ORDER_STATUS_OPTIONS}
+                    placeholder="Статус"
+                    variant="alternative"
+                />
+                <AdminSelect
+                    value={sortKey}
+                    onChange={(v) => setSortKey(v as OrderSortKey)}
+                    options={ORDER_SORT_OPTIONS}
+                    placeholder="Сортировка"
+                    variant="alternative"
+                />
             </div>
 
             <AdminTable
                 columns={[
                     { header: "Дата" },
                     { header: "Клиент" },
+                    { header: "Статус" },
                     { header: "Сумма", align: "right" },
                     { header: "Доставка" },
                     { header: "Действия", align: "right" },
@@ -84,7 +135,7 @@ export const AdminOrder = () => {
                 searchTerm={search}
                 emptyMessage="Заказов пока нет"
                 emptySearchMessage="По вашему запросу ничего не найдено"
-                minWidth="900px"
+                minWidth="1000px"
             >
                 {filteredOrders.map((order) => {
                     const clientName = `${order.firstName} ${order.lastName}`;
@@ -99,11 +150,18 @@ export const AdminOrder = () => {
                             <div className="truncate">
                                 {highlightSearchText(clientName, search)}
                             </div>
+                            <div className="min-w-0">
+                                <span
+                                    className={`inline-block whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium ${getOrderStatusBadgeClass(order.status)}`}
+                                >
+                                    {getOrderStatusLabel(order.status)}
+                                </span>
+                            </div>
                             <div className="text-right font-medium">
                                 {order.totalPrice.toLocaleString("en-US")} $
                             </div>
                             <div className="truncate text-sm text-gray-400">
-                                {order.delivery}
+                                {formatDelivery(order.delivery)}
                             </div>
                             <div className="flex justify-end gap-2">
                                 <Link

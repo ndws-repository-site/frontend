@@ -97,6 +97,10 @@ export const useCart = create<CartStore>()(
                 set(withTotals(get().items, null));
             },
 
+            clearCart: () => {
+                set(withTotals([], null));
+            },
+
             getItems: (ids: string[]) =>
                 get().items.filter((item) => ids.includes(item.id)),
 

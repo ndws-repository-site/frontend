@@ -10,7 +10,7 @@ export const WHY_WE_CARD_DATA = [
         icon: SecondIcon,
     },
     {
-        title: "4 stages of quality control",
+        title: "Manufactured according to international standards",
         icon: ThirdIcon,
     },
 ];

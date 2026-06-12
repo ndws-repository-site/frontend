@@ -12,7 +12,7 @@ import {
 } from "../config/animations";
 import { BACKGROUND_JARS } from "../config/background-jars";
 import { subscribeResize, getHeight, getServerHeight } from "../helpers";
-import { cn } from "@/shared/utils";
+import { cn, isUploadSrc } from "@/shared/utils";
 import { BOUNDED_FONT } from "@/shared/config";
 import { useGetHero } from "../api";
 
@@ -128,6 +128,7 @@ export const Hero = () => {
                                 alt=""
                                 width={120}
                                 height={131}
+                                unoptimized={hero ? isUploadSrc(hero) : false}
                                 className="w-full h-auto"
                                 aria-hidden
                             />

@@ -11,6 +11,10 @@ export interface ProductResponse {
     description: string;
     price: number;
     stock: number;
+    weight: number;
+    length: number;
+    width: number;
+    height: number;
     images: string[];
     forWho: string;
     howToUse: string;

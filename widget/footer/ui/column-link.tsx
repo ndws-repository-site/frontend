@@ -13,6 +13,7 @@ export const ColumnLink = ({ title, links }: ColumnLinkProps) => {
                     <Link
                         key={link.href}
                         href={link.href}
+                        target={link.target}
                         className={cn(
                             "uppercase text-[14px] mob:text-[20px] text-white leading-[110%] cursor-pointer transition hover:text-primary",
                             link.underline && "underline underline-offset-2",

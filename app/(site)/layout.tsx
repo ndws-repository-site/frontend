@@ -12,6 +12,7 @@ import {
 } from "@/shared/config";
 import { Toast } from "@/shared/hooks";
 import { QueryProvider } from "@/shared/providers";
+import { OrderSuccessModal } from "@/widget/order-success-modal";
 
 export const metadata: Metadata = {
     title: SEO_TITLE,
@@ -67,6 +68,7 @@ export default function RootLayout({
                 <QueryProvider>
                     <Header />
                     <Toast />
+                    <OrderSuccessModal />
                     <main className="flex-1 overflow-visible">{children}</main>
                     <Footer />
                 </QueryProvider>

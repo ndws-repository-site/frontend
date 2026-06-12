@@ -106,6 +106,7 @@ export const AdminReviews = () => {
                                     src={review.avatar}
                                     alt={review.name}
                                     fill
+                                    unoptimized
                                     className="object-cover"
                                 />
                             ) : null}

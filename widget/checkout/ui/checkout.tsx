@@ -16,9 +16,9 @@ export const Checkout = ({ onClose }: CheckoutProps) => {
 
     const items = useCart((state) => state.items);
     const productPrice = useCart((state) => state.productPrice);
-    const deliveryPrice = useCart((state) => state.deliveryPrice);
     const discountAmount = useCart((state) => state.discountAmount);
-    const totalPrice = useCart((state) => state.totalPrice);
+    const changeItemQuantity = useCart((state) => state.changeItemQuantity);
+    const removeItem = useCart((state) => state.removeItem);
 
     useEffect(() => () => useCart.getState().clearPromocode(), []);
 
@@ -54,8 +54,8 @@ export const Checkout = ({ onClose }: CheckoutProps) => {
                                 name={item.name}
                                 price={item.price}
                                 quantity={item.quantity}
-                                onChangeQuantity={() => {}}
-                                onRemove={() => {}}
+                                onChangeQuantity={changeItemQuantity}
+                                onRemove={removeItem}
                                 className="py-4 border-b border-black/22"
                             />
                         ))}
@@ -75,9 +75,8 @@ export const Checkout = ({ onClose }: CheckoutProps) => {
                 <div className="flex flex-col min-h-0 max-h-[calc(100vh-150px)]">
                     <CheckoutForm
                         productTotal={productPrice}
-                        deliveryPrice={deliveryPrice}
                         discountAmount={discountAmount}
-                        totalPrice={totalPrice}
+                        onClose={onClose}
                     />
                 </div>
             </div>

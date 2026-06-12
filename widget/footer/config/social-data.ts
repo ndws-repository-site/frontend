@@ -5,7 +5,7 @@ import { SocialData } from "../types/social-data";
 export const SOCIAL_DATA: Record<Social, SocialData> = {
     [Social.INSTAGRAM]: {
         type: Social.INSTAGRAM,
-        link: "https://www.instagram.com/ndws.official/",
+        link: "https://www.instagram.com/no_day_without_sport",
         icon: InstagramIcon,
         colorIcon: "#C13584",
     },

@@ -24,6 +24,7 @@ export interface CartStore {
     changeItemQuantity: (id: string, quantity: number) => void;
     applyPromocode: (code: string, discount: number) => void;
     clearPromocode: () => void;
+    clearCart: () => void;
     getItems: (ids: string[]) => ICartItem[];
     checkQuantity: (ids: string[]) => CheckQuantityResponse;
 }

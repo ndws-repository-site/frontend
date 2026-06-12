@@ -21,6 +21,7 @@ export const Review = ({
                     height={42}
                     sizes="100px"
                     quality={100}
+                    unoptimized
                     className="rounded-full w-10.5 h-10.5 object-cover object-top"
                 />
 

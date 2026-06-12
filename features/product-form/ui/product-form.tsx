@@ -154,6 +154,10 @@ const ProductFormContent = ({
                 description: data.description,
                 price: parseFloat(data.price) || 0,
                 stock: parseInt(data.stock, 10) || 0,
+                weight: parseFloat(data.weight),
+                length: parseFloat(data.length),
+                width: parseFloat(data.width),
+                height: parseFloat(data.height),
                 images: allImages,
                 forWho: data.forWho,
                 howToUse: data.howToUse,
@@ -305,6 +309,63 @@ const ProductFormContent = ({
 
                 <AdminFormCard title="Состав товара" className="mb-4">
                     <CompositionFields control={control} register={register} />
+                </AdminFormCard>
+
+                <AdminFormCard title="Параметры доставки" className="mb-4">
+                    <div className="grid grid-cols-4 gap-2">
+                        <AdminInput
+                            placeholder="Вес (граммы)"
+                            error={errors.weight?.message}
+                            disabled={isSubmitting}
+                            onKeyDown={handlePriceKeyDown}
+                            {...register("weight", {
+                                required: "Введите вес",
+                                validate: (v) =>
+                                    !v ||
+                                    !isNaN(parseFloat(v)) ||
+                                    "Только цифры",
+                            })}
+                        />
+                        <AdminInput
+                            placeholder="Длина (см)"
+                            error={errors.length?.message}
+                            disabled={isSubmitting}
+                            onKeyDown={handlePriceKeyDown}
+                            {...register("length", {
+                                required: "Введите длину",
+                                validate: (v) =>
+                                    !v ||
+                                    !isNaN(parseFloat(v)) ||
+                                    "Только цифры",
+                            })}
+                        />
+                        <AdminInput
+                            placeholder="Ширина (см)"
+                            error={errors.width?.message}
+                            disabled={isSubmitting}
+                            onKeyDown={handlePriceKeyDown}
+                            {...register("width", {
+                                required: "Введите ширину",
+                                validate: (v) =>
+                                    !v ||
+                                    !isNaN(parseFloat(v)) ||
+                                    "Только цифры",
+                            })}
+                        />
+                        <AdminInput
+                            placeholder="Высота (см)"
+                            error={errors.height?.message}
+                            disabled={isSubmitting}
+                            onKeyDown={handlePriceKeyDown}
+                            {...register("height", {
+                                required: "Введите высоту",
+                                validate: (v) =>
+                                    !v ||
+                                    !isNaN(parseFloat(v)) ||
+                                    "Только цифры",
+                            })}
+                        />
+                    </div>
                 </AdminFormCard>
 
                 <AdminFormCard title="Настройки товара" className="mb-4">

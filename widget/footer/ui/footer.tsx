@@ -22,10 +22,10 @@ export const Footer = () => {
     return (
         <footer
             ref={footerRef}
-            className="m-2.5 px-2.5 pt-[37px] pb-0 bg-black rounded-[30px] overflow-hidden"
+            className="m-2.5 px-5 mob:px-8 lg:px-10 pt-[37px] pb-0 bg-black rounded-[30px] overflow-hidden"
         >
-            {/* Верхний блок: mob — 2 колонки (2x2), tablet — 3 колонки, lg — 4 колонки */}
-            <div className="grid grid-cols-2 mob:grid-cols-3 lg:grid-cols-4 gap-8 mob:gap-8 lg:gap-10 pb-8">
+            {/* Верхний блок: mob — 2 колонки (2x2), tablet — 3 колонки, lg — flex space-between */}
+            <div className="grid grid-cols-2 mob:grid-cols-3 gap-8 mob:gap-8 pb-8 lg:flex lg:justify-between lg:items-start lg:gap-10">
                 {/* 1. Social media */}
                 <div>
                     <ColumnTitle title="Social media" className="mb-5" />

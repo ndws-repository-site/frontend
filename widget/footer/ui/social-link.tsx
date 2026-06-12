@@ -7,6 +7,7 @@ export const SocialLink = ({ type }: SocialLinkProps) => {
     return (
         <Link
             href={link}
+            target="_blank"
             className="group w-[33px] h-[33px] mob:w-[50px] mob:h-[50px] lg:w-[69px] lg:h-[69px] bg-white/20 rounded-full flex items-center justify-center cursor-pointer transition-colors shrink-0"
             style={{ ["--icon-hover-color" as string]: colorIcon }}
         >

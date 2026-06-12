@@ -3,83 +3,98 @@
 import { FormGroup } from "@/widget/form-group";
 import { CheckoutFormProps } from "../props/checkout-form.props";
 import { Button, Input, Textarea } from "@/shared/ui";
-import { PromocodeButton } from "./promocode-button";
 import { ButtonMenu } from "@/shared/icons";
-import { cn, getErrorMessage } from "@/shared/utils";
-import { ALEXANDRIA_FONT } from "@/shared/config";
-import { useState } from "react";
+import { PromocodeField } from "./promocode-field";
+import { CheckoutSummary } from "./checkout-summary";
+import { useForm } from "react-hook-form";
+import { CheckoutFormType } from "../types/checkout-form.type";
 import { useCart } from "@/shared/stores/cart-store";
-import { checkPromocode } from "../api/check-promocode";
+import { useDeliveryCost } from "../hooks/use-delivery-cost";
+import { useCreateOrder } from "../hooks/use-create-order";
 
 export const CheckoutForm = ({
     productTotal,
-    deliveryPrice,
     discountAmount,
-    totalPrice,
+    onClose,
 }: CheckoutFormProps) => {
+    const { register, getValues, control, handleSubmit } =
+        useForm<CheckoutFormType>();
+
+    const products = useCart((state) => state.items);
     const appliedPromocode = useCart((state) => state.appliedPromocode);
-    const applyPromocode = useCart((state) => state.applyPromocode);
-    const clearPromocode = useCart((state) => state.clearPromocode);
 
-    const [promoCode, setPromoCode] = useState("");
-    const [promoCodeError, setPromoCodeError] = useState<string | null>(null);
-    const [isChecking, setIsChecking] = useState(false);
+    const {
+        deliveryCost,
+        status,
+        error,
+        deliveryDisplayValue,
+        isOrderEnabled,
+    } = useDeliveryCost({
+        control,
+        getValues,
+        products,
+    });
 
-    const isApplied = appliedPromocode !== null;
-    const inputValue = isApplied ? appliedPromocode.code : promoCode;
+    const { isSubmitting, submitError, submitOrder } = useCreateOrder();
 
-    const handlePromoCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPromoCode(e.target.value);
-        if (promoCodeError) {
-            setPromoCodeError(null);
-        }
-    };
+    const displayTotal =
+        status === "ready" && deliveryCost !== null
+            ? productTotal - discountAmount + deliveryCost
+            : productTotal - discountAmount;
 
-    const handleApply = async () => {
-        const code = promoCode.trim();
-
-        if (!code) {
-            setPromoCodeError("Enter a promo code");
+    const onSubmit = handleSubmit((formValues) => {
+        if (deliveryCost === null) {
             return;
         }
 
-        setIsChecking(true);
-        setPromoCodeError(null);
+        void submitOrder({
+            formValues,
+            products,
+            productTotal,
+            discountAmount,
+            deliveryCost,
+            appliedPromocode,
+            onClose,
+        });
+    });
 
-        try {
-            const { discount } = await checkPromocode(code);
-            applyPromocode(code, discount);
-            setPromoCode("");
-        } catch (error) {
-            setPromoCodeError(getErrorMessage(error) ?? "Invalid promo code");
-        } finally {
-            setIsChecking(false);
-        }
-    };
-
-    const handlePromocodeAction = () => {
-        if (isApplied) {
-            clearPromocode();
-            setPromoCode("");
-            setPromoCodeError(null);
-            return;
-        }
-
-        void handleApply();
-    };
+    const isButtonDisabled = !isOrderEnabled || isSubmitting;
+    const buttonLabel = isSubmitting
+        ? "Loading..."
+        : status === "loading"
+          ? "Loading..."
+          : "Order now";
 
     return (
         <div className="flex flex-col h-full min-h-0">
             <div className="flex-1 min-h-0 overflow-y-auto custom-scrollbar pr-1">
-                <form className="flex flex-col gap-6">
+                <form
+                    id="checkout-form"
+                    className="flex flex-col gap-6"
+                    onSubmit={onSubmit}
+                >
                     <FormGroup title="Contact">
-                        <Input placeholder="First name" />
+                        <Input
+                            placeholder="First name"
+                            {...register("firstName")}
+                        />
 
-                        <Input placeholder="Last name" />
+                        <Input
+                            placeholder="Last name"
+                            {...register("lastName")}
+                        />
 
-                        <Input placeholder="Email" />
+                        <Input
+                            placeholder="Email"
+                            type="email"
+                            {...register("email")}
+                        />
 
-                        <Input placeholder="Phone" />
+                        <Input
+                            placeholder="Phone"
+                            type="tel"
+                            {...register("phone")}
+                        />
                     </FormGroup>
 
                     <FormGroup title="Address">
@@ -89,11 +104,17 @@ export const CheckoutForm = ({
                             disabled
                         />
 
-                        <Input placeholder="City" />
+                        <Input placeholder="State" {...register("state")} />
 
-                        <Input placeholder="Postal code" />
+                        <Input placeholder="City" {...register("city")} />
 
-                        <Input placeholder="Address" />
+                        <Input placeholder="ZIP" {...register("zip")} />
+
+                        <Input
+                            placeholder="Address"
+                            className="col-span-2"
+                            {...register("address")}
+                        />
                     </FormGroup>
 
                     <FormGroup title="Comment">
@@ -101,107 +122,37 @@ export const CheckoutForm = ({
                             placeholder="Enter your comment"
                             className="col-span-2"
                             rows={3}
+                            {...register("comment")}
                         />
                     </FormGroup>
 
-                    <FormGroup title="Promo Code">
-                        <div className="col-span-2 flex flex-col gap-1">
-                            <div className="relative">
-                                <Input
-                                    placeholder="Enter your promo code"
-                                    value={inputValue}
-                                    onChange={handlePromoCodeChange}
-                                    disabled={isApplied || isChecking}
-                                />
-                                <PromocodeButton
-                                    state={isApplied ? "Cancel" : "Apply"}
-                                    onClick={handlePromocodeAction}
-                                    disabled={isChecking}
-                                    className="absolute right-1 top-1/2 -translate-y-1/2"
-                                />
-                            </div>
-                            {promoCodeError && (
-                                <p className="text-red-500 text-sm px-2">
-                                    {promoCodeError}
-                                </p>
-                            )}
-                        </div>
-                    </FormGroup>
+                    <PromocodeField />
                 </form>
             </div>
 
             <div className="shrink-0 pt-4">
-                <div className="grid grid-cols-1 gap-3">
-                    <div className="flex items-center justify-between">
-                        <p className="text-black/60 mob:text-[18px] text-[14px] leading-[120%]">
-                            Product total
-                        </p>
-
-                        <p
-                            className={cn(
-                                ALEXANDRIA_FONT.className,
-                                "text-black mob:text-[18px] text-[14px] leading-[120%]",
-                            )}
-                        >
-                            {productTotal}$
-                        </p>
-                    </div>
-
-                    {discountAmount > 0 && (
-                        <div className="flex items-center justify-between">
-                            <p className="text-black/60 mob:text-[18px] text-[14px] leading-[120%]">
-                                Discount
-                            </p>
-
-                            <p
-                                className={cn(
-                                    ALEXANDRIA_FONT.className,
-                                    "text-black mob:text-[18px] text-[14px] leading-[120%]",
-                                )}
-                            >
-                                -{discountAmount}$
-                            </p>
-                        </div>
-                    )}
-
-                    <div className="flex items-center justify-between">
-                        <p className="text-black/60 mob:text-[18px] text-[14px] leading-[120%]">
-                            Delivery total
-                        </p>
-
-                        <p
-                            className={cn(
-                                ALEXANDRIA_FONT.className,
-                                "text-black mob:text-[18px] text-[14px] leading-[120%]",
-                            )}
-                        >
-                            {deliveryPrice}$
-                        </p>
-                    </div>
-
-                    <div className="flex items-center justify-between border-t border-black/22 pt-3 mb-5">
-                        <p className="text-black/60 mob:text-[18px] text-[14px] leading-[120%]">
-                            Total
-                        </p>
-
-                        <p
-                            className={cn(
-                                ALEXANDRIA_FONT.className,
-                                "text-black mob:text-[18px] text-[14px] leading-[120%]",
-                            )}
-                        >
-                            {totalPrice}$
-                        </p>
-                    </div>
-                </div>
+                <CheckoutSummary
+                    productTotal={productTotal}
+                    deliveryDisplayValue={deliveryDisplayValue}
+                    discountAmount={discountAmount}
+                    totalPrice={displayTotal}
+                />
+                {(error || submitError) && (
+                    <p className="text-red-500 text-sm mb-3">
+                        {submitError ?? error}
+                    </p>
+                )}
                 <Button
+                    type="submit"
+                    form="checkout-form"
                     icon={<ButtonMenu />}
                     iconPosition="right"
                     size="large"
                     variant="primary"
                     className="w-full"
+                    disabled={isButtonDisabled}
                 >
-                    Order now
+                    {buttonLabel}
                 </Button>
             </div>
         </div>

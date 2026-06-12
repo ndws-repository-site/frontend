@@ -24,7 +24,7 @@ export const CartItem = ({
                     height={137}
                     quality={100}
                     priority
-                    unoptimized={false}
+                    unoptimized
                     className="h-full mob:max-h-[170px] max-h-[106px] w-auto object-contain object-center"
                 />
 
